@@ -1,0 +1,19 @@
+					Projet Picross(Groupe3):(http://picross.relaxweb.fr/creer-un-picross)
+					
+			Partie CONCEPTION:
+			
+			compatibilité versions Ruby/GTK???
+			Qui va utiliser le logiciel??
+			Partie PUZZLE:
+			
+			Taille de la grille par défaut(5*5)?
+			Etendre le niveau de difficulté par la taille de la grille?
+			
+			Système d'aide:(exemple d'aide proposer):
+			
+			Remplir une ligne ?
+			Noircir une case au hasard?
+			Confirmer une case désignée par l'utilisateur?
+			Doit-on mettre une barre de menu ? Si oui quels onglets devrait-on y trouver ? 
+			Ajouter un didacticiel ? Sous Quel forme?
+			
