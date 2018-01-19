@@ -1,4 +1,4 @@
-					Projet Picross(Groupe3):(http://picross.relaxweb.fr/creer-un-picross)
+﻿					Projet Picross(Groupe3):(http://picross.relaxweb.fr/creer-un-picross)
 					
 			Partie CONCEPTION:
 			
@@ -15,5 +15,5 @@
 			Noircir une case au hasard?
 			Confirmer une case désignée par l'utilisateur?
 			Doit-on mettre une barre de menu ? Si oui quels onglets devrait-on y trouver ? 
-			Ajouter un didacticiel ? Sous Quel forme?
+			Ajouter un didacticiel ? Sous Quel forme?hhhhh
 			
