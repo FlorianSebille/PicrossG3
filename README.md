@@ -2,8 +2,7 @@
 
 ### Introduction
 
-projet de jeux L3
-
+Nous avons comme objectif de créer une application (mini jeu) de jeu *Picross*
 
 ### Membres
 * FISSON Dylan
