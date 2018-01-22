@@ -1,4 +1,4 @@
-# PicrossG4
+# PicrossG3
 
 ### Introduction
 
