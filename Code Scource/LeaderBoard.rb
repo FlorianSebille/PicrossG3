@@ -9,6 +9,8 @@ def onDestroy
 end
 
 
+
+
 #set la fenetre
 window = Gtk::Window.new
 
