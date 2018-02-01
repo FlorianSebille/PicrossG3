@@ -9,6 +9,9 @@ require "thread"
 Gtk.init
 
 load "Header.rb"
+load "Label.rb"
+load "ButtonImage.rb"
+
 load "BoxNiveaux.rb"
 
 def onDestroy
@@ -34,21 +37,14 @@ if ARGV.size.eql?(0) then
 	monApp.set_window_position(Gtk::WindowPosition::CENTER_ALWAYS)
 
   frame=Gtk::Box.new(:vertical)
-  frame.spacing = 10
+  frame.spacing = 50
 
-  labelAventure= Gtk::Label.new
-  chaine = "<span foreground=\"#0044FE\" font-desc=\"Apple Chancery Small-Caps 40\" > Aventure"
-  chaine = chaine + "</span>"
+  labelAventure = Label.new("Aventure", "EF2929")
 
-  labelAventure.set_markup(chaine)
-
-  boxNiveaux = BoxNiveaux.new(3)
+  boxNiveaux = BoxNiveaux.new(3, frame)
 
   frame.add(labelAventure)
   frame.add(boxNiveaux)
-
-  boxNiveaux.layout = :spread
-
 
   monApp.add(frame)
 

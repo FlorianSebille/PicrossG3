@@ -1,34 +1,17 @@
 
-load "ButtonImage.rb"
+load "Niveau.rb"
 
-class BoxNiveaux < Gtk::ButtonBox
+class BoxNiveaux < Gtk::Box
 
-  def initialize(nbNiveaux)
+
+  def initialize(nbNiveaux, frame)
     super(:horizontal)
 
     self.spacing = 10
 
     1.upto(nbNiveaux) { |indice|
-      self.add(creationUnNiveau(indice), :expand => true, :fill => true)
+      self.add(Niveau.new(indice, frame), :expand => true, :fill => true)
     }
-  end
-
-  def creationUnNiveau(indice)
-    niveau = Gtk::ButtonBox.new(:vertical)
-
-    btn = ButtonImage.new("../Images/Niveau_aventure.png")
-
-    labelNiveau= Gtk::Label.new
-
-    chaine = "<span foreground=\"#0044FE\" font-desc=\"Apple Chancery Small-Caps 20\" > Nivau n°"
-    chaine = chaine + indice.to_s
-    chaine = chaine + "</span>"
-
-    labelNiveau.set_markup(chaine)
-    [btn, labelNiveau].each { |elem|
-      niveau.add(elem)
-    }
-    return niveau
   end
 
 end
