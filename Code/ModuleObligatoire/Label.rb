@@ -4,15 +4,17 @@
 
 class Label < Gtk::Label
 
-  def initialize(phrase, couleur)
+  def initialize(phrase, couleur, taille)
     super()
-    self.set_markup(construireChaine(phrase, couleur))
+    self.set_markup(construireChaine(phrase, couleur, taille))
   end
 
-  def construireChaine(phrase, couleur)
+  def construireChaine(phrase, couleur, taille)
     chaine = "<span foreground=\"#"
     chaine = chaine + couleur
-    chaine = chaine + "\" font-desc=\"Copperplate 40\" >"
+    chaine = chaine + "\" font-desc=\"Copperplate "
+    chaine = chaine + taille
+    chaine = chaine + "\" >"
     chaine = chaine + phrase
     chaine = chaine + "</span>"
     return chaine

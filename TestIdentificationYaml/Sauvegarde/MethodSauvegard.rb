@@ -6,8 +6,17 @@
 require 'yaml'
 
 def sauver(nomFichier,joueurs)
+
 	begin
-			File.open("../Sauvegarde/"+nomFichier+".yaml", "w") {|out| out.puts joueurs.to_yaml }
+			teste = charger(nomFichier)
+			p teste
+			if !teste.eql?(nil) then
+				teste += joueurs
+				p teste
+			else teste = joueurs end
+			p teste
+			File.open("../Sauvegarde/"+nomFichier+".yaml", "w") {|out| out.puts teste.to_yaml }
+
 	rescue
 		#ERREUR
 		puts "pas reussi a sauver les joueurs"
@@ -17,7 +26,7 @@ end
 
 def charger(nomFichier)
 	begin
-			donnee = (YAML.load_file nomFichier+".yaml")
+			donnee = (YAML.load_file (nomFichier+".yaml"))
 	rescue
 		#ERREUR
 		puts "pas reussi a charger les joueurs"

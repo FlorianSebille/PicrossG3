@@ -1,8 +1,8 @@
 ---
 - !ruby/object:Joueur
-  prenom: ss
-  nom: ss
+  prenom: ll
+  nom: ll
   naissance: 1/Février/2018
-  pseudo: ss
-  mDP: ss
+  pseudo: ll
+  mDP: ll
   xp: 10

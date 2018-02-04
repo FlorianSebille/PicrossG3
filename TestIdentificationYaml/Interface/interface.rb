@@ -124,7 +124,8 @@ if ARGV.size.eql?(0) then
     btnValide.signal_connect('clicked'){
 
       sonPseudo = entreePseudo.text
-      joueurs = charger("listeJoueur")
+      #joueurs = charger("listeJoueur")
+      joueurs = nil
       pseudoExistant = false
 
       unless joueurs.eql?(nil) then
