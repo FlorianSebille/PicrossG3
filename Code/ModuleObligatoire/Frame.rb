@@ -19,4 +19,8 @@ class Frame < Gtk::Box
     @window.add(self)
   end
 
+  def supprimeMoi
+    self.destroy
+  end
+
 end
