@@ -2,6 +2,8 @@
 
 class Frame < Gtk::Box
 
+  attr_reader :hautPage
+
   def initialize(monApp, sens)
 
     ##
@@ -11,6 +13,22 @@ class Frame < Gtk::Box
 
     @window = monApp
 
+    @hautPage = Gtk::Box.new(:horizontal)
+    @hautPage.spacing = 150
+
+    @btnHome = ButtonImage.new("../Images/Home.png")
+
+    @btnHome.signal_connect('clicked') {
+      self.supprimeMoi
+      # a changer si on veut revenir sur une autre page
+      ident = Identification.new(monApp)
+      ident.ajouteMoi
+      @window.show_all
+    }
+
+    @hautPage.pack_start(@btnHome, :expand => false, :fill => true)
+
+    self.add(@hautPage, :expand => false, :fill => true)
   end
 
   ##

@@ -29,6 +29,7 @@ class Identification < PageMenu
     @btnConnexion.signal_connect('clicked') {
       self.supprimeMoi
       connexion = Connexion.new(@window)
+      #connexion = Partie.new(@window)
       connexion.ajouteMoi
       @window.show_all
     }

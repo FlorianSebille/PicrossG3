@@ -6,7 +6,7 @@ class PageMenu < Frame
     super(monApp, sens)
     @label = Label.new(unTitre, "EF2929", "40")
 
-    self.add(@label)
+    self.hautPage.add(@label)
   end
 
 end
