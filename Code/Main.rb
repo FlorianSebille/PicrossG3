@@ -3,25 +3,25 @@ begin
  rescue LoadError
 end
 
-$LOAD_PATH.unshift File.dirname(__FILE__)
-
 require 'gtk3'
 require "thread"
 require "minitest"
 
 Gtk.init
 
-##
-# Module Obligatoire
-require "Frame.rb"
-require "Header.rb"
-require "Label.rb"
-require "ButtonImage.rb"
-#require ""
+$LOAD_PATH.unshift File.dirname(__FILE__)
 
 ##
-# Module Complementaire
-require "Identification.rb"
+# Chargement des Modules
+["ModuleObligatoire","ModuleComplementaire"].each { |repertoire|
+  Dir.foreach(repertoire) do |fichier|
+    if !fichier.eql?(".") && !fichier.eql?("..") then
+      require (repertoire +"/" +fichier)
+    end
+  end
+}
+
+
 
 def onDestroy
 	puts "Fin de l'application"
@@ -43,6 +43,7 @@ def configureMonApp(uneApp)
 	uneApp.set_window_position(Gtk::WindowPosition::CENTER_ALWAYS)
 end
 
+
 if ARGV.size.eql?(0) then
   ##
   # Creation de la fenetre et configuration
@@ -57,15 +58,9 @@ if ARGV.size.eql?(0) then
 
   ##
   # Box principale
-  frame = Frame.new(monApp)
+  ident = Identification.new(monApp)
 
-
-  ident = Identification.new(frame)
-
-
-  frame.add(ident)
-
-  monApp.add(frame)
+  ident.ajouteMoi
 
   ######FIN########
 
