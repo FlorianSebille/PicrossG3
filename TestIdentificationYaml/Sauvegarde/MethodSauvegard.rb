@@ -3,25 +3,37 @@
 # Version 0.1 : Date : Tue Dec 12 19:44:04 CET 2017
 #
 
-require 'yaml'
+#require 'yaml'
 
-def sauver(nomFichier,joueurs)
-	begin
-			File.open("../Sauvegarde/"+nomFichier+".yaml", "w") {|out| out.puts joueurs.to_yaml }
-	rescue
-		#ERREUR
-		puts "pas reussi a sauver les joueurs"
-		nil
-	end
-end
+class MethodSauvegard
 
-def charger(nomFichier)
-	begin
-			donnee = (YAML.load_file nomFichier+".yaml")
-	rescue
-		#ERREUR
-		puts "pas reussi a charger les joueurs"
-		donnee = nil
+
+
+	def sauver(nomFichier,joueurs)
+		begin
+				print"YOOO"
+				File.open("../Sauvegarde/"+nomFichier, "wb") {|nomFichier| nomFichier.write(Marshal.dump(joueurs))}
+		rescue
+			#ERREUR
+			puts "pas reussi a sauver les joueurs"
+			nil
+		end
+
 	end
-	return donnee
+
+	def charger(data)
+		begin
+				File.open("../Sauvegarde/"+nomFichier, "wb"){
+					print("CCCCCC")
+					obj = Marshal.load(data)
+					print obj
+				}
+				
+		rescue
+			#ERREUR
+			puts "pas reussi a charger les joueurs"
+			donnee = nil
+		end
+	end
+
 end
