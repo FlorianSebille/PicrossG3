@@ -16,9 +16,9 @@ class Connexion < PageMenu
     table.attach(Label.new("Mot de passe :", "000000", "15"),0,1,1,2)
     table.attach(entreeMDP,1,2,1,2)
 
-    btnValide = Gtk::Button.new(:label => "Connexion", :use_underline => true)
-    btnAnnule = Gtk::Button.new(:label => "Annuler", :use_underline => true)
-    btnAfficheMdp = Gtk::Button.new(:label => "Afficher MDP ?", :use_underline => true)
+    @btnValide = Gtk::Button.new(:label => "Connexion", :use_underline => true)
+    @btnAnnule = Gtk::Button.new(:label => "Annuler", :use_underline => true)
+    @btnAfficheMdp = Gtk::Button.new(:label => "Afficher MDP ?", :use_underline => true)
 
     boxButton=Gtk::ButtonBox.new(:horizontal)
     boxButton.layout = :center
@@ -31,6 +31,21 @@ class Connexion < PageMenu
       if entreeMDP.visibility? then
         entreeMDP.visibility=(false)
       else entreeMDP.visibility=(true) end
+    }
+
+
+    @btnValide.signal_connect('clicked') {
+      self.supprimeMoi
+      creation = CreationCompte.new(@window)
+      creation.ajouteMoi
+      @window.show_all
+    }
+
+    @btnAnnule.signal_connect('clicked') {
+      self.supprimeMoi
+      ident = Identification.new(monApp)
+      ident.ajouteMoi
+      @window.show_all
     }
     self.add(table)
     self.add(boxButton)
