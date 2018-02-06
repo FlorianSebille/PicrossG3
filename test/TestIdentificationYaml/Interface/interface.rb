@@ -7,7 +7,7 @@ require 'gtk3'
 require "thread"
 
 load "../donnée/Joueur.rb"
-load "../Sauvegarde/MethodSauvegard.rb"
+
 
 Gtk.init
 
@@ -124,24 +124,23 @@ if ARGV.size.eql?(0) then
     btnValide.signal_connect('clicked'){
 
       sonPseudo = entreePseudo.text
+<<<<<<< HEAD
+      sv = MethodSauvegard.new
+=======
       #joueurs = charger("listeJoueur")
       joueurs = nil
       pseudoExistant = false
+>>>>>>> 7f91379a7fc8d02bb6d7f98054113c7d8620bfcd
 
-      unless joueurs.eql?(nil) then
+      pseudoExistant = false
 
-        joueurs.each {|unJoueur|
-          if sonPseudo.eql?(unJoueur.pseudo) then
-            #impossible que deux joueurs est le même Pseudo
-            pseudoExistant = true
-          end
-        }
+       #if(File.exists?("../Sauvegarde/listeJoueur.marshal"))
+          #  print"ECRIRE JDSKFJKJFEDKJFEKEFJk"
+       #else
+       #end
 
-      else
-        joueurs = Array.new
-      end
+       joueurs = Array.new
 
-      if pseudoExistant.eql?(false) then
         sonMDP = entreeMDP.text
         sonVerifMDP = entreeVerifMDP.text
 
@@ -155,7 +154,7 @@ if ARGV.size.eql?(0) then
         #  majeur = true
         #end
 
-        if sonMDP.eql?(sonVerifMDP) then
+         if sonMDP.eql?(sonVerifMDP) then
 
           sonPrenom = entreePrenom.text
           sonNom = entreeNom.text
@@ -163,8 +162,12 @@ if ARGV.size.eql?(0) then
           joueur = Joueur.creer(sonNom,sonPrenom,sonPseudo,sonMDP,"#{sonJour}/#{sonMois}/#{sonAnnee}")
           joueur.augementXp(10)
           joueurs << joueur
+          #joueurs << donnees
+          
 
-          sauver("listeJoueur",joueurs)
+          @data = sv.sauver("listeJoueur",joueurs)
+
+          @teste = Marshal.load(@data)
 
           frame.destroy
           frame=Gtk::Box.new(:vertical)
@@ -191,8 +194,6 @@ if ARGV.size.eql?(0) then
           frame.reorder_child(monLabel, 0)
           monApp.show_all
         end
-
-      end
 
     }
 
