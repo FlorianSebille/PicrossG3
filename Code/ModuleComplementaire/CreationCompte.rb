@@ -1,5 +1,5 @@
 
-class CreationCompte < PageMenu
+class CreationCompte < Identification
 
   def initialize(monApp)
 

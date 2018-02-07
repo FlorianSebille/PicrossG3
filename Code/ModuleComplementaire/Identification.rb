@@ -1,38 +1,30 @@
 
-class Identification < PageMenu
+class Identification < Frame
 
-  attr_reader :label
-
-  def initialize(monApp)
+  def initialize(titre, monApp, sens)
     ##
     # Creation de la Gtk::Box
-    super("Identification",monApp, :vertical)
+    super(monApp, sens)
 
-    @bouttons = Gtk::ButtonBox.new(:horizontal)
-    @bouttons.layout = :spread
+    @hautPage = Gtk::Box.new(:horizontal)
+    @hautPage.spacing = 150
 
-    @btnConnexion = Gtk::Button.new(:label => "Connexion", :use_underline => true)
-    @btnCreerCompte = Gtk::Button.new(:label => "Creer un compte", :use_underline => true)
+    @btnHome = ButtonImage.new("../Images/Home.png")
+    @label = Label.new(titre, "EF2929", "40")
 
-    @bouttons.add(@btnConnexion, :expand => true, :fill => false)
-    @bouttons.add(@btnCreerCompte, :expand => true, :fill => false)
-
-    self.add(@bouttons)
-
-    @btnCreerCompte.signal_connect('clicked') {
+    @btnHome.signal_connect('clicked') {
       self.supprimeMoi
-      creation = CreationCompte.new(@window)
-      creation.ajouteMoi
+      # a changer si on veut revenir sur une autre page
+      choixConnexionCreation = ChoixConnexionCreation.new(monApp)
+      choixConnexionCreation.ajouteMoi
       @window.show_all
     }
 
-    @btnConnexion.signal_connect('clicked') {
-      self.supprimeMoi
-      connexion = Connexion.new(@window)
-      #connexion = Partie.new(@window)
-      connexion.ajouteMoi
-      @window.show_all
-    }
+    @hautPage.pack_start(@btnHome, :expand => false, :fill => true)
+
+    @hautPage.add(@label)
+
+    self.add(@hautPage, :expand => false, :fill => true)
   end
 
 
