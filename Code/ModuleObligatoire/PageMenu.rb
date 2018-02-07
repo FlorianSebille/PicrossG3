@@ -1,14 +1,11 @@
 
 class PageMenu < Frame
-  attr_reader :label, :hautPage, :btnHome
+  attr_reader :label, :btnHome
 
   def initialize(unTitre, monApp, sens)
+
     super(monApp, sens)
 
-    @hautPage = Gtk::Box.new(:horizontal)
-    @hautPage.spacing = 150
-
-    @btnHome = ButtonImage.new("../Images/Home.png")
     @label = Label.new(unTitre, "EF2929", "40")
 
     @btnHome.signal_connect('clicked') {
@@ -19,11 +16,8 @@ class PageMenu < Frame
       @window.show_all
     }
 
-    @hautPage.pack_start(@btnHome, :expand => false, :fill => true)
-
     @hautPage.add(@label)
 
-    self.add(@hautPage, :expand => false, :fill => true)
   end
 
 end

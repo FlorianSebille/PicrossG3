@@ -4,6 +4,15 @@ class Connexion < Identification
   def initialize(monApp)
     super("Connexion",monApp, :vertical)
 
+    btnRetour.signal_connect('clicked') {
+      ##
+      # si il a reussi a ce co
+      self.supprimeMoi
+      choixConnexionCreation = ChoixConnexionCreation.new(monApp)
+      choixConnexionCreation.ajouteMoi
+      @window.show_all
+    }
+
     table = Gtk::Table.new(2, 2)
 
     entreePseudo = Gtk::Entry.new
@@ -45,8 +54,8 @@ class Connexion < Identification
 
     @btnAnnule.signal_connect('clicked') {
       self.supprimeMoi
-      ident = Identification.new(monApp)
-      ident.ajouteMoi
+      choixConnexionCreation = ChoixConnexionCreation.new(monApp)
+      choixConnexionCreation.ajouteMoi
       @window.show_all
     }
     self.add(table)
