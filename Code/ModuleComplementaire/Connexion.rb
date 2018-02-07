@@ -1,5 +1,5 @@
 
-class Connexion < PageMenu
+class Connexion < Identification
 
   def initialize(monApp)
     super("Connexion",monApp, :vertical)
@@ -38,8 +38,8 @@ class Connexion < PageMenu
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      choixMode = ChoixMode.new(@window)
-      choixMode.ajouteMoi
+      menu = Menu.new(monApp)
+      menu.ajouteMoi
       @window.show_all
     }
 

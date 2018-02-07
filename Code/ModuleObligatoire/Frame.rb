@@ -2,12 +2,14 @@
 
 class Frame < Gtk::Box
 
+  attr_reader :hautPage
+
   def initialize(monApp, sens)
 
     ##
     # Creation de la Gtk::Box
     super(sens)
-    self.spacing = 50
+    self.spacing = 60
 
     @window = monApp
 

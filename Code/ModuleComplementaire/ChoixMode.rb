@@ -3,8 +3,10 @@ class ChoixMode < PageMenu
 
   def initialize(monApp)
 
-    super("Menue",monApp, :vertical)
+    super("Mode",monApp, :vertical)
 
+    self.hautPage.spacing = 220
+    
     @bouttons = Gtk::ButtonBox.new(:horizontal)
     @bouttons.layout = :spread
 

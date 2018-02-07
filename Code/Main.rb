@@ -58,9 +58,9 @@ if ARGV.size.eql?(0) then
 
   ##
   # Box principale
-  ident = Identification.new(monApp)
+  choixConnexionCreation = ChoixConnexionCreation.new(monApp)
 
-  ident.ajouteMoi
+  choixConnexionCreation.ajouteMoi
 
   ######FIN########
 
