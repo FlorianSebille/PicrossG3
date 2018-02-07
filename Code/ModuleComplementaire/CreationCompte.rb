@@ -1,4 +1,6 @@
 
+load 'Joueur.rb'
+
 class CreationCompte < Identification
 
   def initialize(monApp)
@@ -87,6 +89,32 @@ class CreationCompte < Identification
         ##
         # Création d'un joueur et rajout a la base
         #   A FAIRE
+
+        sv = MethodSauvegard.new
+        joueurs = Array.new
+
+        if(File.exists?("../Sauvegarde/listeJoueur.marshal"))
+            obj = sv.charger("listeJoueur")
+            joueurs << obj
+        end
+
+        sonJour = jour.active_text
+        sonMois = mois.active_text
+        sonAnnee = annee.active_text
+
+        sonPrenom = entreePrenom.text
+        sonNom = entreeNom.text
+
+        joueur = Joueur.creer(sonNom,sonPrenom,sonPseudo,sonMDP,"#{sonJour}/#{sonMois}/#{sonAnnee}")
+        joueur.augementXp(10)
+        joueurs << joueur
+
+          
+        data = sv.sauver("listeJoueur",joueurs)
+
+        #obje = sv.charger("listeJoueur")
+        #print(obje)
+
 
         @window.show_all
       else
