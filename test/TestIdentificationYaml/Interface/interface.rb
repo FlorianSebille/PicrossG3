@@ -124,13 +124,10 @@ if ARGV.size.eql?(0) then
     btnValide.signal_connect('clicked'){
 
       sonPseudo = entreePseudo.text
-<<<<<<< HEAD
+
       sv = MethodSauvegard.new
-=======
       #joueurs = charger("listeJoueur")
       joueurs = nil
-      pseudoExistant = false
->>>>>>> 7f91379a7fc8d02bb6d7f98054113c7d8620bfcd
 
       pseudoExistant = false
 
@@ -163,7 +160,7 @@ if ARGV.size.eql?(0) then
           joueur.augementXp(10)
           joueurs << joueur
           #joueurs << donnees
-          
+
 
           @data = sv.sauver("listeJoueur",joueurs)
 

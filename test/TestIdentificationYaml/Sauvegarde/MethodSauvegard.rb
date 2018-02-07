@@ -29,7 +29,7 @@ class MethodSauvegard
 					obj = Marshal.load(data)
 					print obj
 				}
-				
+
 		rescue
 			#ERREUR
 			puts "pas reussi a charger les joueurs"
