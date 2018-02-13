@@ -3,10 +3,10 @@ class ChoixConnexionCreation < Identification
 
   attr_reader :label
 
-  def initialize(monApp)
+  def initialize(monApp, header)
     ##
     # Creation de la Gtk::Box
-    super("Identification",monApp, :vertical)
+    super("Identification",monApp, :vertical, header)
 
     @bouttons = Gtk::ButtonBox.new(:horizontal)
     @bouttons.layout = :spread
@@ -21,14 +21,14 @@ class ChoixConnexionCreation < Identification
 
     @btnCreerCompte.signal_connect('clicked') {
       self.supprimeMoi
-      creation = CreationCompte.new(@window)
+      creation = CreationCompte.new(@window, @header)
       creation.ajouteMoi
       @window.show_all
     }
 
     @btnConnexion.signal_connect('clicked') {
       self.supprimeMoi
-      connexion = Connexion.new(@window)
+      connexion = Connexion.new(@window, @header)
       connexion.ajouteMoi
       @window.show_all
     }

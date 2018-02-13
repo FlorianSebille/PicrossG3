@@ -1,14 +1,12 @@
 
 class Connexion < Identification
 
-  def initialize(monApp)
-    super("Connexion",monApp, :vertical)
+  def initialize(monApp, header)
+    super("Connexion",monApp, :vertical, header)
 
-    btnRetour.signal_connect('clicked') {
-      ##
-      # si il a reussi a ce co
+    @header.btnRetour.signal_connect('clicked') {
       self.supprimeMoi
-      choixConnexionCreation = ChoixConnexionCreation.new(monApp)
+      choixConnexionCreation = ChoixConnexionCreation.new(monApp, @header)
       choixConnexionCreation.ajouteMoi
       @window.show_all
     }
@@ -46,16 +44,37 @@ class Connexion < Identification
     @btnConnexion.signal_connect('clicked') {
       ##
       # si il a reussi a ce co
-      self.supprimeMoi
-      menu = Menu.new(monApp)
-      menu.ajouteMoi
-      @window.show_all
+      sv = MethodSauvegard.new
+
+      sonPseudo = entreePseudo.text
+      sonMdp = entreeMDP.text
+
+      if !(sonMdp == nil) then
+        sonMdp = Digest::SHA256.digest sonMdp
+      end
+
+      if(File.exists?("../Sauvegarde/"+sonPseudo+".marshal")) then
+          joueur = sv.charger(sonPseudo)
+
+          if(joueur.mdp.eql?(sonMdp)) then
+            @header.ajoutepseudo(sonPseudo)
+            self.supprimeMoi
+            menu = Menu.new(monApp, @header)
+            menu.ajouteMoi
+            @window.show_all
+          else
+            label = Label.new("Mot de passe incorrect !!!", "EF2929", "15")
+            self.add(label, :expand => true, :fill => false)
+            self.reorder_child(label, 2)
+            @window.show_all
+          end
+      end
     }
 
     @btnAnnule.signal_connect('clicked') {
       self.supprimeMoi
-      choixConnexionCreation = ChoixConnexionCreation.new(monApp)
-      choixConnexionCreation.ajouteMoi
+      connexion = Connexion.new(monApp, @header)
+      connexion.ajouteMoi
       @window.show_all
     }
     self.add(table)

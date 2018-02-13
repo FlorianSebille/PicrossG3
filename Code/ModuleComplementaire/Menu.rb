@@ -1,12 +1,10 @@
 
 class Menu < PageMenu
 
-  def initialize(monApp)
+  def initialize(monApp, header)
 
-    super("Menu",monApp, :vertical)
+    super("Menu",monApp, :vertical, header)
     self.spacing = 10
-
-    self.hautPage.spacing = 220
 
     @bouttons = Gtk::ButtonBox.new(:vertical)
     @bouttons.layout = :spread
@@ -26,7 +24,7 @@ class Menu < PageMenu
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      choixMode = ChoixMode.new(@window)
+      choixMode = ChoixMode.new(@window, @header)
       choixMode.ajouteMoi
       @window.show_all
     }
@@ -35,7 +33,7 @@ class Menu < PageMenu
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeCompetition.new(@window)
+      mode = ModeCompetition.new(@window, @header)
       mode.ajouteMoi
       @window.show_all
     }
@@ -44,7 +42,7 @@ class Menu < PageMenu
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeAventure.new(@window)
+      mode = ModeAventure.new(@window, @header)
       mode.ajouteMoi
       @window.show_all
     }
@@ -53,7 +51,7 @@ class Menu < PageMenu
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeEntrainement.new(@window)
+      mode = ModeEntrainement.new(@window, @header)
       mode.ajouteMoi
       @window.show_all
     }

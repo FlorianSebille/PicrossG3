@@ -6,6 +6,7 @@ end
 require 'gtk3'
 require "thread"
 require "minitest"
+require "digest"
 
 Gtk.init
 
@@ -58,7 +59,7 @@ if ARGV.size.eql?(0) then
 
   ##
   # Box principale
-  choixConnexionCreation = ChoixConnexionCreation.new(monApp)
+  choixConnexionCreation = ChoixConnexionCreation.new(monApp, header)
 
   choixConnexionCreation.ajouteMoi
 

@@ -1,11 +1,10 @@
 
-load 'Joueur.rb'
 
 class CreationCompte < Identification
 
-  def initialize(monApp)
+  def initialize(monApp, header)
 
-    super("Creation Compte",monApp, :vertical)
+    super("Creation Compte",monApp, :vertical, header)
 
     aujourdhui = Time.new
     table = Gtk::Table.new(6, 2)
@@ -37,10 +36,11 @@ class CreationCompte < Identification
 
     [jour, mois, annee].each {|x| boxNaissance.add(x)}
 
+    labelPseudo = Label.new("Identifiant :", "000000", "15")
     labelMDP = Label.new("Mot de passe :", "000000", "15")
     labelVerifMDP = Label.new("Confirmation Mot de passe :", "000000", "15")
 
-    table.attach(Label.new("Identifiant :", "000000", "15"),0,1,0,1)
+    table.attach(labelPseudo,0,1,0,1)
     table.attach(entreePseudo,1,2,0,1)
     table.attach(labelMDP,0,1,1,2)
     table.attach(entreeMDP,1,2,1,2)
@@ -81,6 +81,8 @@ class CreationCompte < Identification
 
     btnValide.signal_connect('clicked'){
 
+      sonPseudo = entreePseudo.text
+
       sonMDP = entreeMDP.text
       sonVerifMDP = entreeVerifMDP.text
 
@@ -91,32 +93,37 @@ class CreationCompte < Identification
         #   A FAIRE
 
         sv = MethodSauvegard.new
-        joueurs = Array.new
 
-        if(File.exists?("../Sauvegarde/listeJoueur.marshal"))
-            obj = sv.charger("listeJoueur")
-            joueurs << obj
+        if (!(File.exists?("../Sauvegarde/"+sonPseudo+".marshal"))) then
+          sonMDP = Digest::SHA256.digest sonMDP
+
+          sonJour = jour.active_text
+          sonMois = mois.active_text
+          sonAnnee = annee.active_text
+
+          sonPrenom = entreePrenom.text
+          sonNom = entreeNom.text
+
+          joueur = Joueur.creer(sonNom,sonPrenom,sonPseudo,sonMDP,"#{sonJour}/#{sonMois}/#{sonAnnee}")
+          joueur.augementXp(10)
+
+          data = sv.sauver(joueur)
+
+          self.supprimeMoi
+          connexion = Connexion.new(monApp, @header)
+          connexion.ajouteMoi
+
+          @window.show_all
+
+        else
+
+          label = Label.new("Pseudo déjà utilisé !!!", "EF2929", "15")
+          labelPseudo.set_markup("<span foreground=\"#ff0000\"> Identifiant : </span>")
+          self.add(label, :expand => true, :fill => false)
+          self.reorder_child(label, 2)
+          @window.show_all
         end
 
-        sonJour = jour.active_text
-        sonMois = mois.active_text
-        sonAnnee = annee.active_text
-
-        sonPrenom = entreePrenom.text
-        sonNom = entreeNom.text
-
-        joueur = Joueur.creer(sonNom,sonPrenom,sonPseudo,sonMDP,"#{sonJour}/#{sonMois}/#{sonAnnee}")
-        joueur.augementXp(10)
-        joueurs << joueur
-
-          
-        data = sv.sauver("listeJoueur",joueurs)
-
-        #obje = sv.charger("listeJoueur")
-        #print(obje)
-
-
-        @window.show_all
       else
         label = Label.new("Mot de passe différent !!!", "EF2929", "15")
 
@@ -128,6 +135,13 @@ class CreationCompte < Identification
         @window.show_all
       end
 
+    }
+
+    btnAnnule.signal_connect('clicked') {
+      self.supprimeMoi
+      creationCompte = CreationCompte.new(monApp, @header)
+      creationCompte.ajouteMoi
+      @window.show_all
     }
   end
 end

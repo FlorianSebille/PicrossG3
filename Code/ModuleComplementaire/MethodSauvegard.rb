@@ -8,34 +8,23 @@
 class MethodSauvegard
 
 
-	def sauver(nomFichier,joueurs)
+	def sauver(joueur)
 		begin
-				print"YOOO"
-				File.open("../Sauvegarde/"+nomFichier+".marshal", "w") {|nomFichier| @data = Marshal.dump(joueurs,nomFichier) }
+				File.open("../Sauvegarde/"+joueur.pseudo.to_s+".marshal", "w") {|nomFichier| @data = Marshal.dump(joueur,nomFichier) }
 
 		rescue
 			#ERREUR
-			puts "pas reussi a sauver les joueurs"
-			nil
+			puts "pas reussi a sauver le joueur"
 		end
 
 	end
 
-	def charger(nomFichier)
-		begin
+	def charger(pseudo)
+		File.open("../Sauvegarde/"+pseudo+".marshal","r") {|nomFichier|
+			object = Marshal.load(nomFichier)
+			return object
+		}
 
-			object = nil
-			print("COUCOU")
-			File.open("../Sauvegarde/"+nomFichier+".marshal","w") {|nomFichier| 
-				print"JE PASSe"
-				object = Marshal.load(nomFichier)
-				return object
-			}
-				
-		rescue
-			#ERREUR
-			puts "pas reussi a charger les joueurs"
-		end
 	end
 
 end

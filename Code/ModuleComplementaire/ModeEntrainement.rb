@@ -1,11 +1,11 @@
 
 class ModeEntrainement < PageMenu
 
-  def initialize(monApp)
+  def initialize(monApp, header)
 
     ##
     # Creation de la Gtk::Box
-    super("Entrainement",monApp, :vertical)
+    super("Entrainement",monApp, :vertical, header)
 
 
   end

@@ -2,21 +2,22 @@
 class PageMenu < Frame
   attr_reader :label, :btnHome
 
-  def initialize(unTitre, monApp, sens)
+  def initialize(unTitre, monApp, sens, header)
 
-    super(monApp, sens)
+    super(monApp, sens, header)
 
     @label = Label.new(unTitre, "EF2929", "40")
 
-    @btnHome.signal_connect('clicked') {
-      self.supprimeMoi
-      # a changer si on veut revenir sur une autre page
-      menu = Menu.new(monApp)
-      menu.ajouteMoi
-      @window.show_all
-    }
 
-    @hautPage.add(@label)
+    #@header.btnHome.signal_connect('clicked') {
+      # a changer si on veut revenir sur une autre page
+      #self.supprimeMoi
+      #menu = Menu.new(monApp, @header)
+      #menu.ajouteMoi
+      #@window.show_all
+    #}
+
+    @hautPage.add(@label, :expand => true, :fill => true)
 
   end
 

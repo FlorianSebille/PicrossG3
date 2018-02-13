@@ -4,7 +4,7 @@ class Joueur
   #elle contient aussi un nombre d'xp qui évolue en fonction des partie gagner et perdu
   #et un mot de passe pour securiser chaque joueur
 
-  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :xp
+  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :xp, :mdp
   attr_writer :nom, :prenom, :dateDeNaissance, :pseudo
 
   private_class_method :new
@@ -14,7 +14,7 @@ class Joueur
   end
 
   def initialize(unNom, unPrenom, unPseudo, unMDP, dateDeNaissance)
-    @prenom, @nom, @naissance, @pseudo, @mDP, @xp = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0
+    @prenom, @nom, @naissance, @pseudo, @mdp, @xp, @grilles = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0, Array.new
   end
 
   def augementXp(unNombre)
