@@ -44,7 +44,6 @@ class Connexion < Identification
     @btnConnexion.signal_connect('clicked') {
       ##
       # si il a reussi a ce co
-      sv = MethodSauvegard.new
 
       sonPseudo = entreePseudo.text
       sonMdp = entreeMDP.text
@@ -54,12 +53,16 @@ class Connexion < Identification
       end
 
       if(File.exists?("../Sauvegarde/"+sonPseudo+".marshal")) then
-          joueur = sv.charger(sonPseudo)
-
+          joueur = $sv.charger(sonPseudo)
           if(joueur.mdp.eql?(sonMdp)) then
+            $joueur = joueur
+            [$joueur.grillesEntrainement, $joueur.grillesCompetition, $joueur.grillesAventure].each { |grilles|
+              $joueur.initializeGrilles(grilles)
+            }
             @header.ajoutepseudo(sonPseudo)
-            self.supprimeMoi
+            self.detruitMoi
             menu = Menu.new(monApp, @header)
+            menu.joueur = joueur
             menu.ajouteMoi
             @window.show_all
           else
@@ -72,7 +75,7 @@ class Connexion < Identification
     }
 
     @btnAnnule.signal_connect('clicked') {
-      self.supprimeMoi
+      self.detruitMoi
       connexion = Connexion.new(monApp, @header)
       connexion.ajouteMoi
       @window.show_all

@@ -52,9 +52,10 @@ if ARGV.size.eql?(0) then
   configureMonApp(monApp)
 
   # Titre de la fenêtre
-	header = Header.new
+	header = Header.new(monApp)
 
-
+  $joueur
+  $sv = MethodSauvegard.new
   ######DEBUT#########
 
   ##

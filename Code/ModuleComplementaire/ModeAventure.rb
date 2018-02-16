@@ -14,7 +14,7 @@ class ModeAventure < PageMenu
       monde = BoxButton.new(indice, "Monde n°")
 
       monde.btn.signal_connect('clicked') {
-        self.supprimeMoi
+        self.detruitMoi
         monde = Monde.new(indice, monApp, header)
         monde.ajouteMoi
         @window.show_all

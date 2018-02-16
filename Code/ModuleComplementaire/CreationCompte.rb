@@ -92,8 +92,6 @@ class CreationCompte < Identification
         # Création d'un joueur et rajout a la base
         #   A FAIRE
 
-        sv = MethodSauvegard.new
-
         if (!(File.exists?("../Sauvegarde/"+sonPseudo+".marshal"))) then
           sonMDP = Digest::SHA256.digest sonMDP
 
@@ -107,9 +105,9 @@ class CreationCompte < Identification
           joueur = Joueur.creer(sonNom,sonPrenom,sonPseudo,sonMDP,"#{sonJour}/#{sonMois}/#{sonAnnee}")
           joueur.augementXp(10)
 
-          data = sv.sauver(joueur)
+          data = $sv.sauver(joueur)
 
-          self.supprimeMoi
+          self.detruitMoi
           connexion = Connexion.new(monApp, @header)
           connexion.ajouteMoi
 
@@ -138,7 +136,7 @@ class CreationCompte < Identification
     }
 
     btnAnnule.signal_connect('clicked') {
-      self.supprimeMoi
+      self.detruitMoi
       creationCompte = CreationCompte.new(monApp, @header)
       creationCompte.ajouteMoi
       @window.show_all

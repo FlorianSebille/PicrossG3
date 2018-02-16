@@ -15,7 +15,7 @@ class Monde < PageMenu
 
       partie.btn.signal_connect('clicked') {
         self.supprimeMoi
-        partie = Partie.new(monde, monApp, header)
+        partie = Partie.new(monApp, header)
         partie.ajouteMoi
         @window.show_all
       }

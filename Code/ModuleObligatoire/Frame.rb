@@ -17,6 +17,7 @@ class Frame < Gtk::Box
 
     @window = monApp
     @header = unHeader
+
   end
 
   ##
@@ -26,6 +27,10 @@ class Frame < Gtk::Box
   end
 
   def supprimeMoi
+    @window.remove(self)
+  end
+
+  def detruitMoi
     self.destroy
   end
 

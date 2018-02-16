@@ -1,0 +1,462 @@
+##
+# Auteur LeNomDeLEtudiant
+# Version 0.1 : Date : Tue Feb 06 07:02:24 CET 2018
+#
+#	Une grille de jeu est une matrice de case(une case a un seul etat: blanche, noir ou barré)
+#	Une grille de jeu est lié à une matrice(de 1 et 0) qui constitue le resultat final du jeu
+#	pour savoir si le joueur a gagné, on compare la matrice des cases à la matrice resultat
+#	la grille de jeu peut être sauvegardeé pour être repris ulterieurement
+
+
+class Grille
+
+  attr_accessor:taille
+  attr_accessor:grille
+  attr_accessor:fich
+
+
+  #private_class_method:new
+
+  #def Grille.creer(taille,fich)
+    #  new(taille,fich)
+  #end
+
+  def initialize(taille,fich)
+
+    @taille=taille-1
+    @grille=[[]]
+    @fich=fich
+
+    for i in (0..@taille)
+      temp=[]
+      for j in (0..@taille)
+        temp[j]=Case.creer(i,j)
+      end
+    @grille[i]=temp
+    end
+
+    if (@fich.include?(".txt")) then
+      fichTogrille()
+    else
+      saveTogrille()
+    end
+  end #end of initialize
+
+
+  def fichTogrille()
+    i=-1
+    j=0
+      f=File.open(@fich,"r")
+      f.each_line do |l|
+          i +=1
+        l.chomp.each_char do |c|
+          @grille[i][j].changerEtat(c.to_i)
+          j +=1
+        end
+          j =0
+
+      end
+      f.close
+      return self
+  end #end of fichTogrille
+
+  def saveTogrille()
+
+    if $joueur.grillesAventure.has_key?(@fich) then
+      if (!$joueur.grillesAventure[@fich].eql?(nil)) then
+        @grille = $joueur.grillesAventure[@fich]
+      end
+    end
+
+    return self
+  end #end of fichTogrille
+
+  def grilleTofich()
+
+    f=File.open(@fich,"w")
+  @grille.each do |x|
+      temp=[]
+    x.each do |i|
+      temp.push(i.etat)
+    end
+    f.puts(temp.join.to_s)
+  end
+  f.close
+
+  end#end of grilleTofich
+
+  def grilleToSave()
+    $joueur.grillesAventure[@fich] = @grille
+    data = $sv.sauver($joueur)
+
+  end#end of grilleToSave
+
+  def afficheToi()
+    @grille.each do |x|
+      x.each do |i|
+        print i.etat
+      end
+      puts
+    end
+  end #end of afficheToi
+
+  def grCaseToGrille()
+    tab=[[]]
+    @grille.each do |x|
+        temp=[]
+      x.each do |y|
+        temp.push(y.etat)
+      end
+      tab.push(temp)
+    end
+    return tab
+
+  end
+  def indiceLigne(i)
+      tab=grCaseToGrille()
+      tab1=[]
+      c=0
+      j=0
+      tab[i].each do
+      	while j<=@taille
+      		if tab[i][j] == 0
+      			j +=1
+      		else
+      			while tab[i][j] == 1
+      				c +=1
+      				j +=1
+      			end
+      			tab1.push(c)
+      			c=0
+      		end
+      		end
+      end
+      tab.compact!
+      return tab1
+
+    end # end of indiceLigne
+
+    def tabIndicesLignes()
+      tab=[]
+      for i in (0..@taille+1)
+    		tab[i]=indiceLigne(i)
+    	end
+      tab.delete_at(0)
+    	return tab
+    end #end of tabIndicesLignes
+    def indiceColone(i)
+      tab= grCaseToGrille()
+      tab1=[]
+      tab2=[]
+      c=0
+      j=0
+      tab.each do |x|
+          tab1.push(x[i])
+      end
+      tab1.compact!
+
+      while j<=@taille
+        if tab1[j] == 0
+          j +=1
+        else
+          while tab1[j] == 1
+            c +=1
+            j +=1
+          end
+          tab2.push(c)
+          c=0
+        end
+      end
+      return tab2
+
+    end #end of indiceColone
+  def rejouer()
+    for i in (0..@taille)
+      for j in (0..@taille)
+        @grille[i][j].changerEtat(0)
+      end
+    end
+    grilleTofich()
+  end # fin de rejouer
+  def tabIndicesColones()
+    tab=[]
+    for i in (0..@taille)
+      tab[i]= indiceColone(i)
+    end
+    #tab.delete_at(0)
+    return tab
+  end #end of tabIndicesColones
+   def jeuTermine(grillef)
+     for i in (0..@taille)
+       for j in (0..@taille)
+         if @grille[i][j].etat != grillef.grille[i][j].etat
+              return false
+         end
+       end
+     end
+     return true
+   end
+end #end of the class Grille
+
+
+
+class Grillei
+
+
+
+	def onDestroy
+		puts "Fin de l'application"
+		Gtk.main_quit
+	end
+
+	def onEvt(label,message)
+		puts message
+		label.set_text(message)
+	end
+
+
+	def initialize(l,c,jeu,frame)
+    @d=Aide.ligneEvidente($grillefinal)
+    @e=Aide.coloneEvidente($grillefinal)
+		@grille = frame
+		@l=l
+		@c=c
+		# Titre de la fenêtre
+		#@grille.set_title("Grille")
+		# Taille de la fenêtre
+		#@grille.set_default_size(100,100)
+		# Réglage de la bordure
+		#@grille.border_width=5
+		# On ne peut pas redimensionner
+		#@grille.set_resizable(true)
+		# L'application est toujours centrée
+		#@grille.set_window_position(Gtk::WindowPosition::CENTER_ALWAYS)
+
+		@frame=Gtk::Table.new(l+1,c+1,false)
+		@frame.set_size_request(100,100)
+    @frame.row_spacings = 5
+    @frame.column_spacings = 5
+		hbox=Gtk::Box.new(:horizontal,3)
+		vbox=Gtk::Box.new(:vertical,3)
+		@grille.add(hbox)
+		hbox.add(vbox)
+
+		aide=Gtk::Button.new(:label => "nombre d'erreurs", :use_underline => nil, :stock_id => nil)
+    aide1=Gtk::Button.new(:label => "ligneEvidente", :use_underline => nil, :stock_id => nil)
+		aide2=Gtk::Button.new(:label => "case au hasard", :use_underline => nil, :stock_id => nil)
+    aide3=Gtk::Button.new(:label => "rejouer", :use_underline => nil, :stock_id => nil)
+    aide4=Gtk::Button.new(:label => "colonneEvidente", :use_underline => nil, :stock_id => nil)
+
+		aide.set_property("width-request", 5)
+		aide.set_property("height-request", 5)
+		aide2.set_property("width-request", 5)
+		aide2.set_property("height-request", 5)
+    aide3.set_property("width-request", 5)
+		aide3.set_property("height-request", 5)
+    aide1.set_property("width-request", 5)
+		aide1.set_property("height-request", 5)
+    aide4.set_property("width-request", 5)
+		aide4.set_property("height-request", 5)
+
+		vbox.pack_start(aide, :expand => false, :fill => false, :padding =>2)
+		vbox.pack_start(aide2, :expand => false, :fill => false, :padding =>2)
+    vbox.pack_start(aide3, :expand => false, :fill => false, :padding =>2)
+    vbox.pack_start(aide1, :expand => false, :fill => false, :padding =>2)
+    vbox.pack_start(aide4, :expand => false, :fill => false, :padding =>2)
+
+
+    @msg=""
+    @info=Gtk::Label.new("#{@msg}")
+    vbox.add(@info)
+    @info.set_text(@msg)
+
+
+
+		hbox.add(@frame)
+
+		aide.signal_connect('clicked') {
+			@msg=Aide.nombreErreurs(jeu,$grillefinal)
+      @info.set_text("nb erreur:#{@msg}")
+		}
+		aide2.signal_connect('clicked') {
+      if jeu.jeuTermine($grillefinal)==false
+			res=Aide.remplirCaseHasard(jeu,$grillefinal)
+			active(res[0],res[1])
+      else
+        puts "jeu terminer"
+      end
+			#jeu.afficheToi()
+		}
+    aide3.signal_connect('clicked') {
+
+      #jeu.rejouer()
+      for i in (0..jeu.taille)
+        for j in (0..jeu.taille)
+          if jeu.grille[i][j].etat == 1
+      			active(i,j)
+          end
+        end
+      end
+
+
+      @d=Aide.ligneEvidente($grillefinal)
+      @e=Aide.coloneEvidente($grillefinal)
+		}
+    aide1.signal_connect('clicked') {
+
+
+      if @d[0] !=nil
+
+        @msg= @d.delete_at(0)
+        @info.set_text("la ligne:#{@msg}")
+      else
+        @msg="plus de ligne evidente"
+        @info.set_text("#{@msg}")
+      end
+
+    }
+    aide4.signal_connect('clicked') {
+      if @e[0] !=nil
+
+        @msg= @e.delete_at(0)
+        @info.set_text("la colonne :#{@msg}")
+      else
+        @msg="plus de colone evidente"
+        @info.set_text("#{@msg}")
+      end
+
+		}
+
+		#list_c=$grillefinal.indiceColone(0)
+
+		(1..@c).each do |i|
+			list_c=$grillefinal.indiceColone(i-1)
+			nb_c=Gtk::Box.new(:vertical,10)
+			list_c.each do |j|
+				nb_c.pack_start (Gtk::Label.new ("#{j}"))
+			end
+			@frame.attach(nb_c,i,i+1,0,1)
+		end
+
+		(1..@l).each do |i|
+			list_l=$grillefinal.indiceLigne(i)
+
+			nb_c=Gtk::Box.new(:horizontal,10)
+			list_l.each do |j|
+				nb_c.pack_start (Gtk::Label.new ("#{j}"))
+			end
+			@frame.attach(nb_c,0,1,i,i+1)
+		end
+
+
+
+
+		ind=0
+		@list_but=[]
+		(1..@c).each do |j|
+			(1..@l).each do |i|
+				@list_but.push(Button.new(j,i,ind,@frame,jeu))
+				ind+=1
+			end
+		end
+
+	end
+
+
+
+
+
+
+
+
+
+	def show
+
+		@grille.show_all
+		# Quand la fenêtre est détruite il faut quitter
+		@grille.signal_connect('destroy') {onDestroy}
+		Gtk.main
+	end
+
+
+	def active(l,c)
+		@list_but[l*@c+c].active
+	end
+
+	def actInit(l,c)
+		@list_but[l*@c+c].actInit
+	end
+
+
+
+	def frame
+		return @frame
+	end
+end
+
+class Button
+
+
+	attr_accessor :jeu
+
+  def initialize(ligne,col,nb,frame,jeu)
+		@ligne=ligne-1
+		@col=col-1
+		@nb=nb
+		@active=false
+		@frame=frame
+		@jeu=jeu
+    @img=Gtk::Image.new(:file=>"../Images/case_blanc_10.png")
+    @img_hover
+    @img_blanc='../Images/case_blanc_10.png'
+    @img_noir='../Images/case_noir_10.png'
+    @img_croix = '../Images/case_croix_10.png'
+    @button=Gtk::EventBox.new().add(@img)
+		#@button=Gtk::Button.new(:label => nil, :use_underline => nil, :stock_id => nil)
+		#@jeu=jeu
+		frame.attach(@button,@col+1,@col+2,@ligne+1,@ligne+2)
+
+
+
+		#@button.style_context.add_provider(@white, Gtk::StyleProvider::PRIORITY_USER)
+		#@button.set_relief(Gtk::RELIEF_NONE)
+		@button.set_size_request(10,10)
+		@button.set_focus_on_click(false)
+		@button.signal_connect('button-press-event') {
+			active
+		}
+		#@button.signal_connect('enter') {
+			#active
+		#}
+
+
+	end
+
+
+  def active()
+		if @active then
+      @img.set_from_file (@img_blanc)
+		else
+      @img.set_from_file (@img_noir)
+		end
+		@active=!@active
+
+		@jeu.grille[@ligne][@col].jouerCase
+		@jeu.grilleToSave()
+		puts "button #{@nb}:(#{@col},#{@ligne}) active"
+	end
+
+	def actInit
+		if @active then
+			@img.set_from_file (@img_blanc)
+		else
+			@img.set_from_file (@img_noir)
+		end
+		@active=!@active
+
+		puts "button #{@nb}:(#{@col},#{@ligne}) active"
+
+	end
+
+
+end

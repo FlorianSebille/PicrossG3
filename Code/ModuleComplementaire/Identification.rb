@@ -11,13 +11,13 @@ class Identification < Frame
     ##
     # Probleme ne fonctionne pas
 
-    #@header.btnHome.signal_connect('clicked') {
+    @header.btnHome.signal_connect('clicked') {
       # a changer si on veut revenir sur une autre page
-      #self.supprimeMoi
-      #choixConnexionCreation = ChoixConnexionCreation.new(monApp, @header)
-      #choixConnexionCreation.ajouteMoi
-      #@window.show_all
-    #}
+      self.supprimeMoi
+      choixConnexionCreation = ChoixConnexionCreation.new(monApp, @header)
+      choixConnexionCreation.ajouteMoi
+      @window.show_all
+    }
 
 
     @hautPage.add(@label, :expand => true, :fill => true)

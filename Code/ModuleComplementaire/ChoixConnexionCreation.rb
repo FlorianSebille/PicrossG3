@@ -20,14 +20,14 @@ class ChoixConnexionCreation < Identification
     self.add(@bouttons)
 
     @btnCreerCompte.signal_connect('clicked') {
-      self.supprimeMoi
+      self.detruitMoi
       creation = CreationCompte.new(@window, @header)
       creation.ajouteMoi
       @window.show_all
     }
 
     @btnConnexion.signal_connect('clicked') {
-      self.supprimeMoi
+      self.detruitMoi
       connexion = Connexion.new(@window, @header)
       connexion.ajouteMoi
       @window.show_all

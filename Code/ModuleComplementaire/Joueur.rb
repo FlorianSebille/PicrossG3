@@ -4,8 +4,8 @@ class Joueur
   #elle contient aussi un nombre d'xp qui évolue en fonction des partie gagner et perdu
   #et un mot de passe pour securiser chaque joueur
 
-  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :xp, :mdp
-  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo
+  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :xp, :mdp, :grillesAventure, :grillesEntrainement, :grillesCompetition
+  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :grilles, :grillesAventure, :grillesEntrainement, :grillesCompetition
 
   private_class_method :new
 
@@ -14,11 +14,28 @@ class Joueur
   end
 
   def initialize(unNom, unPrenom, unPseudo, unMDP, dateDeNaissance)
-    @prenom, @nom, @naissance, @pseudo, @mdp, @xp, @grilles = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0, Array.new
+    @prenom, @nom, @naissance, @pseudo, @mdp, @xp = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0
+    @grillesAventure = Hash.new
+    @grillesEntrainement = Hash.new
+    @grillesCompetition = Hash.new
+    [@grillesAventure, @grillesEntrainement, @grillesCompetition]. each { |grilles|
+      initializeGrilles(grilles)
+    }
+
   end
 
   def augementXp(unNombre)
     @xp += unNombre
+  end
+
+  def initializeGrilles(hashGrilles)
+    Dir.foreach("../Grilles") do |fichier|
+      fichier = fichier.gsub(".txt", '')
+      if !fichier.eql?(".") && !fichier.eql?("..") && !fichier.eql?(".DS_Store") && (!hashGrilles.has_key?(fichier)) then
+        hashGrilles[fichier] = nil
+      end
+    end
+    return self
   end
 
 end
