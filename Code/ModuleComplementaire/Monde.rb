@@ -11,11 +11,11 @@ class Monde < PageMenu
     parties.layout = :spread
 
     1.upto(5) { |monde|
-      partie = BoxButton.new(monde, "Partie n°")
+      partie = BoxButton.new(monde, "Partie n°", "partie")
 
       partie.btn.signal_connect('clicked') {
         self.supprimeMoi
-        partie = Partie.new(monApp, header)
+        partie = Partie.new(monApp, header, "facile1515elephant")
         partie.ajouteMoi
         @window.show_all
       }

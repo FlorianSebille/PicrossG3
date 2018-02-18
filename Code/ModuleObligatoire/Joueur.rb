@@ -4,8 +4,8 @@ class Joueur
   #elle contient aussi un nombre d'xp qui évolue en fonction des partie gagner et perdu
   #et un mot de passe pour securiser chaque joueur
 
-  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :xp, :mdp, :grillesAventure, :grillesEntrainement, :grillesCompetition
-  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :grilles, :grillesAventure, :grillesEntrainement, :grillesCompetition
+  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :xp, :mdp, :grillesAventure, :grillesEntrainement, :grillesCompetition, :monde
+  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :grilles, :grillesAventure, :grillesEntrainement, :grillesCompetition, :monde
 
   private_class_method :new
 
@@ -14,7 +14,7 @@ class Joueur
   end
 
   def initialize(unNom, unPrenom, unPseudo, unMDP, dateDeNaissance)
-    @prenom, @nom, @naissance, @pseudo, @mdp, @xp = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0
+    @prenom, @nom, @naissance, @pseudo, @mdp, @xp, @monde = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0, 1
     @grillesAventure = Hash.new
     @grillesEntrainement = Hash.new
     @grillesCompetition = Hash.new

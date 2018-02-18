@@ -11,14 +11,18 @@ class ModeAventure < PageMenu
     mondes.layout = :spread
 
     1.upto(3) { |indice|
-      monde = BoxButton.new(indice, "Monde n°")
+      if indice > $joueur.monde then
+        monde = BoxButton.new(indice, "Monde n°", "planete_verrous")
+      else
+        monde = BoxButton.new(indice, "Monde n°", "planete")
 
-      monde.btn.signal_connect('clicked') {
-        self.detruitMoi
-        monde = Monde.new(indice, monApp, header)
-        monde.ajouteMoi
-        @window.show_all
-      }
+        monde.btn.signal_connect('clicked') {
+          self.detruitMoi
+          monde = Monde.new(indice, monApp, header)
+          monde.ajouteMoi
+          @window.show_all
+        }
+      end
 
       mondes.add(monde, :expand => false, :fill => true)
 

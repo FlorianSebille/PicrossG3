@@ -2,15 +2,16 @@
 
 class Partie < PageMenu
 
-  def initialize(monApp, header)
+  def initialize(monApp, header, fichier)
     super("",monApp, :vertical, header)
+    cheminDuFichier=(("../Grilles/" +fichier +".txt"))
+    cheminDujoueur=fichier
 
-    cheminDuFichier="../Grilles/facile1010souris.txt"
-    cheminDujoueur="facile1010souris"
+    entier = (fichier.split(//).keep_if {|v| v =~ /[0123456789]/}).first(2).join.to_i
 
-    grillejoueur=Grille.new(10, cheminDujoueur)
+    grillejoueur=Grille.new(entier, cheminDujoueur)
     #grillejoueur.rejouer()
-    $grillefinal=Grille.new(10,cheminDuFichier)
+    $grillefinal=Grille.new(entier,cheminDuFichier)
     g=Grillei.new(grillejoueur.taille+1,grillejoueur.taille+1,grillejoueur, self)
 
     for i in (0..grillejoueur.taille)

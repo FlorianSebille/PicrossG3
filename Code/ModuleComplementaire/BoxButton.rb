@@ -11,14 +11,14 @@ class BoxButton < Gtk::ButtonBox
   # Création d'une nouvelle BoxButton avec +unIndice+ et +unTitre+
   #
   #
-  def initialize(unIndice, unTitre)
+  def initialize(unIndice, unTitre, image)
 
     #attr_reader :btn
 
     super(:vertical)
     indice = unIndice
 
-    @btn = ButtonImage.new("../Images/Niveau_aventure.png")
+    @btn = ButtonImage.new(("../Images/" +image +".png"))
     @label = Label.new((unTitre + indice.to_s), "EF2929", "20")
 
     [@btn, @label].each { |elem|

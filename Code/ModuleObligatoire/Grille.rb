@@ -221,6 +221,10 @@ class Grillei
 		@grille = frame
 		@l=l
 		@c=c
+    @tab_label_l=[[]]
+    @tab_label_c=[[]]
+    @tab_box_l=[]
+    @tab_box_c=[]
 		# Titre de la fenêtre
 		#@grille.set_title("Grille")
 		# Taille de la fenêtre
@@ -329,21 +333,51 @@ class Grillei
 
 		#list_c=$grillefinal.indiceColone(0)
 
+    #indices pour les colonnes
+    bol=false
 		(1..@c).each do |i|
 			list_c=$grillefinal.indiceColone(i-1)
 			nb_c=Gtk::Box.new(:vertical,10)
+      @tab_box_c.push(nb_c)
+      @tab_label_c[i]=[]
 			list_c.each do |j|
-				nb_c.pack_start (Gtk::Label.new ("#{j}"))
+        n=Gtk::Label.new ("#{j}")
+        @tab_label_c[i].push(n)
+        #ajouter de padding
+        if bol==false
+          nb=5-@tab_label_c[i].size
+          nb.times do
+            nb_c.pack_start (Gtk::Label.new (" "))
+          end
+        end
+        bol=true
+        #ajouter de padding
+				nb_c.pack_end (n)
+
 			end
 			@frame.attach(nb_c,i,i+1,0,1)
 		end
+    bol=false
 
+    #indices pour les lignes
 		(1..@l).each do |i|
 			list_l=$grillefinal.indiceLigne(i)
-
 			nb_c=Gtk::Box.new(:horizontal,10)
+      @tab_box_l.push(nb_c)
+      @tab_label_l[i]=[]
 			list_l.each do |j|
-				nb_c.pack_start (Gtk::Label.new ("#{j}"))
+        n=Gtk::Label.new ("#{j}")
+        @tab_label_l[i].push(n)
+        #ajouter de padding
+        if bol==false
+          nb=5-@tab_label_l[i].size
+          nb.times do
+            nb_c.pack_start (Gtk::Label.new (" "))
+          end
+        end
+        bol=true
+        #ajouter de padding
+				nb_c.pack_end (n)
 			end
 			@frame.attach(nb_c,0,1,i,i+1)
 		end
@@ -355,7 +389,7 @@ class Grillei
 		@list_but=[]
 		(1..@c).each do |j|
 			(1..@l).each do |i|
-				@list_but.push(Button.new(j,i,ind,@frame,jeu))
+				@list_but.push(Button.new(j,i,ind,@frame,jeu, self))
 				ind+=1
 			end
 		end
@@ -378,6 +412,9 @@ class Grillei
 		Gtk.main
 	end
 
+  def convert(l,c)
+    return l*@c+c
+  end
 
 	def active(l,c)
 		@list_but[l*@c+c].active
@@ -387,11 +424,44 @@ class Grillei
 		@list_but[l*@c+c].actInit
 	end
 
-
-
 	def frame
 		return @frame
 	end
+
+  def enter(l,c)
+
+      couleur = Gdk::RGBA.new(65535,0, 65535)
+      bg=Gdk::RGBA.new(65535, 65535,     0)
+      @tab_box_c[c].override_background_color(:normal, bg)
+      @tab_box_l[l].override_background_color(:normal, bg)
+      @tab_label_c[c+1].each do |i|
+        i.override_color(:normal, couleur)
+      end
+
+      @tab_label_l[l+1].each do |i|
+        i.override_color(:normal, couleur)
+      end
+
+  end
+
+  def leave(l,c)
+
+      couleur = Gdk::RGBA.new(0,0 ,0)
+      @tab_box_c[c].override_background_color(:normal, nil)
+      @tab_box_l[l].override_background_color(:normal, nil)
+      @tab_label_c[c+1].each do |i|
+        i.override_color(:normal, couleur)
+      end
+
+
+      @tab_label_l[l+1].each do |i|
+        i.override_color(:normal, nil)
+      end
+
+
+  end
+
+
 end
 
 class Button
@@ -399,7 +469,7 @@ class Button
 
 	attr_accessor :jeu
 
-  def initialize(ligne,col,nb,frame,jeu)
+  def initialize(ligne,col,nb,frame,jeu,interjeu)
 		@ligne=ligne-1
 		@col=col-1
 		@nb=nb
@@ -411,6 +481,7 @@ class Button
     @img_blanc='../Images/case_blanc_10.png'
     @img_noir='../Images/case_noir_10.png'
     @img_croix = '../Images/case_croix_10.png'
+    @inter=interjeu
     @button=Gtk::EventBox.new().add(@img)
 		#@button=Gtk::Button.new(:label => nil, :use_underline => nil, :stock_id => nil)
 		#@jeu=jeu
@@ -429,9 +500,31 @@ class Button
 			#active
 		#}
 
+    @button.signal_connect('enter-notify-event') {
+        enter
+      }
 
+
+    @button.signal_connect('leave-notify-event') {
+      leave
+    }
 	end
 
+  def enter
+    @inter.enter(@ligne,@col)
+  end
+
+  def leave
+      @inter.leave(@ligne,@col)
+  end
+
+  def hoverin
+
+  end
+
+  def hoverout
+
+  end
 
   def active()
 		if @active then
