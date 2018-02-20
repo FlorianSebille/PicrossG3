@@ -2,6 +2,8 @@
 ##
 # Cette class defini le Header de la fenetre de l'aplication
 
+require "Classes/Interface/ButtonImage.rb"
+
 class Header < Gtk::HeaderBar
 
   attr_reader :btnRetour, :btnHome, :btnCompte

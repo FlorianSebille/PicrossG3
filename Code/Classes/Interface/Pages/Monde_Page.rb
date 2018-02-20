@@ -1,11 +1,15 @@
 
-class Monde < PageMenu
+require "Classes/Interface/Page.rb"
+require "Classes/Interface/Partie.rb"
+require "Classes/Interface/BoxButton.rb"
 
-  def initialize(unIndice, monApp, header)
+class Monde_Page < Page
+
+  def initialize(unIndice, monApp, header, enciennePage)
 
     ##
     # Creation de la Gtk::Box
-    super(("Monde n°"+ unIndice.to_s),monApp, :vertical, header)
+    super(("Monde n°"+ unIndice.to_s),monApp, :vertical, header, enciennePage)
 
     parties = Gtk::ButtonBox.new(:horizontal)
     parties.layout = :spread
@@ -15,7 +19,7 @@ class Monde < PageMenu
 
       partie.btn.signal_connect('clicked') {
         self.supprimeMoi
-        partie = Partie.new(monApp, header, "facile1515elephant")
+        partie = Partie.new(monApp, header, "facile1515elephant", self)
         partie.ajouteMoi
         @window.show_all
       }

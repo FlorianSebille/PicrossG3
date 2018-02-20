@@ -7,7 +7,8 @@
 #	pour savoir si le joueur a gagné, on compare la matrice des cases à la matrice resultat
 #	la grille de jeu peut être sauvegardeé pour être repris ulterieurement
 
-
+require "Classes/case.rb"
+require "Classes/aide.rb"
 class Grille
 
   attr_accessor:taille

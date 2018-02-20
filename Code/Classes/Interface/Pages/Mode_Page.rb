@@ -1,9 +1,14 @@
 
-class ChoixMode < PageMenu
+require "Classes/Interface/Page.rb"
+require "Classes/Interface/Pages/ModeEntrainement_Page.rb"
+require "Classes/Interface/Pages/ModeCompetition_Page.rb"
+require "Classes/Interface/Pages/ModeAventure_Page.rb"
 
-  def initialize(monApp, header)
+class Mode_Page < Page
 
-    super("Mode",monApp, :vertical, header)
+  def initialize(monApp, header, enciennePage)
+
+    super("Mode",monApp, :vertical, header, enciennePage)
 
     self.hautPage.spacing = 220
 
@@ -23,7 +28,7 @@ class ChoixMode < PageMenu
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeEntrainement.new(@window, @header)
+      mode = ModeEntrainement_Page.new(@window, @header, self)
       mode.ajouteMoi
       @window.show_all
     }
@@ -32,7 +37,7 @@ class ChoixMode < PageMenu
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeCompetition.new(@window, @header)
+      mode = ModeCompetition_Page.new(@window, @header, self)
       mode.ajouteMoi
       @window.show_all
     }
@@ -41,7 +46,7 @@ class ChoixMode < PageMenu
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeAventure.new(@window, @header)
+      mode = ModeAventure_Page.new(@window, @header, self)
       mode.ajouteMoi
       @window.show_all
     }

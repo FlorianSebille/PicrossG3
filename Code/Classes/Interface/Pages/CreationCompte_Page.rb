@@ -1,10 +1,14 @@
 
+require "Classes/Interface/Page.rb"
+require "Classes/Interface/Label.rb"
+require "Classes/Interface/Pages/CreationCompte_Page.rb"
+require "Classes/Interface/Pages/Connexion_Page.rb"
 
-class CreationCompte < Identification
+class CreationCompte_Page < Page
 
-  def initialize(monApp, header)
+  def initialize(monApp, header, enciennePage)
 
-    super("Creation Compte",monApp, :vertical, header)
+    super("Creation Compte",monApp, :vertical, header, enciennePage)
 
     aujourdhui = Time.new
     table = Gtk::Table.new(6, 2)
@@ -108,7 +112,7 @@ class CreationCompte < Identification
           data = $sv.sauver(joueur)
 
           self.detruitMoi
-          connexion = Connexion.new(monApp, @header)
+          connexion = Connexion_Page.new(monApp, @header)
           connexion.ajouteMoi
 
           @window.show_all
@@ -137,7 +141,7 @@ class CreationCompte < Identification
 
     btnAnnule.signal_connect('clicked') {
       self.detruitMoi
-      creationCompte = CreationCompte.new(monApp, @header)
+      creationCompte = CreationCompte_Page.new(monApp, @header)
       creationCompte.ajouteMoi
       @window.show_all
     }

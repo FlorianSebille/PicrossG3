@@ -1,4 +1,5 @@
 
+require "Classes/Interface/Label.rb"
 
 class ModeClassique < Gtk::Notebook
 

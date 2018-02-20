@@ -3,6 +3,8 @@
 # => Un Boutton avec une Image
 # => Un label
 
+require "Classes/Interface/Label.rb"
+require "Classes/Interface/ButtonImage.rb"
 
 class BoxButton < Gtk::ButtonBox
 

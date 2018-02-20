@@ -12,17 +12,9 @@ Gtk.init
 
 $LOAD_PATH.unshift File.dirname(__FILE__)
 
-##
-# Chargement des Modules
-["ModuleObligatoire","ModuleComplementaire"].each { |repertoire|
-  Dir.foreach(repertoire) do |fichier|
-    if !fichier.eql?(".") && !fichier.eql?("..") then
-      require (repertoire +"/" +fichier)
-    end
-  end
-}
-
-
+require "Classes/Interface/Header.rb"
+require "Classes/Interface/Pages/ConnexionOuCreation_Page.rb"
+require "Classes/MethodSauvegard.rb"
 
 def onDestroy
 	puts "Fin de l'application"
@@ -54,13 +46,13 @@ if ARGV.size.eql?(0) then
   # Titre de la fenêtre
 	header = Header.new(monApp)
 
-  $joueur
+  $joueur = nil
   $sv = MethodSauvegard.new
   ######DEBUT#########
 
   ##
   # Box principale
-  choixConnexionCreation = ChoixConnexionCreation.new(monApp, header)
+  choixConnexionCreation = ConnexionOuCreation_Page.new(monApp, header, nil)
 
   choixConnexionCreation.ajouteMoi
 

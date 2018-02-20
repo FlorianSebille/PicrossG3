@@ -3,8 +3,10 @@
 # Version 0.1 : Date : Tue Dec 12 19:44:04 CET 2017
 #
 
-#require 'yaml'
-
+require 'Classes/Joueur.rb'
+require 'Classes/Grille.rb'
+require 'Classes/Case.rb'
+#require 'Classes/Joueur.rb'
 class MethodSauvegard
 
 

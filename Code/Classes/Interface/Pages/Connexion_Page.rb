@@ -1,15 +1,21 @@
 
-class Connexion < Identification
+require "Classes/Interface/Page.rb"
+require "Classes/Interface/Label.rb"
+require "Classes/Interface/Pages/ConnexionOuCreation_Page.rb"
+require "Classes/Interface/Pages/Menu_page.rb"
+require "Classes/MethodSauvegard.rb"
 
-  def initialize(monApp, header)
-    super("Connexion",monApp, :vertical, header)
+class Connexion_Page < Page
 
-    @header.btnRetour.signal_connect('clicked') {
-      self.supprimeMoi
-      choixConnexionCreation = ChoixConnexionCreation.new(monApp, @header)
-      choixConnexionCreation.ajouteMoi
-      @window.show_all
-    }
+  def initialize(monApp, header, enciennePage)
+    super("Connexion",monApp, :vertical, header, enciennePage)
+
+    #@header.btnRetour.signal_connect('clicked') {
+    #  self.supprimeMoi
+    #  choixConnexionCreation = ConnexionOuCreation_Page.new(monApp, @header, self)
+    #  choixConnexionCreation.ajouteMoi
+    #  @window.show_all
+    #}
 
     table = Gtk::Table.new(2, 2)
 
@@ -60,9 +66,8 @@ class Connexion < Identification
               $joueur.initializeGrilles(grilles)
             }
             @header.ajoutepseudo(sonPseudo)
-            self.detruitMoi
-            menu = Menu.new(monApp, @header)
-            menu.joueur = joueur
+            self.supprimeMoi
+            menu = Menu_Page.new(monApp, @header, nil)
             menu.ajouteMoi
             @window.show_all
           else
@@ -75,8 +80,8 @@ class Connexion < Identification
     }
 
     @btnAnnule.signal_connect('clicked') {
-      self.detruitMoi
-      connexion = Connexion.new(monApp, @header)
+      self.supprimeMoi
+      connexion = Connexion_Page.new(monApp, @header, self)
       connexion.ajouteMoi
       @window.show_all
     }

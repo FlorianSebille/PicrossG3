@@ -1,12 +1,14 @@
 
-class ChoixConnexionCreation < Identification
+require "Classes/Interface/Page.rb"
+require "Classes/Interface/Pages/CreationCompte_Page.rb"
+require "Classes/Interface/Pages/Connexion_Page.rb"
 
-  attr_reader :label
+class ConnexionOuCreation_Page < Page
 
-  def initialize(monApp, header)
+  def initialize(monApp, header, enciennePage)
     ##
     # Creation de la Gtk::Box
-    super("Identification",monApp, :vertical, header)
+    super("Identification",monApp, :vertical, header, enciennePage)
 
     @bouttons = Gtk::ButtonBox.new(:horizontal)
     @bouttons.layout = :spread
@@ -20,15 +22,15 @@ class ChoixConnexionCreation < Identification
     self.add(@bouttons)
 
     @btnCreerCompte.signal_connect('clicked') {
-      self.detruitMoi
-      creation = CreationCompte.new(@window, @header)
+      self.supprimeMoi
+      creation = CreationCompte_Page.new(@window, @header, self)
       creation.ajouteMoi
       @window.show_all
     }
 
     @btnConnexion.signal_connect('clicked') {
-      self.detruitMoi
-      connexion = Connexion.new(@window, @header)
+      self.supprimeMoi
+      connexion = Connexion_Page.new(@window, @header, self)
       connexion.ajouteMoi
       @window.show_all
     }
