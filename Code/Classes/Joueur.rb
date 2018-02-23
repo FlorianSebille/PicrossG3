@@ -57,27 +57,29 @@ class Joueur
 
   def difficulte(monde, partie)
     difficulte = 1
-    taiile = 10
+    taille = 10
+
     if (partie.eql?(1) || partie.eql?(2)) then
+      taille = 10
+    elsif  partie.eql?(3) then
+      taille = 15
+    elsif partie.eql?(4) then
+      taille = 20
+    else
+      taille = 25
+    end
+
+    if monde.eql?(1) then
       difficulte = 1
-    elsif  (partie.eql?(3) || partie.eql?(4)) then
+    elsif monde.eql?(2) then
       difficulte = 2
     else
       difficulte = 3
     end
 
-    if monde.eql?(1) then
-      taille = 10
-    elsif monde.eql?(2) then
-      taille = 15
-    else
-      taille = 20
-    end
-
-    if(partie.eql?(5)) then
-      taille = 25
-    end
     return [difficulte, taille]
+
+
   end
 
 

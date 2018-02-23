@@ -16,12 +16,6 @@ class Grille
   attr_accessor:fich
 
 
-  #private_class_method:new
-
-  #def Grille.creer(taille,fich)
-    #  new(taille,fich)
-  #end
-
   def initialize(taille,fich)
 
     @taille=taille-1
@@ -198,7 +192,7 @@ class Grille
         @grille[i][j].changerEtat(0)
       end
     end
-    grilleTofich()
+    grilleToSave()
   end # fin de rejouer
   def tabIndicesColones()
     tab=[]
@@ -247,21 +241,9 @@ class Grillei
     @tab_label_c=[[]]
     @tab_box_l=[]
     @tab_box_c=[]
-		# Titre de la fenêtre
-		#@grille.set_title("Grille")
-		# Taille de la fenêtre
-		#@grille.set_default_size(100,100)
-		# Réglage de la bordure
-		#@grille.border_width=5
-		# On ne peut pas redimensionner
-		#@grille.set_resizable(true)
-		# L'application est toujours centrée
-		#@grille.set_window_position(Gtk::WindowPosition::CENTER_ALWAYS)
 
 		@frame=Gtk::Table.new(l+1,c+1,false)
 		@frame.set_size_request(100,100)
-    @frame.row_spacings = 5
-    @frame.column_spacings = 5
 		hbox=Gtk::Box.new(:horizontal,3)
 		vbox=Gtk::Box.new(:vertical,3)
 		@grille.add(hbox)
@@ -321,9 +303,11 @@ class Grillei
           if jeu.grille[i][j].etat == 1
       			active(i,j)
           end
+          if jeu.grille[i][j].etat == 2
+            active(i,j)
+          end
         end
       end
-
 
       @d=Aide.ligneEvidente($grillefinal)
       @e=Aide.coloneEvidente($grillefinal)
@@ -358,7 +342,7 @@ class Grillei
     #indices pour les colonnes
     bol=false
 		(1..@c).each do |i|
-			list_c=$grillefinal.indiceColone(i-1)
+			list_c=$grillefinal.indiceColone(i-1).reverse
 			nb_c=Gtk::Box.new(:vertical,10)
       @tab_box_c.push(nb_c)
       @tab_label_c[i]=[]
@@ -383,7 +367,7 @@ class Grillei
 
     #indices pour les lignes
 		(1..@l).each do |i|
-			list_l=$grillefinal.indiceLigne(i)
+			list_l=$grillefinal.indiceLigne(i).reverse
 			nb_c=Gtk::Box.new(:horizontal,10)
       @tab_box_l.push(nb_c)
       @tab_label_l[i]=[]
@@ -495,7 +479,7 @@ class Button
 		@ligne=ligne-1
 		@col=col-1
 		@nb=nb
-		@active=false
+		@active=1
 		@frame=frame
 		@jeu=jeu
     @img=Gtk::Image.new(:file=>"../Images/case_blanc_10.png")
@@ -514,7 +498,7 @@ class Button
 		#@button.style_context.add_provider(@white, Gtk::StyleProvider::PRIORITY_USER)
 		#@button.set_relief(Gtk::RELIEF_NONE)
 		@button.set_size_request(10,10)
-		@button.set_focus_on_click(false)
+		#@button.set_focus_on_click(false)
 		@button.signal_connect('button-press-event') {
 			active
 		}
@@ -549,25 +533,35 @@ class Button
   end
 
   def active()
-		if @active then
-      @img.set_from_file (@img_blanc)
-		else
+		if @active==1 then
       @img.set_from_file (@img_noir)
-		end
-		@active=!@active
+      @active=2
 
-		@jeu.grille[@ligne][@col].jouerCase
-		@jeu.grilleToSave()
+		elsif @active==2
+      @img.set_from_file (@img_croix)
+      @active=3
+
+    else
+      @img.set_from_file (@img_blanc)
+      @active=1
+		end
+		  @jeu.grille[@ligne][@col].changerEtat(@active-1)
+      @jeu.grilleToSave
+
 		puts "button #{@nb}:(#{@col},#{@ligne}) active"
 	end
 
 	def actInit
-		if @active then
-			@img.set_from_file (@img_blanc)
-		else
+		if @active==1 then
 			@img.set_from_file (@img_noir)
+      @active=2
+		elsif @active==2
+			@img.set_from_file (@img_croix)
+      @active=3
+    else
+      @img.set_from_file (@img_blanc)
+      @active=1
 		end
-		@active=!@active
 
 		puts "button #{@nb}:(#{@col},#{@ligne}) active"
 

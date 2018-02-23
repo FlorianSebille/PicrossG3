@@ -10,10 +10,10 @@ class LeaderBoard_Page < Page
     super("LeaderBoard",monApp, :vertical, header, enciennePage)
 
 
-   
+    self.spacing = 10
     builder = Gtk::Notebook.new
 
-    
+
 
 
 
@@ -69,9 +69,9 @@ tableauTitreCol2[2] = Gtk::Label.new("Score")
         table[2].attach(tableauTitreCol2[j],j,j+1,0,1)
     end
 
-       
+
    table[0].attach( Gtk::Label.new("Le bro David"),1,2,1,2)
-       
+
 
 
 tableauvBox = Array.new
@@ -102,7 +102,7 @@ sauv = MethodSauvegard.new()
 
 
 builder.append_page_menu(tableauvBox[0], Gtk::Label.new("Facile"))
-    
+
     builder.append_page(tableauvBox[1], Gtk::Label.new("Moyen"))
 
     builder.append_page(tableauvBox[2], Gtk::Label.new("Difficile"))
