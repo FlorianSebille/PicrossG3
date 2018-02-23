@@ -65,7 +65,7 @@ class Grille
     elsif $joueur.mode.eql?(2) then
       if $joueur.grillesCompetition.has_key?(@fich) then
         if (!$joueur.grillesCompetition[@fich].eql?(nil)) then
-          @grille = $joueur.grillesCompetition[@fich]
+          @grille = $joueur.grillesCompetition[@fich].last
         end
       end
     else
@@ -98,7 +98,7 @@ class Grille
       $joueur.grillesEntrainement[@fich] = @grille
       data = $sv.sauver($joueur)
     elsif $joueur.mode.eql?(2) then
-      $joueur.grillesCompetition[@fich] = @grille
+      $joueur.grillesCompetition[@fich][-1] = @grille
       data = $sv.sauver($joueur)
     else
       $joueur.grillesAventure[@fich][-1] = @grille
@@ -302,8 +302,8 @@ class Grillei
         for j in (0..jeu.taille)
           if jeu.grille[i][j].etat == 1
       			active(i,j)
-          end
-          if jeu.grille[i][j].etat == 2
+          elsif jeu.grille[i][j].etat == 2
+            active(i,j)
             active(i,j)
           end
         end
@@ -423,7 +423,7 @@ class Grillei
   end
 
 	def active(l,c)
-		@list_but[l*@c+c].active
+		@list_but[l*@c+c].active(1)
 	end
 
 	def actInit(l,c)
@@ -499,8 +499,8 @@ class Button
 		#@button.set_relief(Gtk::RELIEF_NONE)
 		@button.set_size_request(10,10)
 		#@button.set_focus_on_click(false)
-		@button.signal_connect('button-press-event') {
-			active
+		@button.signal_connect('button-press-event') {|s,x|
+			active(x.button)
 		}
 		#@button.signal_connect('enter') {
 			#active
@@ -532,26 +532,43 @@ class Button
 
   end
 
-  def active()
-		if @active==1 then
-      @img.set_from_file (@img_noir)
-      @active=2
+  def active(button)
+    if(button==1)
+      if @active==1 then
+        @img.set_from_file (@img_noir)
+        @active=2
+      elsif @active==2
+        @img.set_from_file (@img_blanc)
+        @active=1
+      elsif @active==3
+        @img.set_from_file (@img_noir)
+        @active=2
+      end
+    end
 
-		elsif @active==2
-      @img.set_from_file (@img_croix)
-      @active=3
+    if(button==3)
+      if @active==3
+        @img.set_from_file (@img_blanc)
+        @active=1
+      elsif @active==1
+        @img.set_from_file (@img_croix)
+        @active=3
+      elsif @active==2
+        @img.set_from_file (@img_croix)
+        @active=3
+      end
 
-    else
-      @img.set_from_file (@img_blanc)
-      @active=1
-		end
+    end
+
+
+
 		  @jeu.grille[@ligne][@col].changerEtat(@active-1)
       @jeu.grilleToSave
 
 		puts "button #{@nb}:(#{@col},#{@ligne}) active"
 	end
 
-	def actInit
+  def actInit
 		if @active==1 then
 			@img.set_from_file (@img_noir)
       @active=2
