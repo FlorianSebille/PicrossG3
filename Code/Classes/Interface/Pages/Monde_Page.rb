@@ -19,7 +19,7 @@ class Monde_Page < Page
 
       partie.btn.signal_connect('clicked') {
         self.supprimeMoi
-        partie = Partie.new(monApp, header, "facile1515elephant", self)
+        partie = Partie.new(monApp, header, $joueur.grilleAventure(unIndice,monde), self)
         partie.ajouteMoi
         @window.show_all
       }

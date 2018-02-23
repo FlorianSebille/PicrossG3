@@ -1,6 +1,5 @@
 
 require "Classes/Interface/Label.rb"
-#require "Classes/Interface/Pages/Compte_Page.rb"
 
 class Page < Gtk::Box
 
@@ -42,11 +41,11 @@ class Page < Gtk::Box
     }
 
     @header.btnCompte.signal_connect('clicked') {
-      self.supprimeMoi
-      if ($joueur.eql?(nil)) then
-        #Compte_Page.new(monApp, unHeader, nil).ajouteMoi
+      if (!$joueur.eql?(nil)) then
+        self.supprimeMoi
+        Compte_Page.new(monApp, unHeader, nil).ajouteMoi
+        @window.show_all
       end
-      @window.show_all
     }
   end
 

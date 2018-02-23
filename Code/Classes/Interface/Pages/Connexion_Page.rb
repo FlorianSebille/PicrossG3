@@ -62,7 +62,7 @@ class Connexion_Page < Page
           joueur = $sv.charger(sonPseudo)
           if(joueur.mdp.eql?(sonMdp)) then
             $joueur = joueur
-            [$joueur.grillesEntrainement, $joueur.grillesCompetition, $joueur.grillesAventure].each { |grilles|
+            [$joueur.grillesEntrainement, $joueur.grillesCompetition].each { |grilles|
               $joueur.initializeGrilles(grilles)
             }
             @header.ajoutepseudo(sonPseudo)

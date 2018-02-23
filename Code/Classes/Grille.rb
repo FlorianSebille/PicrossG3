@@ -62,13 +62,25 @@ class Grille
   end #end of fichTogrille
 
   def saveTogrille()
-
-    if $joueur.grillesAventure.has_key?(@fich) then
-      if (!$joueur.grillesAventure[@fich].eql?(nil)) then
-        @grille = $joueur.grillesAventure[@fich]
+    if $joueur.mode.eql?(1) then
+      if $joueur.grillesEntrainement.has_key?(@fich) then
+        if (!$joueur.grillesEntrainement[@fich].eql?(nil)) then
+          @grille = $joueur.grillesEntrainement[@fich]
+        end
+      end
+    elsif $joueur.mode.eql?(2) then
+      if $joueur.grillesCompetition.has_key?(@fich) then
+        if (!$joueur.grillesCompetition[@fich].eql?(nil)) then
+          @grille = $joueur.grillesCompetition[@fich]
+        end
+      end
+    else
+      if $joueur.grillesAventure.has_key?(@fich) then
+        if (!$joueur.grillesAventure[@fich].last.eql?(nil)) then
+          @grille = $joueur.grillesAventure[@fich].last
+        end
       end
     end
-
     return self
   end #end of fichTogrille
 
@@ -87,8 +99,17 @@ class Grille
   end#end of grilleTofich
 
   def grilleToSave()
-    $joueur.grillesAventure[@fich] = @grille
-    data = $sv.sauver($joueur)
+
+    if $joueur.mode.eql?(1) then
+      $joueur.grillesEntrainement[@fich] = @grille
+      data = $sv.sauver($joueur)
+    elsif $joueur.mode.eql?(2) then
+      $joueur.grillesCompetition[@fich] = @grille
+      data = $sv.sauver($joueur)
+    else
+      $joueur.grillesAventure[@fich][-1] = @grille
+      data = $sv.sauver($joueur)
+    end
 
   end#end of grilleToSave
 

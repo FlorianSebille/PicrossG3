@@ -1,5 +1,5 @@
 
-#require "Classes/Interface/Page.rb"
+require "Classes/Interface/Page.rb"
 
 class Compte_Page < Page
 

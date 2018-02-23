@@ -112,7 +112,7 @@ class CreationCompte_Page < Page
           data = $sv.sauver(joueur)
 
           self.detruitMoi
-          connexion = Connexion_Page.new(monApp, @header)
+          connexion = Connexion_Page.new(monApp, @header, enciennePage)
           connexion.ajouteMoi
 
           @window.show_all

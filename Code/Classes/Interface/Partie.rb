@@ -5,10 +5,16 @@ class Partie < Page
 
   def initialize(monApp, header, fichier, enciennePage)
     super("",monApp, :vertical, header, enciennePage)
-    cheminDuFichier=(("../Grilles/" +fichier +".txt"))
-    cheminDujoueur=fichier
 
-    entier = (fichier.split(//).keep_if {|v| v =~ /[0123456789]/}).first(2).join.to_i
+    cheminDuFichier=(("../Grilles/" + fichier.first + ".txt"))
+
+    if (!$joueur.mode.eql?(3)) then
+      cheminDujoueur=fichier
+    else
+      cheminDujoueur=$joueur.grillesAventure.key(fichier)
+    end
+
+    entier = (fichier.first.split(//).keep_if {|v| v =~ /[0123456789]/}).first(2).join.to_i
 
     grillejoueur=Grille.new(entier, cheminDujoueur)
     #grillejoueur.rejouer()
