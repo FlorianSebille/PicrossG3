@@ -29,4 +29,25 @@ class MethodSauvegard
 
 	end
 
+
+	def chargerLeaderBoard()
+		tabJoueur = []
+
+		Dir.foreach("../Sauvegarde") do |fichier|
+			 fichier = fichier.gsub(".marshal", '')
+			
+				if (!fichier.eql?(".")) && (!fichier.eql?("..")) && (!fichier.eql?(".DS_Store")) then
+       				object = charger(fichier)
+       				tabJoueur << object.pseudo
+       				tabJoueur << object.xp.to_s
+     			 end
+
+				
+			
+		end
+		return tabJoueur
+    end
+
+	
+
 end

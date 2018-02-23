@@ -70,7 +70,7 @@ tableauTitreCol2[2] = Gtk::Label.new("Score")
     end
 
 
-   table[0].attach( Gtk::Label.new("Le bro David"),1,2,1,2)
+  
 
 
 
@@ -86,18 +86,21 @@ end
 
 sauv = MethodSauvegard.new()
 
+tableau = sauv.chargerLeaderBoard()
 
+    
+      
+    i = 0
+    j = 0
 
-
-
-
-
-
-
-
-
-
-
+    while i <= tableau.length
+                table[0].attach( Gtk::Label.new(tableau[j]),1,2,i+1,i+2)
+                table[0].attach( Gtk::Label.new(tableau[j+1]),2,3,i+1,i+2)
+                i += 1
+                j += 2
+    end
+    
+   
 
 
 
