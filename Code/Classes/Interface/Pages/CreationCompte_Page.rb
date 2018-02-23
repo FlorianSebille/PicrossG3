@@ -107,7 +107,6 @@ class CreationCompte_Page < Page
           sonNom = entreeNom.text
 
           joueur = Joueur.creer(sonNom,sonPrenom,sonPseudo,sonMDP,"#{sonJour}/#{sonMois}/#{sonAnnee}")
-          joueur.augementXp(10)
 
           data = $sv.sauver(joueur)
 

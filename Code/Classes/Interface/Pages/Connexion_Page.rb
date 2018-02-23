@@ -62,9 +62,10 @@ class Connexion_Page < Page
           joueur = $sv.charger(sonPseudo)
           if(joueur.mdp.eql?(sonMdp)) then
             $joueur = joueur
-            [$joueur.grillesEntrainement, $joueur.grillesCompetition].each { |grilles|
-              $joueur.initializeGrilles(grilles)
-            }
+
+            $joueur.initializeGrillesEntrainement
+            $joueur.initializeGrillesCompetition
+
             @header.ajoutepseudo(sonPseudo)
             self.supprimeMoi
             menu = Menu_Page.new(monApp, @header, nil)

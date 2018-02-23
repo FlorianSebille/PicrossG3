@@ -32,7 +32,7 @@ class Aide
         ligne=rand(0..grillej.taille)
         colone=rand(0..grillej.taille)
 
-      end while ( !(grillej.grille[ligne][colone].etat ==0 && grillef.grille[ligne][colone].etat == 1)  )
+      end while ( !((grillej.grille[ligne][colone].etat ==0 || grillej.grille[ligne][colone].etat ==2)&& grillef.grille[ligne][colone].etat == 1)  )
 
        return [ligne,colone]
      end

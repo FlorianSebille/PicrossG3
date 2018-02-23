@@ -23,14 +23,12 @@ class Partie < Page
 
     for i in (0..grillejoueur.taille)
     	for j in (0..grillejoueur.taille)
-        if grillejoueur.grille[i][j].etat==1	then
-
+    		if grillejoueur.grille[i][j].etat==1	then
     			g.actInit(i,j)
         end
         if grillejoueur.grille[i][j].etat==2  then
           g.actInit(i,j)
           g.actInit(i,j)
-
     		end
     	end
 

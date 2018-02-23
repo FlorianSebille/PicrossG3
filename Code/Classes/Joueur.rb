@@ -1,10 +1,12 @@
+
+require "Classes/Score.rb"
 class Joueur
 
   #La class joueur contient un nom prenom pseudo date de naissance pour diférencier chaque joueur
   #elle contient aussi un nombre d'xp qui évolue en fonction des partie gagner et perdu
   #et un mot de passe pour securiser chaque joueur
 
-  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :xp, :mdp, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :monde
+  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :monde
   attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :grilles, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :monde
 
   private_class_method :new
@@ -14,40 +16,48 @@ class Joueur
   end
 
   def initialize(unNom, unPrenom, unPseudo, unMDP, dateDeNaissance)
-    @prenom, @nom, @naissance, @pseudo, @mdp, @xp, @mode, @monde = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0, 0, 1
+    @prenom, @nom, @naissance, @pseudo, @mdp, @mode, @monde = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0, 1
+    @score = [Score.new,Score.new,Score.new]
     @grillesAventure = Hash.new
     @grillesEntrainement = Hash.new
     @grillesCompetition = Hash.new
-    [@grillesEntrainement, @grillesCompetition].each { |grilles|
-      initializeGrilles(grilles)
-    }
+
+    initializeGrillesEntrainement
+    initializeGrillesCompetition
     initializeAventure
+
   end
 
-  def augementXp(unNombre)
-    @xp += unNombre
-  end
-
-  def initializeGrilles(hashGrilles)
+  def initializeGrillesEntrainement
     Dir.foreach("../Grilles") do |fichier|
       fichier = fichier.gsub(".txt", '')
-      if !fichier.eql?(".") && !fichier.eql?("..") && !fichier.eql?(".DS_Store") && (!hashGrilles.has_key?(fichier)) then
-        hashGrilles[fichier] = nil
+      if !fichier.eql?(".") && !fichier.eql?("..") && !fichier.eql?(".DS_Store") && (!@grillesEntrainement.has_key?(fichier)) then
+        @grillesEntrainement[fichier] = nil
       end
     end
     return self
   end
 
-  def choisirPartie(dificulte,taille)
-    if dificulte.eql?(1) then
-      difficulte = "facile"
-    elsif difficulte.eql?(2) then
-      difficulte = "facile"
-    else difficulte = "difficile" end
+  def initializeGrillesCompetition
+    Dir.foreach("../Grilles") do |fichier|
+      fichier = fichier.gsub(".txt", '')
+      if !fichier.eql?(".") && !fichier.eql?("..") && !fichier.eql?(".DS_Store") && (!@grillesCompetition.has_key?(fichier)) then
+        @grillesCompetition[fichier] = [Score.new, nil]
+      end
+    end
+    return self
+  end
+
+  def choisirPartie(dif,taille)
+    if dif.eql?(1) then
+      dif = "facile"
+    elsif dif.eql?(2) then
+      dif = "normal"
+    else dif = "difficile" end
     temp = Array.new
     Dir.foreach("../Grilles") do |fichier|
       fichier = fichier.gsub(".txt", '')
-      if fichier.include?(difficulte.to_s) &&  fichier.include?(taille.to_s) then
+      if fichier.include?(dif.to_s) &&  fichier.include?(taille.to_s) then
         temp << fichier
       end
     end
@@ -97,6 +107,7 @@ class Joueur
     key = monde.to_s + "-" + partie.to_s
     return @grillesAventure[key]
   end
+
 
 end
 # Test
