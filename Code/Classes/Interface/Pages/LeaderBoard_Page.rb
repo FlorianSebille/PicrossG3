@@ -1,6 +1,7 @@
 require "Classes/Interface/Page.rb"
+require "Classes/MethodSauvegard.rb"
 
-class LeaderBoard < Page
+class LeaderBoard_Page < Page
 
   def initialize(monApp, header, enciennePage)
 
@@ -12,8 +13,7 @@ class LeaderBoard < Page
    
     builder = Gtk::Notebook.new
 
-    b1 = Gtk::Label.new("Facile")
-    b2 = Gtk::Label.new("Moyen")
+    
 
 
 
@@ -82,6 +82,21 @@ for i in 0..2
         tableauvBox[i].add(table[i])
         tableauvBox[i].border_width = 120
 end
+
+
+sauv = MethodSauvegard.new()
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
