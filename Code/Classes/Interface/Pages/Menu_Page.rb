@@ -4,6 +4,7 @@ require "Classes/Interface/Pages/Mode_Page.rb"
 require "Classes/Interface/Pages/ModeEntrainement_Page.rb"
 require "Classes/Interface/Pages/ModeCompetition_Page.rb"
 require "Classes/Interface/Pages/ModeAventure_Page.rb"
+require "Classes/Interface/Pages/Leaderboard.rb"
 
 class Menu_Page < Page
 
@@ -39,7 +40,7 @@ class Menu_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeCompetition_Page.new(@window, @header, self)
+      mode = LeaderBoard.new(@window, @header, self)
       mode.ajouteMoi
       @window.show_all
     }
