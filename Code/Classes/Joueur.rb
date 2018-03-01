@@ -45,7 +45,7 @@ class Joueur
   end
 
   def initializeGrillesEntrainement
-    Dir.foreach("../Grilles") do |fichier|
+    Dir.foreach("Grilles") do |fichier|
       fichier = fichier.gsub(".txt", '')
       if !fichier.eql?(".") && !fichier.eql?("..") && !fichier.eql?(".DS_Store") && (!@grillesEntrainement.has_key?(fichier)) then
         @grillesEntrainement[fichier] = nil
@@ -55,7 +55,7 @@ class Joueur
   end
 
   def initializeGrillesCompetition
-    Dir.foreach("../Grilles") do |fichier|
+    Dir.foreach("Grilles") do |fichier|
       fichier = fichier.gsub(".txt", '')
       if !fichier.eql?(".") && !fichier.eql?("..") && !fichier.eql?(".DS_Store") && (!@grillesCompetition.has_key?(fichier)) then
         @grillesCompetition[fichier] = [Score.new, nil]
@@ -71,7 +71,7 @@ class Joueur
       dif = "normal"
     else dif = "difficile" end
     temp = Array.new
-    Dir.foreach("../Grilles") do |fichier|
+    Dir.foreach("Grilles") do |fichier|
       fichier = fichier.gsub(".txt", '')
       if fichier.include?(dif.to_s) &&  fichier.include?(taille.to_s) then
         temp << fichier

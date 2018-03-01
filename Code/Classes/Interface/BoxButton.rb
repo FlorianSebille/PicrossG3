@@ -20,7 +20,7 @@ class BoxButton < Gtk::ButtonBox
     super(:vertical)
     indice = unIndice
 
-    @btn = ButtonImage.new(("../Images/" +image +".png"))
+    @btn = ButtonImage.new(("Images/" +image +".png"))
     @label = Label.new((unTitre + indice.to_s), "EF2929", "20")
 
     [@btn, @label].each { |elem|

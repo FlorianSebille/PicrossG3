@@ -6,7 +6,7 @@ class Partie < Page
   def initialize(monApp, header, fichier, enciennePage)
     super("",monApp, :vertical, header, enciennePage)
 
-    cheminDuFichier=(("../Grilles/" + fichier.first + ".txt"))
+    cheminDuFichier=(("Grilles/" + fichier.first + ".txt"))
 
     if (!$joueur.mode.eql?(3)) then
       cheminDujoueur=fichier

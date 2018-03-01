@@ -12,7 +12,7 @@ class MethodSauvegard
 
 	def sauver(joueur)
 		begin
-				File.open("../Sauvegarde/"+joueur.pseudo.to_s+".marshal", "w") {|nomFichier| @data = Marshal.dump(joueur,nomFichier) }
+				File.open("Sauvegarde/"+joueur.pseudo.to_s+".marshal", "w") {|nomFichier| @data = Marshal.dump(joueur,nomFichier) }
 
 		rescue
 			#ERREUR
@@ -22,7 +22,7 @@ class MethodSauvegard
 	end
 
 	def charger(pseudo)
-		File.open("../Sauvegarde/"+pseudo+".marshal","r") {|nomFichier|
+		File.open("Sauvegarde/"+pseudo+".marshal","r") {|nomFichier|
 			object = Marshal.load(nomFichier)
 			return object
 		}
@@ -33,7 +33,7 @@ class MethodSauvegard
 	def chargerLeaderBoard()
 		tabJoueur = []
 
-		Dir.foreach("../Sauvegarde") do |fichier|
+		Dir.foreach("Sauvegarde") do |fichier|
 			 fichier = fichier.gsub(".marshal", '')
 
 				if (!fichier.eql?(".")) && (!fichier.eql?("..")) && (!fichier.eql?(".DS_Store")) then

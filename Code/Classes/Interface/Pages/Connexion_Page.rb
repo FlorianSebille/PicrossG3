@@ -58,7 +58,7 @@ class Connexion_Page < Page
         sonMdp = Digest::SHA256.digest sonMdp
       end
 
-      if(File.exists?("../Sauvegarde/"+sonPseudo+".marshal")) then
+      if(File.exists?("Sauvegarde/"+sonPseudo+".marshal")) then
           joueur = $sv.charger(sonPseudo)
           if(joueur.mdp.eql?(sonMdp)) then
             $joueur = joueur

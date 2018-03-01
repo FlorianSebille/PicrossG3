@@ -482,11 +482,11 @@ class Button
 		@active=1
 		@frame=frame
 		@jeu=jeu
-    @img=Gtk::Image.new(:file=>"../Images/case_blanc_10.png")
+    @img=Gtk::Image.new(:file=>"Images/case_blanc_10.png")
     @img_hover
-    @img_blanc='../Images/case_blanc_10.png'
-    @img_noir='../Images/case_noir_10.png'
-    @img_croix = '../Images/case_croix_10.png'
+    @img_blanc='Images/case_blanc_10.png'
+    @img_noir='Images/case_noir_10.png'
+    @img_croix = 'Images/case_croix_10.png'
     @inter=interjeu
     @button=Gtk::EventBox.new().add(@img)
 		#@button=Gtk::Button.new(:label => nil, :use_underline => nil, :stock_id => nil)

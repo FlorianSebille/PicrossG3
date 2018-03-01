@@ -8,15 +8,15 @@ class BoxButtonPartie < BoxButton
       super(partie, "Partie n°", "partie_verrous")
     else super(partie, "Partie n°", "partie") end
 
-    @etoile1 = Gtk::Image.new(:file => "../Images/Etoile.png", :size => :dialog)
-    @etoile2 = Gtk::Image.new(:file => "../Images/Etoile.png", :size => :dialog)
-    @etoile3 = Gtk::Image.new(:file => "../Images/Etoile.png", :size => :dialog)
+    @etoile1 = Gtk::Image.new(:file => "Images/Etoile.png", :size => :dialog)
+    @etoile2 = Gtk::Image.new(:file => "Images/Etoile.png", :size => :dialog)
+    @etoile3 = Gtk::Image.new(:file => "Images/Etoile.png", :size => :dialog)
 
     @boxEtoile = Gtk::Box.new(:horizontal)
 
     score = $joueur.grilleAventure(monde, partie).at(1).getScore
 
-    
+
     score = 30
 
     if score >= 10 && score < 20 then

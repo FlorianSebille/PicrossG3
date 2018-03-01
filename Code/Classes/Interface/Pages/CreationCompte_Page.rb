@@ -96,7 +96,7 @@ class CreationCompte_Page < Page
         # Création d'un joueur et rajout a la base
         #   A FAIRE
 
-        if (!(File.exists?("../Sauvegarde/"+sonPseudo+".marshal"))) then
+        if (!(File.exists?("Sauvegarde/"+sonPseudo+".marshal"))) then
           sonMDP = Digest::SHA256.digest sonMDP
 
           sonJour = jour.active_text

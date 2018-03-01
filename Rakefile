@@ -2,5 +2,5 @@
 task default: %w[main]
 
 task :main do
-  ruby "Main.rb"
+  ruby "Code/Main.rb"
 end
