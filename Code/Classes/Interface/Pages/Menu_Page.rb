@@ -4,7 +4,7 @@ require "Classes/Interface/Pages/Mode_Page.rb"
 require "Classes/Interface/Pages/ModeEntrainement_Page.rb"
 require "Classes/Interface/Pages/ModeCompetition_Page.rb"
 require "Classes/Interface/Pages/ModeAventure_Page.rb"
-require "Classes/Interface/Pages/Leaderboard_Page.rb"
+require "Classes/Interface/Pages/LeaderBoard_Page.rb"
 
 class Menu_Page < Page
 

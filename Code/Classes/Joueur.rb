@@ -6,8 +6,8 @@ class Joueur
   #elle contient aussi un nombre d'xp qui évolue en fonction des partie gagner et perdu
   #et un mot de passe pour securiser chaque joueur
 
-  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :monde
-  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :grilles, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :monde
+  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure, :score
+  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :grilles, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure
 
   private_class_method :new
 
@@ -16,7 +16,8 @@ class Joueur
   end
 
   def initialize(unNom, unPrenom, unPseudo, unMDP, dateDeNaissance)
-    @prenom, @nom, @naissance, @pseudo, @mdp, @mode, @monde = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0, 1
+    @prenom, @nom, @naissance, @pseudo, @mdp, @mode = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0
+    @avanceAventure = [1,3]
     @score = [Score.new,Score.new,Score.new]
     @grillesAventure = Hash.new
     @grillesEntrainement = Hash.new
@@ -26,6 +27,21 @@ class Joueur
     initializeGrillesCompetition
     initializeAventure
 
+  end
+
+  def CalculeScore
+    nouveauScore = [Score.new,Score.new,Score.new]
+    @grillesCompetition.each { |key, valeur|
+      if key.include?("facile") then
+        nouveauScore.first.ajouteScore(valeur.first.score)
+
+      elsif key.include?("normal") then
+        nouveauScore.at(1).ajouteScore(valeur.first.score)
+      else
+        nouveauScore.last.ajouteScore(valeur.first.score)
+      end
+    }
+    @score = nouveauScore
   end
 
   def initializeGrillesEntrainement
@@ -98,7 +114,7 @@ class Joueur
       1.upto(5) { |partie|
         key = monde.to_s + "-" + partie.to_s
         res = difficulte(monde, partie)
-        @grillesAventure[key] = [choisirPartie(res.first,res.last), nil]
+        @grillesAventure[key] = [choisirPartie(res.first,res.last),Score.new, nil]
       }
     }
   end

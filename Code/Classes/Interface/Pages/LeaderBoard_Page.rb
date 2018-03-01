@@ -70,7 +70,7 @@ tableauTitreCol2[2] = Gtk::Label.new("Score")
     end
 
 
-  
+
 
 
 
@@ -88,20 +88,36 @@ sauv = MethodSauvegard.new()
 
 tableau = sauv.chargerLeaderBoard()
 
-    
-      
+tableaufacile = Array.new
+tableaunormal = Array.new
+tableaudifficile = Array.new
+
+tableau.each { |joueur|
+  tableaufacile << [joueur.first , joueur.at(1)]
+  tableaunormal << [joueur.first , joueur.at(2)]
+  tableaudifficile << [joueur.first , joueur.at(3)]
+}
+
+##
+# A Enlever just pour tester
+tableaufacile.last[-1]=("2")
+
+tableaufacile = tableaufacile.sort { |x,y| y.last <=> x.last}
+tableaunormal = tableaunormal.sort { |x,y| x.last <=> y.last}
+tableaudifficile = tableaudifficile.sort { |x,y| x.last <=> y.last}
+
     i = 0
     j = 0
 
-    while i <= tableau.length
-                table[0].attach( Gtk::Label.new(tableau[j]),1,2,i+1,i+2)
-                table[0].attach( Gtk::Label.new(tableau[j+1]),2,3,i+1,i+2)
-                i += 1
-                j += 2
-    end
-    
-   
-
+    [tableaufacile, tableaunormal, tableaudifficile].each { |tab|
+      while (i < 10 && i < tab.length)
+        table[j].attach( Gtk::Label.new(tab[i].first),1,2,i+1,i+2)
+        table[j].attach( Gtk::Label.new(tab[i].last),2,3,i+1,i+2)
+        i += 1
+      end
+      i = 0
+      j += 1
+    }
 
 
 builder.append_page_menu(tableauvBox[0], Gtk::Label.new("Facile"))

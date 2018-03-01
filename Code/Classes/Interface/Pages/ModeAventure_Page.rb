@@ -14,7 +14,7 @@ class ModeAventure_Page < Page
     mondes.layout = :spread
 
     1.upto(3) { |indice|
-      if indice > $joueur.monde then
+      if indice > $joueur.avanceAventure.first then
         monde = BoxButton.new(indice, "Monde n°", "planete_verrous")
       else
         monde = BoxButton.new(indice, "Monde n°", "planete")

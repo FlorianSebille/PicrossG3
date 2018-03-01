@@ -2,7 +2,7 @@
 require "Classes/Interface/Page.rb"
 require "Classes/Interface/Label.rb"
 require "Classes/Interface/Pages/ConnexionOuCreation_Page.rb"
-require "Classes/Interface/Pages/Menu_page.rb"
+require "Classes/Interface/Pages/Menu_Page.rb"
 require "Classes/MethodSauvegard.rb"
 
 class Connexion_Page < Page

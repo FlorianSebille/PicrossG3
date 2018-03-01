@@ -5,7 +5,7 @@
 
 require 'Classes/Joueur.rb'
 require 'Classes/Grille.rb'
-require 'Classes/Case.rb'
+require 'Classes/case.rb'
 #require 'Classes/Joueur.rb'
 class MethodSauvegard
 
@@ -35,19 +35,18 @@ class MethodSauvegard
 
 		Dir.foreach("../Sauvegarde") do |fichier|
 			 fichier = fichier.gsub(".marshal", '')
-			
+
 				if (!fichier.eql?(".")) && (!fichier.eql?("..")) && (!fichier.eql?(".DS_Store")) then
        				object = charger(fichier)
-       				tabJoueur << object.pseudo
-       				tabJoueur << object.xp.to_s
+       				tabJoueur << [object.pseudo, object.score.first.score.to_s, object.score.at(1).score.to_s, object.score.last.score.to_s]
      			 end
 
-				
-			
+
+
 		end
 		return tabJoueur
     end
 
-	
+
 
 end

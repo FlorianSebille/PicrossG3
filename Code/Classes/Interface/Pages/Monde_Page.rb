@@ -1,7 +1,7 @@
 
 require "Classes/Interface/Page.rb"
 require "Classes/Interface/Partie.rb"
-require "Classes/Interface/BoxButton.rb"
+require "Classes/Interface/BoxButtonPartie.rb"
 
 class Monde_Page < Page
 
@@ -15,15 +15,18 @@ class Monde_Page < Page
     parties.layout = :spread
 
     1.upto(5) { |monde|
-      partie = BoxButton.new(monde, "Partie n°", "partie")
+      if monde > $joueur.avanceAventure.last then
+        partie = BoxButtonPartie.new(unIndice,monde, true)
+      else
+        partie = BoxButtonPartie.new(unIndice,monde, false)
 
-      partie.btn.signal_connect('clicked') {
-        self.supprimeMoi
-        partie = Partie.new(monApp, header, $joueur.grilleAventure(unIndice,monde), self)
-        partie.ajouteMoi
-        @window.show_all
-      }
-
+        partie.btn.signal_connect('clicked') {
+          self.supprimeMoi
+          partie = Partie.new(monApp, header, $joueur.grilleAventure(unIndice,monde), self)
+          partie.ajouteMoi
+          @window.show_all
+        }
+      end
       parties.add(partie, :expand => false, :fill => true)
     }
 
