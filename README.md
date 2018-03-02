@@ -10,6 +10,13 @@
 
 Nous avons comme objectif de créer une application (mini jeu) de jeu *Picross*
 
+### Installation
+
+*`git clone https://github.com/kirozz/PicrossG3.git`
+* `cd PicrossG3`
+* `gem install bundle` ou `sudo gem install bundle`
+* `rake`
+
 ### Aide a la documentation
 
 * Afficher les fonctions bien documentées `inch suggest nomDeFichier.rb`
