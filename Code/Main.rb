@@ -7,6 +7,7 @@ require 'gtk3'
 require "thread"
 require "minitest"
 require "digest"
+require "inch"
 
 Gtk.init
 

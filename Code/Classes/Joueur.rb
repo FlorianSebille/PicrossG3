@@ -3,7 +3,9 @@ require "Classes/Score.rb"
 class Joueur
 
   #La class joueur contient un nom prenom pseudo date de naissance pour diférencier chaque joueur
-  #elle contient aussi un nombre d'xp qui évolue en fonction des partie gagner et perdu
+  #elle contient aussi un score pour chaque niveau de difficulté dans le mode compétition qui évolue en fonction des parties jouées
+  #d'une avancé dans le mode aventure
+  #de hashs pour savegarder toutes c'est grilles dans chaques modes
   #et un mot de passe pour securiser chaque joueur
 
   attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure, :score

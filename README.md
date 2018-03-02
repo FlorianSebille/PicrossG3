@@ -10,6 +10,10 @@
 
 Nous avons comme objectif de créer une application (mini jeu) de jeu *Picross*
 
+### Aide a la documentation
+
+* Afficher les fonctions bien documentées `inch suggest nomDeFichier.rb`
+
 ### Membres
 * FISSON Dylan
 * DOVI Olive

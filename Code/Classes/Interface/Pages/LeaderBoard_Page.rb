@@ -103,8 +103,8 @@ tableau.each { |joueur|
 tableaufacile.last[-1]=("2")
 
 tableaufacile = tableaufacile.sort { |x,y| y.last <=> x.last}
-tableaunormal = tableaunormal.sort { |x,y| x.last <=> y.last}
-tableaudifficile = tableaudifficile.sort { |x,y| x.last <=> y.last}
+tableaunormal = tableaunormal.sort { |x,y| y.last <=> x.last}
+tableaudifficile = tableaudifficile.sort { |x,y| y.last <=> x.last}
 
     i = 0
     j = 0
