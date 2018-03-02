@@ -1,6 +1,7 @@
 
 require 'thread'
 require 'gtk2'
+require 'chronic'
 
 class Minuteur
 
@@ -16,7 +17,7 @@ class Minuteur
 		@malus=0
 		@label= Gtk::Label.new(to_s)
 		@thread
-
+    #@iterator = Chrono::Iterator.new("30 * * * *")
 	end
 
 	#permet de changer la valeur du malus de temps générer à cause de l'aide
@@ -56,29 +57,15 @@ class Minuteur
 	#lance le minuteur
 	def start()
 
-		@thread = Thread.new{loop{sleep(1);@minuteur+=1;setLabel;@window.show_all}}
-
-=begin 	t2 = Thread.new{
-			loop{
-				set_text(" entrez un malus");
-				malusTemps=gets;
-				setMalus(malusTemps.to_i);
-				@minuteur+=@malus;
-				malustozero()
-				set_text("le minuteur doit il s'arreter ? (0 si oui 1 sinon)");
-				arreter=gets;
-				setStop(arreter.to_i)
-			}
-
-	}
-=end
-
+		@thread = Thread.new{
+                loop{
+                  sleep(1)
+                  Chronic.parse('next second')
+                  @minuteur += 1
+                }
+              }
 
 		@thread.priority=5;
-       # t2.priority=30;
-
-
-		#Thread.kill(t2)
 		@window.show_all
 		return @minuteur
 	end
@@ -86,9 +73,8 @@ class Minuteur
 
 end
 
-
 Gtk.init
-
+Time.now
 window = Gtk::Window.new
 
 m=Minuteur.new(0, window)
@@ -103,5 +89,6 @@ window.add(m.label)
 
 window.show_all
 
-m.start()
+t = Thread.new{m.start()}
+t.join
 Gtk.main
