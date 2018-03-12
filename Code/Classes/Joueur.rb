@@ -24,7 +24,6 @@ class Joueur
     @grillesAventure = Hash.new
     @grillesEntrainement = Hash.new
     @grillesCompetition = Hash.new
-
     initializeGrillesEntrainement
     initializeGrillesCompetition
     initializeAventure

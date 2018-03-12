@@ -58,7 +58,7 @@ class ModeEntrainement_Page < Page
 
      Dir.foreach("Grilles") do |fichier|
       fichier = fichier.gsub(".txt", '')
-     if fichier.include?("facile") then
+      if fichier.include?("facile") then
         tableauDesGrillesFaciles << fichier
       end
       if fichier.include?("normal")then
@@ -67,10 +67,10 @@ class ModeEntrainement_Page < Page
       if fichier.include?("difficile") then
         tableauDesGrillesDifficile << fichier
       end
-  end
+    end
 
-   
-   
+
+
     partie1 = afficherTableau(partie1, tableauDesGrillesFaciles)
     partie2 = afficherTableau(partie2, tableauDesGrillesMoyen)
     partie3 = afficherTableau(partie3, tableauDesGrillesDifficile)
@@ -87,13 +87,13 @@ class ModeEntrainement_Page < Page
     boxPrincipal.add(builder,:expand => true, :fill => false)
 
 
-    
+
     self.add(boxPrincipal)
 
-    
+
   end
 
-  def afficherTableau(partie, tableau) 
+  def afficherTableau(partie, tableau)
     k=0
     tab = verifDifficulte(tableau)
     for j in 0..3
@@ -102,10 +102,10 @@ class ModeEntrainement_Page < Page
             k+=1
         end
     end
-        return partie
+    return partie
   end
 
-  def verifDifficulte(tableau){
+  def verifDifficulte(tableau)
 
   	tableauDiff = Array.new
   	if(bouton10x10.active == true)
@@ -119,11 +119,10 @@ class ModeEntrainement_Page < Page
   	if(bouton20x20.active == true)
   		tableauDiff << tableau.include?('2020')
   	end
-  	
+
   	if(bouton15x15.active == true)
   		  		tableauDiff << tableau.include?('2525')
   	end
 
-  }
-
+  end
 end

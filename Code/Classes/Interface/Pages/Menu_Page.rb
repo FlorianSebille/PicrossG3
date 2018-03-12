@@ -5,6 +5,7 @@ require "Classes/Interface/Pages/ModeEntrainement_Page.rb"
 require "Classes/Interface/Pages/ModeCompetition_Page.rb"
 require "Classes/Interface/Pages/ModeAventure_Page.rb"
 require "Classes/Interface/Pages/LeaderBoard_Page.rb"
+require "Classes/Didact.rb"
 
 class Menu_Page < Page
 
@@ -48,9 +49,8 @@ class Menu_Page < Page
     @btnDidacticiel.signal_connect('clicked') {
       ##
       # si il a reussi a ce co
-      self.supprimeMoi
-      mode = ModeAventure_Page.new(@window, @header, self)
-      mode.ajouteMoi
+      mode = Didact.new()
+      #mode.ajouteMoi
       @window.show_all
     }
 
