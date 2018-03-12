@@ -1,6 +1,6 @@
 
 require 'thread'
-require 'gtk2'
+require 'gtk3'
 
 class Minuteur
 
@@ -9,13 +9,11 @@ class Minuteur
 	attr_accessor :malus
 
 	#initialise le minuteur avec un temps (0 ou temps sauvegardé)
-	def initialize(temps, window)
-		@window = window
+	def initialize(temps)
 		@minuteur=temps
-		@stop=1
 		@malus=0
 		@label= Gtk::Label.new(to_s)
-		@thread
+		@pause =false
 
 	end
 
@@ -30,11 +28,23 @@ class Minuteur
 	end
 
 	#permet de changer la variable stop afin de stopper le minuteur
-	def setStop(bool)
-		Thread.kill(@thread)
-		@stop=bool
+	def setStop()
+		@thread.kill
+		return to_s
+	end
+	
+	def toggle
+		@pause = !@pause
+		if @thread.status =='sleep'
+				@thread.run
+		end
 	end
 
+	#check si le timer tourne 
+	def running
+	 	 @pause
+	 end
+  
 	def to_s
 			heures = @minuteur/3600
 			minutes = (@minuteur - (heures*3600)) / 60
@@ -50,36 +60,48 @@ class Minuteur
 
 	def setLabel
 
-			@label.set_markup(to_s)
+			@label.set_markup("<b> #{to_s unless @minuteur==0}</b>")
+			
 	end
 
 	#lance le minuteur
 	def start()
 
-		@thread = Thread.new{loop{sleep(1);@minuteur+=1;setLabel;@window.show_all}}
+		@thread = Thread.new{
+							while true do
+				
+								sleep(1)
+								@minuteur+=1
+								setLabel
+								
+							end
+							
+							}
 
-=begin 	t2 = Thread.new{
+		t2 = Thread.new{
 			loop{
-				set_text(" entrez un malus");
+				print(" entrez un malus");
 				malusTemps=gets;
 				setMalus(malusTemps.to_i);
 				@minuteur+=@malus;
 				malustozero()
-				set_text("le minuteur doit il s'arreter ? (0 si oui 1 sinon)");
+				print("le minuteur doit il s'arreter ? ");
 				arreter=gets;
-				setStop(arreter.to_i)
+				if(arreter.to_i == 1)then
+					setStop
+					t2.kill
+				end
 			}
-
-	}
-=end
+		}
 
 
-		@thread.priority=5;
-       # t2.priority=30;
+		
+		#@thread.priority=5;
+		#t2.priority=30;
 
 
-		#Thread.kill(t2)
-		@window.show_all
+		
+		
 		return @minuteur
 	end
 
@@ -91,7 +113,7 @@ Gtk.init
 
 window = Gtk::Window.new
 
-m=Minuteur.new(0, window)
+m=Minuteur.new(0)
 
 
 window.add(m.label)
@@ -101,7 +123,11 @@ window.add(m.label)
 
 #affiche la fenetre
 
-window.show_all
+
 
 m.start()
+
+
+window.show_all
+
 Gtk.main
