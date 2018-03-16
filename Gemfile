@@ -5,4 +5,5 @@ source 'https://rubygems.org' do
   gem 'digest'
   gem 'thread', ">=0.2.2"
   gem 'inch'
+  gem 'yard',  ">=0.9.11"
 end

@@ -3,52 +3,27 @@ GEM
   specs:
     atk (3.2.1)
       glib2 (= 3.2.1)
-    atk (3.2.1-x64-mingw32)
-      glib2 (= 3.2.1)
-    cairo (1.15.11)
-      native-package-installer (>= 1.0.3)
-      pkg-config (>= 1.2.2)
-    cairo (1.15.11-x64-mingw32)
+    cairo (1.15.12)
       native-package-installer (>= 1.0.3)
       pkg-config (>= 1.2.2)
     cairo-gobject (3.2.1)
       cairo
       glib2 (= 3.2.1)
-    cairo-gobject (3.2.1-x64-mingw32)
-      cairo
-      glib2 (= 3.2.1)
-    coderay (1.1.2)
     digest (0.1.0)
     gdk3 (3.2.1)
       cairo-gobject (= 3.2.1)
       gdk_pixbuf2 (= 3.2.1)
       gobject-introspection (= 3.2.1)
       pango (= 3.2.1)
-    gdk3 (3.2.1-x64-mingw32)
-      cairo-gobject (= 3.2.1)
-      gdk_pixbuf2 (= 3.2.1)
-      gobject-introspection (= 3.2.1)
-      pango (= 3.2.1)
     gdk_pixbuf2 (3.2.1)
       gio2 (= 3.2.1)
-    gdk_pixbuf2 (3.2.1-x64-mingw32)
-      gio2 (= 3.2.1)
     gio2 (3.2.1)
-      glib2 (= 3.2.1)
-      gobject-introspection (= 3.2.1)
-    gio2 (3.2.1-x64-mingw32)
       glib2 (= 3.2.1)
       gobject-introspection (= 3.2.1)
     glib2 (3.2.1)
       native-package-installer (>= 1.0.3)
       pkg-config (>= 1.2.2)
-    glib2 (3.2.1-x64-mingw32)
-      cairo (>= 1.15.9)
-      native-package-installer (>= 1.0.3)
-      pkg-config (>= 1.2.2)
     gobject-introspection (3.2.1)
-      glib2 (= 3.2.1)
-    gobject-introspection (3.2.1-x64-mingw32)
       glib2 (= 3.2.1)
     gtk3 (3.2.1)
       atk (= 3.2.1)
@@ -58,51 +33,20 @@ GEM
       glib2 (= 3.2.1)
       gobject-introspection (= 3.2.1)
       pango (= 3.2.1)
-    gtk3 (3.2.1-x64-mingw32)
-      atk (= 3.2.1)
-      gdk3 (= 3.2.1)
-      gdk_pixbuf2 (= 3.2.1)
-      gio2 (= 3.2.1)
-      glib2 (= 3.2.1)
-      gobject-introspection (= 3.2.1)
-      pango (= 3.2.1)
-      rsvg2 (= 3.2.1)
-    inch (0.7.1)
-      pry
-      sparkr (>= 0.2.0)
-      term-ansicolor
-      yard (~> 0.8.7.5)
-    method_source (0.9.0)
+    inch (0.0.1)
     minitest (5.11.3)
     native-package-installer (1.0.6)
     pango (3.2.1)
       cairo (>= 1.14.0)
       cairo-gobject (= 3.2.1)
       gobject-introspection (= 3.2.1)
-    pango (3.2.1-x64-mingw32)
-      cairo (>= 1.14.0)
-      cairo-gobject (= 3.2.1)
-      gobject-introspection (= 3.2.1)
     pkg-config (1.2.9)
-    pry (0.11.3)
-      coderay (~> 1.1.0)
-      method_source (~> 0.9.0)
     rake (12.3.0)
-    rsvg2 (3.2.1-x64-mingw32)
-      cairo (>= 1.12.8)
-      cairo-gobject (= 3.2.1)
-      gdk_pixbuf2 (= 3.2.1)
-      pango (>= 3.2.1)
-    sparkr (0.4.1)
-    term-ansicolor (1.6.0)
-      tins (~> 1.0)
     thread (0.2.2)
-    tins (1.16.3)
-    yard (0.8.7.6)
+    yard (0.9.12)
 
 PLATFORMS
   ruby
-  x64-mingw32
 
 DEPENDENCIES
   digest!
@@ -111,6 +55,7 @@ DEPENDENCIES
   minitest (>= 5.11.3)!
   rake (>= 12.3.0)!
   thread (>= 0.2.2)!
+  yard (>= 0.9.11)!
 
 BUNDLED WITH
-   1.16.1
+   1.16.0
