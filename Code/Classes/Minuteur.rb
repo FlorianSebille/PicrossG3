@@ -55,20 +55,11 @@ class Minuteur
 	end
 
 	#lance le minuteur
-	def start()
-
-		@thread = Thread.new{
-							while true do
-
-								sleep(1)
-								@minuteur+=1
-								setLabel
-
-							end
-
-							}
-
-
+	def start
+		@thread = GLib::Timeout.add_seconds(1){
+				@minuteur+=1
+				setLabel
+		}
 
 
 		#@thread.priority=5;
@@ -83,6 +74,5 @@ class Minuteur
 	def ajout(n)
 		@minuteur+=n
 	end
-
 
 end

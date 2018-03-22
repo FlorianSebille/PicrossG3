@@ -59,7 +59,7 @@ class Joueur
     Dir.foreach("Grilles") do |fichier|
       fichier = fichier.gsub(".txt", '')
       if !fichier.eql?(".") && !fichier.eql?("..") && !fichier.eql?(".DS_Store") && (!@grillesCompetition.has_key?(fichier)) then
-        @grillesCompetition[fichier] = [Score.new, nil]
+        @grillesCompetition[fichier] = [Score.new, 0, nil]
       end
     end
     return self
@@ -115,7 +115,8 @@ class Joueur
       1.upto(5) { |partie|
         key = monde.to_s + "-" + partie.to_s
         res = difficulte(monde, partie)
-        @grillesAventure[key] = [choisirPartie(res.first,res.last),Score.new, nil]
+        nomFich = choisirPartie(res.first,res.last)
+        @grillesAventure[key] = [nomFich, Score.new, 0, nil]
       }
     }
   end
@@ -125,13 +126,16 @@ class Joueur
     return @grillesAventure[key]
   end
 
-  def partieFini(intScore)
-    if $joueur.mode.eql?(1) then
+  def partieFini(intScore, key)
 
-    elsif $joueur.mode.eql?(2) then
+    score = intScore
 
-    else
-      
+    if $joueur.mode.eql?(2) then
+      @grillesCompetition[key].first.ajouteScore(score)
+      @grillesCompetition[key][1] = 0
+    elsif $joueur.mode.eql?(3) then
+      @grillesAventure[key].at(1).ajouteScore(score)
+      @grillesAventure[key][2] = 0
     end
   end
 

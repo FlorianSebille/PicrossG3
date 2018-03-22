@@ -14,23 +14,30 @@ class BoxButtonPartie < BoxButton
 
     @boxEtoile = Gtk::Box.new(:horizontal)
 
-    score = $joueur.grilleAventure(monde, partie).at(1).getScore
 
 
-    score = 30
+    if($joueur.mode == 2) then
 
-    if score >= 10 && score < 20 then
-      @boxEtoile.add(@etoile1, :expand => true, :fill => true)
-    elsif score >= 20 && score < 30 then
-      @boxEtoile.add(@etoile1, :expand => true, :fill => true)
-      @boxEtoile.add(@etoile2, :expand => true, :fill => true)
-    elsif score >= 30 then
-      @boxEtoile.add(@etoile1, :expand => true, :fill => true)
-      @boxEtoile.add(@etoile2, :expand => true, :fill => true)
-      @boxEtoile.add(@etoile3, :expand => true, :fill => true)
+    score = $joueur.grillesCompetition(monde, partie).at(1).getScore
+
+    elsif ($joueur.mode == 3) then
+
+      score = $joueur.grilleAventure(monde, partie).at(1).getScore
+
+      if score >= 10 && score < 20 then
+        @boxEtoile.add(@etoile1, :expand => true, :fill => true)
+      elsif score >= 20 && score < 30 then
+        @boxEtoile.add(@etoile1, :expand => true, :fill => true)
+        @boxEtoile.add(@etoile2, :expand => true, :fill => true)
+      elsif score >= 30 then
+        @boxEtoile.add(@etoile1, :expand => true, :fill => true)
+        @boxEtoile.add(@etoile2, :expand => true, :fill => true)
+        @boxEtoile.add(@etoile3, :expand => true, :fill => true)
+      end
+
+      self.add(@boxEtoile)
+      self.reorder_child(@boxEtoile, 1)
     end
 
-    self.add(@boxEtoile)
-    self.reorder_child(@boxEtoile, 1)
   end
 end

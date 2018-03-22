@@ -16,12 +16,14 @@ class Grille
   attr_accessor:taille
   attr_accessor:grille
   attr_accessor:fich
+  attr_accessor:temp
 
 
   def initialize(taille,fich)
 
     @taille=taille-1
     @grille=[[]]
+    @temp = 0
     @fich=fich
 
     for i in (0..@taille)
@@ -68,12 +70,14 @@ class Grille
       if $joueur.grillesCompetition.has_key?(@fich) then
         if (!$joueur.grillesCompetition[@fich].eql?(nil)) then
           @grille = $joueur.grillesCompetition[@fich].last
+          @temp = $joueur.grillesCompetition[@fich].at(1)
         end
       end
     else
       if $joueur.grillesAventure.has_key?(@fich) then
         if (!$joueur.grillesAventure[@fich].last.eql?(nil)) then
           @grille = $joueur.grillesAventure[@fich].last
+          @temp = $joueur.grillesAventure[@fich].at(2)
         end
       end
     end
@@ -94,8 +98,8 @@ class Grille
 
   end#end of grilleTofich
 
-  def grilleToSave()
-
+  def grilleToSave(temp)
+    @temp = temp
     if $joueur.mode.eql?(1) then
       $joueur.grillesEntrainement[@fich] = @grille
       data = $sv.sauver($joueur)
@@ -104,6 +108,7 @@ class Grille
       data = $sv.sauver($joueur)
     else
       $joueur.grillesAventure[@fich][-1] = @grille
+      $joueur.grillesAventure[@fich][2] = @temp
       data = $sv.sauver($joueur)
     end
 
@@ -194,7 +199,7 @@ class Grille
         @grille[i][j].changerEtat(0)
       end
     end
-    grilleToSave()
+    grilleToSave(0)
   end # fin de rejouer
   def tabIndicesColones()
     tab=[]
@@ -236,8 +241,8 @@ class Grillei
 
 
 	def initialize(l,c,jeu,frame)
-    @d=Aide.ligneEvidente($grillefinal)
-    @e=Aide.coloneEvidente($grillefinal)
+    @d=Aide.grilleAide($grillejoueur,$grillefinal,1)
+    @e=Aide.grilleAide($grillejoueur,$grillefinal,2)
 		@grille = frame
 		@l=l
 		@c=c
@@ -286,7 +291,7 @@ class Grillei
     @time=Gtk::Label.new("00:00")
 
 
-    $m=Minuteur.new(0)
+    $m=Minuteur.new($grillejoueur.temp)
 
     @grille.hautPage.remove(@grille.label)
     @grille.hautPage.add($m.label, :expand => true, :fill => false)
@@ -621,7 +626,7 @@ class Button
         @active=3
       end
       @jeu.grille[@ligne][@col].changerEtat(@active-1)
-      @jeu.grilleTofich
+      @jeu.grilleToSave($m.minuteur)
 
       $drawing_area.queue_draw()
       puts "button #{@nb}:(#{@col},#{@ligne}) active par modifier etat"
@@ -658,7 +663,7 @@ class Button
 
 
     @jeu.grille[@ligne][@col].changerEtat(@active-1)
-    @jeu.grilleTofich
+    @jeu.grilleToSave($m.minuteur)
     $drawing_area.queue_draw()
 
 		puts "button #{@nb}:(#{@col},#{@ligne}) active"
@@ -666,11 +671,13 @@ class Button
     ##
     # Fin de la partie
     if @jeu.jeuTermine($grillefinal)==true then
+
+      $joueur.partieFini($m.minuteur, @jeu.fich)
+
       sleep(3)
+
       @fenetre.supprimeMoi
       @fenetre.enciennePage.ajouteMoi
-
-      $joueur.partieFini($m.label.text.to_i)
 
     end
 

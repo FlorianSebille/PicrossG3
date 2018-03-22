@@ -42,7 +42,7 @@ class Page < Gtk::Box
 
     @header.btnCompte.signal_connect('clicked') {
       if (!$joueur.eql?(nil)) then
-        self.supprimeMoi
+        #self.supprimeMoi
         Compte_Page.new(monApp, unHeader, nil).ajouteMoi
         @window.show_all
       end
