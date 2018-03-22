@@ -125,6 +125,16 @@ class Joueur
     return @grillesAventure[key]
   end
 
+  def partieFini(intScore)
+    if $joueur.mode.eql?(1) then
+
+    elsif $joueur.mode.eql?(2) then
+
+    else
+      
+    end
+  end
+
 
 end
 # Test

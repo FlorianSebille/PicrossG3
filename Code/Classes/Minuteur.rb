@@ -1,6 +1,5 @@
 
-require 'thread'
-require 'gtk3'
+require "Classes/Interface/Label.rb"
 
 class Minuteur
 
@@ -11,28 +10,19 @@ class Minuteur
 	#initialise le minuteur avec un temps (0 ou temps sauvegardé)
 	def initialize(temps)
 		@minuteur=temps
-		@malus=0
-		@label= Gtk::Label.new(to_s)
+		@label= Label.new(to_s, "EF2929", "40")
 		@pause =false
 
 	end
 
-	#permet de changer la valeur du malus de temps générer à cause de l'aide
-	def setMalus(monMalus)
-		@malus+=monMalus
-	end
 
-	#permet de remettre le malus de temps à 0
-	def malustozero()
-		@malus=0
-	end
 
 	#permet de changer la variable stop afin de stopper le minuteur
 	def setStop()
 		@thread.kill
 		return to_s
 	end
-	
+
 	def toggle
 		@pause = !@pause
 		if @thread.status =='sleep'
@@ -40,11 +30,11 @@ class Minuteur
 		end
 	end
 
-	#check si le timer tourne 
+	#check si le timer tourne
 	def running
 	 	 @pause
 	 end
-  
+
 	def to_s
 			heures = @minuteur/3600
 			minutes = (@minuteur - (heures*3600)) / 60
@@ -60,8 +50,8 @@ class Minuteur
 
 	def setLabel
 
-			@label.set_markup("<b> #{to_s unless @minuteur==0}</b>")
-			
+			@label.set_markup("<span foreground=\"#EF2929\" font-desc=\"Copperplate 40\"> #{to_s unless @minuteur==0}</span>")
+
 	end
 
 	#lance le minuteur
@@ -69,65 +59,30 @@ class Minuteur
 
 		@thread = Thread.new{
 							while true do
-				
+
 								sleep(1)
 								@minuteur+=1
 								setLabel
-								
+
 							end
-							
+
 							}
 
-		t2 = Thread.new{
-			loop{
-				print(" entrez un malus");
-				malusTemps=gets;
-				setMalus(malusTemps.to_i);
-				@minuteur+=@malus;
-				malustozero()
-				print("le minuteur doit il s'arreter ? ");
-				arreter=gets;
-				if(arreter.to_i == 1)then
-					setStop
-					t2.kill
-				end
-			}
-		}
 
 
-		
+
 		#@thread.priority=5;
 		#t2.priority=30;
 
 
-		
-		
+
+
 		return @minuteur
+	end
+
+	def ajout(n)
+		@minuteur+=n
 	end
 
 
 end
-
-
-Gtk.init
-
-window = Gtk::Window.new
-
-m=Minuteur.new(0)
-
-
-window.add(m.label)
-
-
-
-
-#affiche la fenetre
-
-
-
-m.start()
-
-
-window.show_all
-
-Gtk.main

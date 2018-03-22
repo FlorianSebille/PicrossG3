@@ -9,6 +9,8 @@
 
 require "Classes/case.rb"
 require "Classes/aide.rb"
+require "Classes/Minuteur.rb"
+
 class Grille
 
   attr_accessor:taille
@@ -202,11 +204,13 @@ class Grille
     #tab.delete_at(0)
     return tab
   end #end of tabIndicesColones
+
    def jeuTermine(grillef)
      for i in (0..@taille)
        for j in (0..@taille)
-         if @grille[i][j].etat != grillef.grille[i][j].etat
-              return false
+
+         if @grille[i][j].etat.eql?(0) && !grillef.grille[i][j].etat.eql?(0) then
+            return false
          end
        end
      end
@@ -255,6 +259,10 @@ class Grillei
     aide3=Gtk::Button.new(:label => "rejouer", :use_underline => nil, :stock_id => nil)
     aide4=Gtk::Button.new(:label => "colonneEvidente", :use_underline => nil, :stock_id => nil)
 
+    $drawing_area = Gtk::DrawingArea.new
+
+    $drawing_area.set_size_request(120,120)
+
 		aide.set_property("width-request", 5)
 		aide.set_property("height-request", 5)
 		aide2.set_property("width-request", 5)
@@ -271,70 +279,131 @@ class Grillei
     vbox.pack_start(aide3, :expand => false, :fill => false, :padding =>2)
     vbox.pack_start(aide1, :expand => false, :fill => false, :padding =>2)
     vbox.pack_start(aide4, :expand => false, :fill => false, :padding =>2)
-
+    #vbox.pack_start($drawing_area, :expand => false, :fill => false, :padding =>2)
 
     @msg=""
     @info=Gtk::Label.new("#{@msg}")
+    @time=Gtk::Label.new("00:00")
+
+
+    $m=Minuteur.new(0)
+
+    @grille.hautPage.remove(@grille.label)
+    @grille.hautPage.add($m.label, :expand => true, :fill => false)
+    #@grille.hautPage.pack_end($drawing_area, :expand => true, :fill => true)
+    #@grille.hautPage.add(@info, :expand => false, :fill => false)
+    #vbox.pack_start($m.label, :expand => false, :fill => false, :padding =>2)
+
+
+    $m.start
+
+
+
+
     vbox.add(@info)
     @info.set_text(@msg)
 
 
 
-		hbox.add(@frame)
+    hbox.add(@frame)
 
+
+    $drawing_area.signal_connect("draw") do |widget, cr|
+      cyan = Cairo::Color.parse("white")
+      w = widget.allocated_width
+      h = widget.allocated_height
+      cr.set_source_rgb(cyan.red, cyan.green, cyan.blue)
+
+      l=h/@l
+      px=0
+      py=0
+      (0..@l-1).each do |i|
+        (0..@l-1).each do |j|
+            if $grillejoueur.grille[i][j].etat==0
+              cr.set_source_rgb(1.0, 0, 0)
+            else
+              cr.set_source_rgb(0, 1.0, 0)
+            end
+            cr.rectangle(px,py,l,l)
+            cr.fill
+            px=px+l
+        end
+        px=0
+        py=py+l
+      end
+    end
+
+    #nb erreur
 		aide.signal_connect('clicked') {
 			@msg=Aide.nombreErreurs(jeu,$grillefinal)
       @info.set_text("nb erreur:#{@msg}")
+      $m.ajout(10)
 		}
+
+    #hazard
 		aide2.signal_connect('clicked') {
       if jeu.jeuTermine($grillefinal)==false
-			res=Aide.remplirCaseHasard(jeu,$grillefinal)
-			active(res[0],res[1])
+			 res=Aide.remplirCaseHasard(jeu,$grillefinal)
+			 active(res[0],res[1])
       else
         puts "jeu terminer"
       end
+      $m.ajout(10)
 			#jeu.afficheToi()
 		}
+
+    #rejouer
     aide3.signal_connect('clicked') {
 
       #jeu.rejouer()
       for i in (0..jeu.taille)
         for j in (0..jeu.taille)
-          if jeu.grille[i][j].etat == 1
-      			active(i,j)
-          elsif jeu.grille[i][j].etat == 2
-            active(i,j)
-            active(i,j)
-          end
+            if @list_but[convert(i,j)].rtActive!=1
+      			   activeE(i,j,1)
+            end
         end
       end
 
-      @d=Aide.ligneEvidente($grillefinal)
-      @e=Aide.coloneEvidente($grillefinal)
+
+      @d=Aide.grilleAide($grillejoueur,$grillefinal,1)
+      @e=Aide.grilleAide($grillejoueur,$grillefinal,2)
 		}
+
+    #ligne evidente
     aide1.signal_connect('clicked') {
 
 
       if @d[0] !=nil
-
-        @msg= @d.delete_at(0)
-        @info.set_text("la ligne:#{@msg}")
-      else
-        @msg="plus de ligne evidente"
-        @info.set_text("#{@msg}")
+          indice=@d.delete_at(0)
+          @info.set_text("modifie sur ligne :#{indice+1}")
+          tab=Aide.resoudreLigne(indice,$grillejoueur,$grillefinal,1)
+          indc=0
+          tab.each do |i|
+              if i==1
+                 @list_but[convert(indice,indc)].activeE(2)
+              end
+              indc+=1
+          end
       end
+      $m.ajout(10)
 
     }
+
+    #colone evidente
     aide4.signal_connect('clicked') {
-      if @e[0] !=nil
-
-        @msg= @e.delete_at(0)
-        @info.set_text("la colonne :#{@msg}")
-      else
-        @msg="plus de colone evidente"
-        @info.set_text("#{@msg}")
+       if @e[0] !=nil
+          indice=@e.delete_at(0)
+          @info.set_text("modifie sur colone :#{indice}")
+          tab=Aide.resoudreLigne(indice,$grillejoueur,$grillefinal,2)
+          indc=0
+          tab.each do |i|
+              if i==1
+                 @list_but[convert(indc,indice)].activeE(2)
+              end
+              indc+=1
+          end
       end
-
+      $m.ajout(10)
 		}
 
 		#list_c=$grillefinal.indiceColone(0)
@@ -395,10 +464,20 @@ class Grillei
 		@list_but=[]
 		(1..@c).each do |j|
 			(1..@l).each do |i|
-				@list_but.push(Button.new(j,i,ind,@frame,jeu, self))
+				@list_but.push(Button.new(j,i,ind,@frame,jeu, self, @grille))
 				ind+=1
 			end
 		end
+
+    paddinghor=Gtk::Box.new(:horizontal,10)
+    paddingvert=Gtk::Box.new(:vertical,10)
+    (0..3).each do
+      paddingvert.pack_start (Gtk::Label.new(" "))
+      paddinghor.pack_start (Gtk::Label.new(" "))
+    end
+    paddinghor.pack_start (Gtk::Label.new(" "))
+    @frame.attach(paddingvert,49,50,49,50)
+    @frame.attach(paddinghor,49,50,49,50)
 
 	end
 
@@ -426,8 +505,12 @@ class Grillei
 		@list_but[l*@c+c].active(1)
 	end
 
-	def actInit(l,c)
-		@list_but[l*@c+c].actInit
+  def activeE(l,c,etat)
+    @list_but[l*@c+c].activeE(etat)
+  end
+
+	def actInit(l,c,etat)
+		@list_but[l*@c+c].actInit(etat)
 	end
 
 	def frame
@@ -475,7 +558,7 @@ class Button
 
 	attr_accessor :jeu
 
-  def initialize(ligne,col,nb,frame,jeu,interjeu)
+  def initialize(ligne,col,nb,frame,jeu,interjeu, fenetre)
 		@ligne=ligne-1
 		@col=col-1
 		@nb=nb
@@ -489,22 +572,16 @@ class Button
     @img_croix = 'Images/case_croix_10.png'
     @inter=interjeu
     @button=Gtk::EventBox.new().add(@img)
+    @fenetre = fenetre
 		#@button=Gtk::Button.new(:label => nil, :use_underline => nil, :stock_id => nil)
-		#@jeu=jeu
 		frame.attach(@button,@col+1,@col+2,@ligne+1,@ligne+2)
 
 
+		#@button.set_size_request(10,10)
 
-		#@button.style_context.add_provider(@white, Gtk::StyleProvider::PRIORITY_USER)
-		#@button.set_relief(Gtk::RELIEF_NONE)
-		@button.set_size_request(10,10)
-		#@button.set_focus_on_click(false)
 		@button.signal_connect('button-press-event') {|s,x|
 			active(x.button)
 		}
-		#@button.signal_connect('enter') {
-			#active
-		#}
 
     @button.signal_connect('enter-notify-event') {
         enter
@@ -530,6 +607,24 @@ class Button
 
   def hoverout
 
+  end
+
+  def activeE(etat)
+     if etat==1 then
+        @img.set_from_file (@img_blanc)
+        @active=1
+      elsif etat==2
+        @img.set_from_file (@img_noir)
+        @active=2
+      elsif etat==3
+        @img.set_from_file (@img_croix)
+        @active=3
+      end
+      @jeu.grille[@ligne][@col].changerEtat(@active-1)
+      @jeu.grilleTofich
+
+      $drawing_area.queue_draw()
+      puts "button #{@nb}:(#{@col},#{@ligne}) active par modifier etat"
   end
 
   def active(button)
@@ -562,27 +657,44 @@ class Button
 
 
 
-		  @jeu.grille[@ligne][@col].changerEtat(@active-1)
-      @jeu.grilleToSave
-
-		puts "button #{@nb}:(#{@col},#{@ligne}) active"
-	end
-
-  def actInit
-		if @active==1 then
-			@img.set_from_file (@img_noir)
-      @active=2
-		elsif @active==2
-			@img.set_from_file (@img_croix)
-      @active=3
-    else
-      @img.set_from_file (@img_blanc)
-      @active=1
-		end
+    @jeu.grille[@ligne][@col].changerEtat(@active-1)
+    @jeu.grilleTofich
+    $drawing_area.queue_draw()
 
 		puts "button #{@nb}:(#{@col},#{@ligne}) active"
 
+    ##
+    # Fin de la partie
+    if @jeu.jeuTermine($grillefinal)==true then
+      sleep(3)
+      @fenetre.supprimeMoi
+      @fenetre.enciennePage.ajouteMoi
+
+      $joueur.partieFini($m.label.text.to_i)
+
+    end
+
 	end
+
+  def actInit(etat)
+		 if etat==1 then
+        @img.set_from_file (@img_blanc)
+        @active=1
+      elsif etat==2
+        @img.set_from_file (@img_noir)
+        @active=2
+      elsif etat==3
+        @img.set_from_file (@img_croix)
+        @active=3
+      end
+    $drawing_area.queue_draw()
+		puts "button #{@nb}:(#{@col},#{@ligne}) active par init"
+
+	end
+
+  def rtActive
+    return @active
+  end
 
 
 end
