@@ -71,6 +71,10 @@ class Minuteur
 		return @minuteur
 	end
 
+	def raz
+		@minuteur = 0
+	end
+
 	def ajout(n)
 		@minuteur+=n
 	end

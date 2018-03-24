@@ -354,6 +354,20 @@ class Grillei
         puts "jeu terminer"
       end
       $m.ajout(10)
+
+      ##
+      # Fin de la partie
+      if jeu.jeuTermine($grillefinal)==true then
+
+        $joueur.partieFini($m.minuteur, jeu.fich)
+
+        sleep(3)
+
+        @grille.supprimeMoi
+        @grille.enciennePage.ajouteMoi
+        #Monde_Page.new(indice, monApp, header, self)
+
+      end
 			#jeu.afficheToi()
 		}
 
@@ -369,6 +383,7 @@ class Grillei
         end
       end
 
+      $m.raz
 
       @d=Aide.grilleAide($grillejoueur,$grillefinal,1)
       @e=Aide.grilleAide($grillejoueur,$grillefinal,2)
