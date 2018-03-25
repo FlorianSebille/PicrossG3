@@ -35,4 +35,10 @@ class ModeAventure_Page < Page
 
   end
 
+  def ajouteMoi
+    page = ModeAventure_Page.new(@window, @header, @enciennePage)
+    @window << page
+    @window.show_all
+  end
+
 end

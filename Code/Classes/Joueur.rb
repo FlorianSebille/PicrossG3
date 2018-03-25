@@ -130,13 +130,21 @@ class Joueur
 
     score = intScore
 
+    if(key.include?("-5")) then
+      $joueur.avanceAventure[0] += 1
+      $joueur.avanceAventure[1] = 3
+    end
+
     if $joueur.mode.eql?(2) then
       @grillesCompetition[key].first.ajouteScore(score)
       @grillesCompetition[key][1] = 0
     elsif $joueur.mode.eql?(3) then
       @grillesAventure[key].at(1).ajouteScore(score)
       @grillesAventure[key][2] = 0
+
     end
+
+    data = $sv.sauver($joueur)
   end
 
 

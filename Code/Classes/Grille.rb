@@ -221,6 +221,15 @@ class Grille
      end
      return true
    end
+
+   def raz
+     for i in (0..@taille)
+       for j in (0..@taille)
+         @grille[i][j].etat = 0
+       end
+     end
+   end
+
 end #end of the class Grille
 
 
@@ -686,9 +695,8 @@ class Button
     ##
     # Fin de la partie
     if @jeu.jeuTermine($grillefinal)==true then
-
       $joueur.partieFini($m.minuteur, @jeu.fich)
-
+      @jeu.raz
       sleep(3)
 
       @fenetre.supprimeMoi
