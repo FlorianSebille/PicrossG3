@@ -126,20 +126,25 @@ class Joueur
     return @grillesAventure[key]
   end
 
-  def partieFini(intScore, key)
-
-    score = intScore
+  def partieFini(temp, taille, key)
 
     if(key.include?("-5")) then
       $joueur.avanceAventure[0] += 1
       $joueur.avanceAventure[1] = 3
+      p $joueur.avanceAventure
     end
 
     if $joueur.mode.eql?(2) then
-      @grillesCompetition[key].first.ajouteScore(score)
+      @grillesCompetition[key].first.ajouteScore(temp, 1,((taille+1)*(taille+1)))
       @grillesCompetition[key][1] = 0
     elsif $joueur.mode.eql?(3) then
-      @grillesAventure[key].at(1).ajouteScore(score)
+
+      if(@grillesAventure[key].first.include?("facile")) then
+        @grillesAventure[key].at(1).ajouteScore(temp, 1, ((taille+1)*(taille+1)) )
+      elsif(@grillesAventure[key].first.include?("normal")) then
+        @grillesAventure[key].at(1).ajouteScore(temp, 2, ((taille+1)*(taille+1)) )
+      else @grillesAventure[key].at(1).ajouteScore(temp, 3, ((taille+1)*(taille+1)) ) end
+
       @grillesAventure[key][2] = 0
 
     end

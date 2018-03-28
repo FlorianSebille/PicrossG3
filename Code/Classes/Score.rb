@@ -8,28 +8,27 @@ class Score
     @sommeTotal = 0
   end
 
-  def ajouteScore(unScore)
+  def ajouteScore(temps, difficulter, nbCases)
     @tentative = @tentative + 1
-    @sommeTotal = @sommeTotal + unScore
+    @sommeTotal = @sommeTotal + calculerScore(temps, difficulter, nbCases)
     @score = @sommeTotal / @tentative
   end
 
   def getScore
     return @score
   end
-end
 
+  def max(a , b)
+    if(a >= b) then
+      return a
+    else return b end
+  end
 
-
-#  cette classe permet de determiner le score d'un utilisateur en fonction de la taille de la grille et du timer( exprimer en seconde )
-# exemple d'utiliation de la classe
-# p Score.calculerScore(15, 900) affiche 16
-
-class CalculerScore
-	# une methode de classe
-	# prend en paramètre taille de la grille et le nombre de seconde fournit par le timer
-	# retourne un entier
-	def CalculerScore.calculerScore(taille, timer)
-		return (1000*taille) / timer
+  def calculerScore(temps, difficulter, nbCases)
+    p temps
+    p temps * (difficulter * difficulter)
+    teste = max( temps * (difficulter * difficulter) / 10, (difficulter * difficulter) )
+    p teste
+    return teste
 	end
-end # Marqueur de fin de classe CalculerScore
+end

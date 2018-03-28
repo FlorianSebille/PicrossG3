@@ -47,6 +47,10 @@ if ARGV.size.eql?(0) then
   # Titre de la fenêtre
 	header = Header.new(monApp)
 
+  ##
+  # crée le dossier de Sauvegarde
+  #Dir.mkdir 'Sauvegarde'
+
   $joueur = nil
   $sv = MethodSauvegard.new
   ######DEBUT#########

@@ -368,7 +368,7 @@ class Grillei
       # Fin de la partie
       if jeu.jeuTermine($grillefinal)==true then
 
-        $joueur.partieFini($m.minuteur, jeu.fich)
+        $joueur.partieFini($m.minuteur,jeu.taille, jeu.fich)
 
         sleep(3)
 
@@ -695,7 +695,7 @@ class Button
     ##
     # Fin de la partie
     if @jeu.jeuTermine($grillefinal)==true then
-      $joueur.partieFini($m.minuteur, @jeu.fich)
+      $joueur.partieFini($m.minuteur,@jeu.taille ,@jeu.fich)
       @jeu.raz
       sleep(3)
 
