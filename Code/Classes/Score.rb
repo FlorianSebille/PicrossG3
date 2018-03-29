@@ -8,9 +8,15 @@ class Score
     @sommeTotal = 0
   end
 
-  def ajouteScore(temps, difficulter, nbCases)
+  def ajouteScore(temps)
     @tentative = @tentative + 1
-    @sommeTotal = @sommeTotal + calculerScore(temps, difficulter, nbCases)
+    @sommeTotal = @sommeTotal + temp
+    @score = @sommeTotal / @tentative
+  end
+
+  def changeScore(temp)
+    @tentative = 1
+    @sommeTotal = temp
     @score = @sommeTotal / @tentative
   end
 
@@ -18,17 +24,4 @@ class Score
     return @score
   end
 
-  def max(a , b)
-    if(a >= b) then
-      return a
-    else return b end
-  end
-
-  def calculerScore(temps, difficulter, nbCases)
-    p temps
-    p temps * (difficulter * difficulter)
-    teste = max( temps * (difficulter * difficulter) / 10, (difficulter * difficulter) )
-    p teste
-    return teste
-	end
 end

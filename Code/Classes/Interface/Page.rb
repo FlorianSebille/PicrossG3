@@ -3,7 +3,7 @@ require "Classes/Interface/Label.rb"
 
 class Page < Gtk::Box
 
-  attr_reader :hautPage, :btnRetour, :btnHome, :enciennePage, :hautPage, :label
+  attr_reader :hautPage, :btnRetour, :btnHome, :btnCompte, :enciennePage, :hautPage, :label
 
   def initialize(unTitre, monApp, sens, unHeader, enciennePage)
 
@@ -42,7 +42,7 @@ class Page < Gtk::Box
 
     @header.btnCompte.signal_connect('clicked') {
       if (!$joueur.eql?(nil)) then
-        #self.supprimeMoi
+        self.supprimeMoi
         Compte_Page.new(monApp, unHeader, nil).ajouteMoi
         @window.show_all
       end

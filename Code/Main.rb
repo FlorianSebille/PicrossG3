@@ -15,6 +15,7 @@ $LOAD_PATH.unshift File.dirname(__FILE__)
 
 require "Classes/Interface/Header.rb"
 require "Classes/Interface/Pages/ConnexionOuCreation_Page.rb"
+require "Classes/Interface/Pages/Compte_Page.rb"
 require "Classes/MethodSauvegard.rb"
 
 def onDestroy

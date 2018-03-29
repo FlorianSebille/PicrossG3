@@ -135,21 +135,20 @@ class Joueur
     end
 
     if $joueur.mode.eql?(2) then
-      @grillesCompetition[key].first.ajouteScore(temp, 1,((taille+1)*(taille+1)))
+      @grillesCompetition[key].first.ajouteScore(temp)
       @grillesCompetition[key][1] = 0
     elsif $joueur.mode.eql?(3) then
 
-      if(@grillesAventure[key].first.include?("facile")) then
-        @grillesAventure[key].at(1).ajouteScore(temp, 1, ((taille+1)*(taille+1)) )
-      elsif(@grillesAventure[key].first.include?("normal")) then
-        @grillesAventure[key].at(1).ajouteScore(temp, 2, ((taille+1)*(taille+1)) )
-      else @grillesAventure[key].at(1).ajouteScore(temp, 3, ((taille+1)*(taille+1)) ) end
-
+      @grillesAventure[key].at(1).changeScore(temp)
       @grillesAventure[key][2] = 0
 
     end
 
     data = $sv.sauver($joueur)
+  end
+
+  def donneNombreEtoile(temp, difficulte, taille)
+    return 2
   end
 
 

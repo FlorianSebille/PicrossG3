@@ -28,28 +28,24 @@ class BoxButtonPartie < BoxButton
 
     @boxEtoile = Gtk::Box.new(:horizontal)
 
-    @nbEtoile = 0
+
 
     if($joueur.mode == 2) then
 
-    score = $joueur.grillesCompetition(monde, partie).at(1).getScore
+    @nbEtoile = $joueur.donneNombreEtoile($joueur.grillesCompetition(monde, partie).at(1).getScore, monde, partie)
 
     elsif ($joueur.mode == 3) then
+      @nbEtoile = $joueur.donneNombreEtoile($joueur.grilleAventure(monde, partie).at(1).getScore, monde, partie)
 
-      score = $joueur.grilleAventure(monde, partie).at(1).getScore
-
-      if score >= 10 && score < 20 then
+      if @nbEtoile.eql?(1) then
         @boxEtoile.add(@etoile1, :expand => true, :fill => true)
-        @nbEtoile = 1
-      elsif score >= 20 && score < 30 then
+      elsif @nbEtoile.eql?(2) then
         @boxEtoile.add(@etoile1, :expand => true, :fill => true)
         @boxEtoile.add(@etoile2, :expand => true, :fill => true)
-        @nbEtoile = 2
-      elsif score >= 30 then
+      elsif @nbEtoile.eql?(3) then
         @boxEtoile.add(@etoile1, :expand => true, :fill => true)
         @boxEtoile.add(@etoile2, :expand => true, :fill => true)
         @boxEtoile.add(@etoile3, :expand => true, :fill => true)
-        @nbEtoile = 3
       end
 
       self.add(@boxtest)

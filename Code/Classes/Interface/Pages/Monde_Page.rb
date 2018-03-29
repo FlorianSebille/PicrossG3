@@ -25,7 +25,6 @@ class Monde_Page < Page
       elsif(@nbEtoile >= 6 && unIndice == $joueur.avanceAventure[0]) then
         $joueur.avanceAventure[1] = 4
       end
-      p $joueur.avanceAventure
       if unIndice >= $joueur.avanceAventure.first && monde > $joueur.avanceAventure.last then
         partie = BoxButtonPartie.new(unIndice,monde,@nbEtoile, true)
       else
