@@ -8,7 +8,7 @@ class ConnexionOuCreation_Page < Page
   def initialize(monApp, header, enciennePage)
     ##
     # Creation de la Gtk::Box
-    super("Identification",monApp, :vertical, header, enciennePage)
+    super("Identification",monApp, :vertical, header, enciennePage,"E90008")
 
     @bouttons = Gtk::ButtonBox.new(:horizontal)
     @bouttons.layout = :spread

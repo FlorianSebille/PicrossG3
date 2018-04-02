@@ -6,7 +6,7 @@ require "Classes/Interface/ButtonImage.rb"
 
 class Header < Gtk::HeaderBar
 
-  attr_reader :btnRetour, :btnHome, :btnCompte
+  attr_reader :btnRetour, :btnHome, :btnCompte , :pseudo
 
   def initialize(monApp)
     super()
@@ -30,8 +30,16 @@ class Header < Gtk::HeaderBar
   end
 
   def ajoutepseudo(sonPseudo)
-    pseudo = Label.new(sonPseudo, "000000","10")
+    @pseudo = Label.new(sonPseudo, "000000","10")
 
-    @boxButtons.add(pseudo)
+    @boxButtons.add(@pseudo)
   end
+  
+  def retournepseudo()
+  
+	psd= @pseudo.text
+	return psd
+  
+  end
+  
 end

@@ -9,9 +9,9 @@ require "Classes/Didact.rb"
 
 class Menu_Page < Page
 
-  def initialize(monApp, header, enciennePage)
+  def initialize(monApp, header, enciennePage,couleur)
 
-    super("Menu",monApp, :vertical, header, enciennePage)
+    super("Menu",monApp, :vertical, header, enciennePage,couleur)
     self.spacing = 10
 
     @bouttons = Gtk::ButtonBox.new(:vertical)
@@ -32,7 +32,7 @@ class Menu_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      choixMode = Mode_Page.new(@window, @header, self)
+      choixMode = Mode_Page.new(@window, @header, self,couleur)
       choixMode.ajouteMoi
       @window.show_all
     }
@@ -41,7 +41,7 @@ class Menu_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = LeaderBoard_Page.new(@window, @header, self)
+      mode = LeaderBoard_Page.new(@window, @header, self,couleur)
       mode.ajouteMoi
       @window.show_all
     }
@@ -58,7 +58,7 @@ class Menu_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeEntrainement_Page.new(@window, @header, self)
+      mode = ModeEntrainement_Page.new(@window, @header, self,couleur)
       mode.ajouteMoi
       @window.show_all
     }

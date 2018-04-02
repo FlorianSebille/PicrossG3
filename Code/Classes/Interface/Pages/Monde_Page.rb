@@ -5,11 +5,11 @@ require "Classes/Interface/BoxButtonPartie.rb"
 
 class Monde_Page < Page
 
-  def initialize(unIndice, monApp, header, enciennePage)
+  def initialize(unIndice, monApp, header, enciennePage,couleur)
 
     ##
     # Creation de la Gtk::Box
-    super(("Monde n°"+ unIndice.to_s),monApp, :vertical, header, enciennePage)
+    super(("Monde n°"+ unIndice.to_s),monApp, :vertical, header, enciennePage,couleur)
 
     @indice = unIndice
 
@@ -45,7 +45,7 @@ class Monde_Page < Page
   end
 
   def ajouteMoi
-    page = Monde_Page.new(@indice, @window, @header, @enciennePage)
+    page = Monde_Page.new(@indice, @window, @header, @enciennePage, couleur)
     @window << page
     @window.show_all
   end
