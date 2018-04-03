@@ -5,11 +5,11 @@ require "Classes/Interface/BoxButton.rb"
 
 class ModeEntrainement_Page < Page
 
-  def initialize(monApp, header, enciennePage)
+  def initialize(monApp, header, enciennePage,couleur)
 
     ##
     # Creation de la Gtk::Box
-    super("Mode Entrainement",monApp, :vertical, header, enciennePage)
+    super("Mode Entrainement",monApp, :vertical, header, enciennePage,couleur)
 
 
     self.spacing = 30

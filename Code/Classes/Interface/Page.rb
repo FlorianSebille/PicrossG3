@@ -3,17 +3,17 @@ require "Classes/Interface/Label.rb"
 
 class Page < Gtk::Box
 
-  attr_reader :hautPage, :btnRetour, :btnHome, :btnCompte, :enciennePage, :window, :label
+  attr_reader :hautPage, :btnRetour, :btnHome, :btnCompte, :enciennePage, :hautPage, :label , :couleur
 
-  def initialize(unTitre, monApp, sens, unHeader, enciennePage)
+  def initialize(unTitre, monApp, sens, unHeader, enciennePage, couleur)
 
     ##
     # Creation de la Gtk::Box
     super(sens)
-
+	@couleur = couleur
     @hautPage = Gtk::Box.new(:horizontal)
 
-    @label = Label.new(unTitre, "EF2929", "40")
+    @label = Label.new(unTitre, @couleur, "40")
     @hautPage.add(@label, :expand => true, :fill => true)
 
     self.pack_start(@hautPage, :expand => false, :fill => true)
@@ -43,7 +43,7 @@ class Page < Gtk::Box
     @header.btnCompte.signal_connect('clicked') {
       if (!$joueur.eql?(nil)) then
         self.supprimeMoi
-        Compte_Page.new(monApp, unHeader, nil).ajouteMoi
+        Compte_Page.new(monApp, unHeader, nil,@couleur).ajouteMoi
         @window.show_all
       end
     }

@@ -1,0 +1,68 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    atk (3.2.2-x64-mingw32)
+      glib2 (= 3.2.2)
+    cairo (1.15.12-x64-mingw32)
+      native-package-installer (>= 1.0.3)
+      pkg-config (>= 1.2.2)
+    cairo-gobject (3.2.2-x64-mingw32)
+      cairo
+      glib2 (= 3.2.2)
+    digest (0.0.1)
+    gdk3 (3.2.2-x64-mingw32)
+      cairo-gobject (= 3.2.2)
+      gdk_pixbuf2 (= 3.2.2)
+      gobject-introspection (= 3.2.2)
+      pango (= 3.2.2)
+    gdk_pixbuf2 (3.2.2-x64-mingw32)
+      gio2 (= 3.2.2)
+    gio2 (3.2.2-x64-mingw32)
+      glib2 (= 3.2.2)
+      gobject-introspection (= 3.2.2)
+    glib2 (3.2.2-x64-mingw32)
+      cairo (>= 1.15.9)
+      native-package-installer (>= 1.0.3)
+      pkg-config (>= 1.2.2)
+    gobject-introspection (3.2.2-x64-mingw32)
+      glib2 (= 3.2.2)
+    gtk3 (3.2.2-x64-mingw32)
+      atk (= 3.2.2)
+      gdk3 (= 3.2.2)
+      gdk_pixbuf2 (= 3.2.2)
+      gio2 (= 3.2.2)
+      glib2 (= 3.2.2)
+      gobject-introspection (= 3.2.2)
+      pango (= 3.2.2)
+      rsvg2 (= 3.2.2)
+    inch (0.0.1)
+    minitest (5.11.3)
+    native-package-installer (1.0.6)
+    pango (3.2.2-x64-mingw32)
+      cairo (>= 1.14.0)
+      cairo-gobject (= 3.2.2)
+      gobject-introspection (= 3.2.2)
+    pkg-config (1.2.9)
+    rake (12.3.1)
+    rsvg2 (3.2.2-x64-mingw32)
+      cairo (>= 1.12.8)
+      cairo-gobject (= 3.2.2)
+      gdk_pixbuf2 (= 3.2.2)
+      pango (>= 3.2.2)
+    thread (0.2.2)
+    yard (0.9.12)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  digest!
+  gtk3 (>= 3.2.1)!
+  inch!
+  minitest (>= 5.11.3)!
+  rake (>= 12.3.0)!
+  thread (>= 0.2.2)!
+  yard (>= 0.9.11)!
+
+BUNDLED WITH
+   1.16.1

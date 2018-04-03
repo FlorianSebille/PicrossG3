@@ -4,11 +4,11 @@ require "Classes/Interface/BoxButton.rb"
 require "Classes/Interface/Pages/Monde_Page.rb"
 class ModeAventure_Page < Page
 
-  def initialize(monApp, header, enciennePage)
+  def initialize(monApp, header, enciennePage,couleur)
 
     ##
     # Creation de la Gtk::Box
-    super("Aventure",monApp, :vertical, header, enciennePage)
+    super("Aventure",monApp, :vertical, header, enciennePage,couleur)
 
     mondes = Gtk::ButtonBox.new(:horizontal)
     mondes.layout = :spread
@@ -21,7 +21,7 @@ class ModeAventure_Page < Page
 
         monde.btn.signal_connect('clicked') {
           self.supprimeMoi
-          monde = Monde_Page.new(indice, monApp, header, self)
+          monde = Monde_Page.new(indice, monApp, header, self,couleur)
           monde.ajouteMoi
           @window.show_all
         }
@@ -36,7 +36,7 @@ class ModeAventure_Page < Page
   end
 
   def ajouteMoi
-    page = ModeAventure_Page.new(@window, @header, @enciennePage)
+    page = ModeAventure_Page.new(@window, @header, @enciennePage,couleur)
     @window << page
     @window.show_all
   end

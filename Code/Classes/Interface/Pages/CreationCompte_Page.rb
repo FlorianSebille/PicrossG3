@@ -8,7 +8,7 @@ class CreationCompte_Page < Page
 
   def initialize(monApp, header, enciennePage)
 
-    super("Creation Compte",monApp, :vertical, header, enciennePage)
+    super("Creation Compte",monApp, :vertical, header, enciennePage,"E90008")
 
     aujourdhui = Time.new
     table = Gtk::Table.new(6, 2)
