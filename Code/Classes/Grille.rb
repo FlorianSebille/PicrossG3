@@ -135,14 +135,14 @@ class Grille
     return tab
 
   end
-  def indiceLigne(i)
+  def indiceLigne(i,bool)
       tab=grCaseToGrille()
       tab1=[]
       c=0
       j=0
       tab[i].each do
       	while j<=@taille
-      		if tab[i][j] == 0
+      		if tab[i][j] == 0||(bool&&tab[i][j] == 2)
       			j +=1
       		else
       			while tab[i][j] == 1
@@ -167,7 +167,8 @@ class Grille
       tab.delete_at(0)
     	return tab
     end #end of tabIndicesLignes
-    def indiceColone(i)
+
+    def indiceColone(i,bool)
       tab= grCaseToGrille()
       tab1=[]
       tab2=[]
@@ -179,7 +180,7 @@ class Grille
       tab1.compact!
 
       while j<=@taille
-        if tab1[j] == 0
+        if tab1[j] == 0||(bool&&tab1[j] == 2)
           j +=1
         else
           while tab1[j] == 1
@@ -193,6 +194,8 @@ class Grille
       return tab2
 
     end #end of indiceColone
+
+
   def rejouer()
     for i in (0..@taille)
       for j in (0..@taille)
@@ -201,6 +204,8 @@ class Grille
     end
     grilleToSave(0)
   end # fin de rejouer
+
+
   def tabIndicesColones()
     tab=[]
     for i in (0..@taille)
@@ -400,39 +405,86 @@ class Grillei
 
     #ligne evidente
     aide1.signal_connect('clicked') {
-
-
-      if @d[0] !=nil
-          indice=@d.delete_at(0)
-          @info.set_text("modifie sur ligne :#{indice+1}")
-          tab=Aide.resoudreLigne(indice,$grillejoueur,$grillefinal,1)
-          indc=0
-          tab.each do |i|
-              if i==1
-                 @list_but[convert(indice,indc)].activeE(2)
+      tabj=[]
+      equal=true
+      while equal do
+        if @d[0] !=nil
+            tabj.clear
+            indice=@d.delete_at(0)
+            tab=Aide.resoudreLigne(indice,$grillejoueur,$grillefinal,1)
+            $grillejoueur.grille[indice].each do |x|
+                tabj.push(x.etat)
+            end
+            (0..tab.size-1).each do |l|
+                if tab[l]==1&&tabj[l]!=1
+                    equal=false
+                end
+            end
+            if(!equal)
+              trouve=true
+              indc=0
+              tab.each do |i|
+                  if i==1
+                     @list_but[convert(indice,indc)].activeE(2)
+                  end
+                  indc+=1
               end
-              indc+=1
-          end
+            end
+        else
+            equal=false
+            trouve=false
+        end
       end
-      $m.ajout(10)
-
+      if trouve
+        @info.set_text("modifie sur ligne :#{indice+1}")
+        $m.ajout(30)
+      else
+        @info.set_text("Pas de ligne evidente")
+      end
     }
 
     #colone evidente
     aide4.signal_connect('clicked') {
-       if @e[0] !=nil
-          indice=@e.delete_at(0)
-          @info.set_text("modifie sur colone :#{indice}")
-          tab=Aide.resoudreLigne(indice,$grillejoueur,$grillefinal,2)
-          indc=0
-          tab.each do |i|
-              if i==1
-                 @list_but[convert(indc,indice)].activeE(2)
+      tabj=[]
+      equal=true
+      while equal do
+        if @e[0] !=nil
+            tabj.clear
+            indice=@e.delete_at(0)
+            tab=Aide.resoudreLigne(indice,$grillejoueur,$grillefinal,2)
+
+            (0..$grillejoueur.taille).each do |x|
+                tabj.push($grillejoueur.grille[x][indice].etat)
+            end
+
+            (0..tab.size-1).each do |l|
+                if tab[l]==1&&tabj[l]!=1
+                    equal=false
+                end
+            end
+
+            if(!equal)
+
+              trouve=true
+              indc=0
+              tab.each do |i|
+                  if i==1
+                     @list_but[convert(indc,indice)].activeE(2)
+                  end
+                  indc+=1
               end
-              indc+=1
-          end
+            end
+        else
+            equal=false
+            trouve=false
+        end
       end
-      $m.ajout(10)
+      if trouve
+        @info.set_text("modifie sur colone :#{indice+1}")
+        $m.ajout(30)
+      else
+        @info.set_text("Pas de colone evidente")
+      end
 		}
 
 		#list_c=$grillefinal.indiceColone(0)
@@ -440,7 +492,8 @@ class Grillei
     #indices pour les colonnes
     bol=false
 		(1..@c).each do |i|
-			list_c=$grillefinal.indiceColone(i-1).reverse
+			list_c=$grillefinal.indiceColone(i-1,false) ##i-1 pour col##
+      list_c=list_c.reverse  ##reverse l_c##
 			nb_c=Gtk::Box.new(:vertical,10)
       @tab_box_c.push(nb_c)
       @tab_label_c[i]=[]
@@ -465,7 +518,8 @@ class Grillei
 
     #indices pour les lignes
 		(1..@l).each do |i|
-			list_l=$grillefinal.indiceLigne(i).reverse
+			list_l=$grillefinal.indiceLigne(i,false)
+      list_l=list_l.reverse
 			nb_c=Gtk::Box.new(:horizontal,10)
       @tab_box_l.push(nb_c)
       @tab_label_l[i]=[]
@@ -511,10 +565,43 @@ class Grillei
 	end
 
 
+  def colorindice(x,y)
 
+    couleur = Gdk::RGBA.new(65535,0, 0)
+    noir = Gdk::RGBA.new(0,0, 0)
+    list_l_f=$grillefinal.indiceLigne(x+1,true).reverse
+    list_l_j=$grillejoueur.indiceLigne(x+1,true).reverse
+    list_c_f=$grillefinal.indiceColone(y,true).reverse
+    list_c_j=$grillejoueur.indiceColone(y,true).reverse
 
+    ind=0
 
+    @tab_label_l[x+1].each do |i|
+        i.override_color(:normal, noir)
+    end
 
+    @tab_label_c[y+1].each do |i|
+        i.override_color(:normal, noir)
+    end
+
+    list_l_j.each do |j|
+       if list_l_f.include?(j)
+          @tab_label_l[x+1][list_l_f.index(j)].override_color(:normal, couleur)
+          list_l_f[list_l_f.index(j)]=-1
+       end
+       ind+=1
+    end
+
+    ind=0
+    list_c_j.each do |j|
+       if list_c_f.include?(j)
+          @tab_label_c[y+1][list_c_f.index(j)].override_color(:normal, couleur)
+          list_c_f[list_c_f.index(j)]=-1
+       end
+       ind+=1
+    end
+
+  end
 
 
 
@@ -552,13 +639,7 @@ class Grillei
       bg=Gdk::RGBA.new(65535, 65535,     0)
       @tab_box_c[c].override_background_color(:normal, bg)
       @tab_box_l[l].override_background_color(:normal, bg)
-      @tab_label_c[c+1].each do |i|
-        i.override_color(:normal, couleur)
-      end
 
-      @tab_label_l[l+1].each do |i|
-        i.override_color(:normal, couleur)
-      end
 
   end
 
@@ -567,14 +648,7 @@ class Grillei
       couleur = Gdk::RGBA.new(0,0 ,0)
       @tab_box_c[c].override_background_color(:normal, nil)
       @tab_box_l[l].override_background_color(:normal, nil)
-      @tab_label_c[c+1].each do |i|
-        i.override_color(:normal, couleur)
-      end
 
-
-      @tab_label_l[l+1].each do |i|
-        i.override_color(:normal, nil)
-      end
 
 
   end
@@ -595,12 +669,14 @@ class Button
 		@frame=frame
 		@jeu=jeu
     @img=Gtk::Image.new(:file=>"Images/case_blanc_10.png")
-    @img_hover
+    @img_hover='Images/case10h.png'
     @img_blanc='Images/case_blanc_10.png'
     @img_noir='Images/case_noir_10.png'
     @img_croix = 'Images/case_croix_10.png'
     @inter=interjeu
+
     @button=Gtk::EventBox.new().add(@img)
+
     @fenetre = fenetre
 		#@button=Gtk::Button.new(:label => nil, :use_underline => nil, :stock_id => nil)
 		frame.attach(@button,@col+1,@col+2,@ligne+1,@ligne+2)
@@ -608,22 +684,32 @@ class Button
 
 		#@button.set_size_request(10,10)
 
-		@button.signal_connect('button-press-event') {|s,x|
-			active(x.button)
+    @button.signal_connect('button-release-event') {|s,x|
+
+      #@release=true
 		}
 
-    @button.signal_connect('enter-notify-event') {
-        enter
-      }
+
+		@button.signal_connect('button-press-event') {|s,x|
+      active(x.button)
+
+		}
+    @button.signal_connect('enter-notify-event') {|s,x|
+      enter
+    }
 
 
     @button.signal_connect('leave-notify-event') {
       leave
     }
+
+
 	end
 
   def enter
-    @inter.enter(@ligne,@col)
+      @inter.enter(@ligne,@col)
+
+
   end
 
   def leave
@@ -654,6 +740,7 @@ class Button
 
       $drawing_area.queue_draw()
       puts "button #{@nb}:(#{@col},#{@ligne}) active par modifier etat"
+      @inter.colorindice(@ligne,@col)
   end
 
   def active(button)
@@ -691,6 +778,7 @@ class Button
     $drawing_area.queue_draw()
 
 		puts "button #{@nb}:(#{@col},#{@ligne}) active"
+    @inter.colorindice(@ligne,@col)
 
     ##
     # Fin de la partie
@@ -719,7 +807,7 @@ class Button
       end
     $drawing_area.queue_draw()
 		puts "button #{@nb}:(#{@col},#{@ligne}) active par init"
-
+    @inter.colorindice(@ligne,@col)
 	end
 
   def rtActive

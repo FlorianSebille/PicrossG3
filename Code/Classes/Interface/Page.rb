@@ -3,7 +3,7 @@ require "Classes/Interface/Label.rb"
 
 class Page < Gtk::Box
 
-  attr_reader :hautPage, :btnRetour, :btnHome, :btnCompte, :enciennePage, :hautPage, :label
+  attr_reader :hautPage, :btnRetour, :btnHome, :btnCompte, :enciennePage, :window, :label
 
   def initialize(unTitre, monApp, sens, unHeader, enciennePage)
 

@@ -6,7 +6,7 @@ class Aide
     c=0
     for i in (0..grillej.taille)
         for j in (0..grillej.taille)
-          if(((grillej.grille[i][j].etat==1) && (grillef.grille[i][j].etat==0)) || ((grillej.grille[i][j].etat==2) && (grillef.grille[i][j].etat==1)) )
+          if((grillej.grille[i][j].etat==1) && (grillef.grille[i][j].etat==0))
             c+=1
           end
         end
@@ -80,7 +80,7 @@ class Aide
         end
         tabLigne.compact!
 
-        tabIndices = grillef.indiceColone(i)
+        tabIndices = grillef.indiceColone(i,false)
       else
         for j in  grillej.grille[i]
             tabLigne.push(j.clone)
@@ -93,14 +93,15 @@ class Aide
         end
 
 
-        tabIndices = grillef.indiceLigne(i+1)
+        tabIndices = grillef.indiceLigne(i+1,false)
       end
 
       tabIndicesD = tabIndices.reverse
       tabLigneD = tabLigne.reverse
 
       placeTab = 0
-
+    #  print tabLigne
+    #  puts
       ################## DEBUT PARCOURS GAUCHE
 
       for i in(0..tabIndices.size-1)
@@ -126,8 +127,9 @@ class Aide
       end
 
       ################## FIN PARCOURS GAUCHE
-    #  puts placeTab
-#print tabLigne
+
+      #print tabLigne
+      #puts
       ################## DEBUT PARCOURS DROITE
 
       placeTab=0
@@ -153,15 +155,16 @@ class Aide
       ################## FIN PARCOURS DROITE
       ### fusion
       tabLigneD = tabLigneD.reverse
-      #print tabLigne
+
       for i in(0..tabLigne.size-1)
         if(tabLigne[i] == tabLigneD[i] && tabLigne[i] <0)
           tabLigne[i] = 1
-
         else
           if(tabLigne[i] <0) then tabLigne[i] = 0 end
         end
       end
+      #print tabLigne
+      #puts
       return tabLigne
     end
 
@@ -170,7 +173,36 @@ class Aide
       #retourne true si l'utilisateur peut être aidé sur la ligne i, false sinon
       def Aide.ligneAide(i,grillej,grillef,type)
         #print grillej.grille
+        ind=0
+        if type==1
+          grillej.grille[i].each do |j|
+              if j.etat==2 && grillef.grille[i][ind].etat==1
+                return false
+              end
+              if j.etat==1 && grillef.grille[i][ind].etat==0
+                return false
+              end
+              ind+=1
+          end
+        else
+          tab=[]
+          grillej.grille.each do |x|
+              tab.push(x[i].etat)
+          end
+
+          tab.each do |j|
+              if j==2 && grillef.grille[ind][i].etat==1
+                return false
+              end
+              if j==1 && grillef.grille[ind][i].etat==0
+                return false
+              end
+              ind+=1
+          end
+        end
         ligneFin = resoudreLigne(i,grillej,grillef,type)
+
+
 
         if type==1
           for i in (0..ligneFin.size-1)
@@ -196,11 +228,19 @@ class Aide
         tab = []
 
         for i in (0..grillef.taille)
-          if ligneAide(i,grillej,grillef,type)  then tab.push(i) end
+           if ligneAide(i,grillej,grillef,type)  then tab.push(i) end
         end
 
         return tab
       end
+
+
+
+
+
+
+
+
 
 
 end

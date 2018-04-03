@@ -137,10 +137,12 @@ class Joueur
     if $joueur.mode.eql?(2) then
       @grillesCompetition[key].first.ajouteScore(temp)
       @grillesCompetition[key][1] = 0
+      @grillesCompetition[key][2] = nil
     elsif $joueur.mode.eql?(3) then
 
       @grillesAventure[key].at(1).changeScore(temp)
       @grillesAventure[key][2] = 0
+      @grillesAventure[key][3] = nil
 
     end
 
