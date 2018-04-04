@@ -9,7 +9,7 @@ class Joueur
   #et un mot de passe pour securiser chaque joueur
 
   attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :couleur, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure, :score
-  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :couleur, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure
+  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :couleur, :grille, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure
 
   private_class_method :new
 
