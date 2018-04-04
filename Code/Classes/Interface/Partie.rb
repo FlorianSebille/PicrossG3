@@ -4,7 +4,7 @@ require "Classes/Interface/Page.rb"
 class Partie < Page
 
   def initialize(monApp, header, fichier, enciennePage)
-    super("",monApp, :vertical, header, enciennePage)
+    super("",monApp, :vertical, header, enciennePage, $joueur.couleur)
 
     cheminDuFichier=(("Grilles/" + fichier.first + ".txt"))
 

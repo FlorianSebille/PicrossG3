@@ -32,7 +32,7 @@ class Menu_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      choixMode = Mode_Page.new(@window, @header, self,couleur)
+      choixMode = Mode_Page.new(@window, @header, self)
       choixMode.ajouteMoi
       @window.show_all
     }
@@ -41,7 +41,7 @@ class Menu_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = LeaderBoard_Page.new(@window, @header, self,couleur)
+      mode = LeaderBoard_Page.new(@window, @header, self)
       mode.ajouteMoi
       @window.show_all
     }
@@ -58,7 +58,7 @@ class Menu_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeEntrainement_Page.new(@window, @header, self,couleur)
+      mode = ModeEntrainement_Page.new(@window, @header, self)
       mode.ajouteMoi
       @window.show_all
     }

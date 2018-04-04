@@ -28,7 +28,7 @@ class Mode_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeEntrainement_Page.new(@window, @header, self,couleur)
+      mode = ModeEntrainement_Page.new(@window, @header, self)
       $joueur.mode = 1
       mode.ajouteMoi
       @window.show_all
@@ -38,7 +38,7 @@ class Mode_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeCompetition_Page.new(@window, @header, self,couleur)
+      mode = ModeCompetition_Page.new(@window, @header, self)
       $joueur.mode = 2
       mode.ajouteMoi
       @window.show_all
@@ -48,7 +48,7 @@ class Mode_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeAventure_Page.new(@window, @header, self,couleur)
+      mode = ModeAventure_Page.new(@window, @header, self)
       $joueur.mode = 3
       mode.ajouteMoi
       @window.show_all

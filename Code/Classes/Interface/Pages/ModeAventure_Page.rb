@@ -21,7 +21,7 @@ class ModeAventure_Page < Page
 
         monde.btn.signal_connect('clicked') {
           self.supprimeMoi
-          monde = Monde_Page.new(indice, monApp, header, self,couleur)
+          monde = Monde_Page.new(indice, monApp, header, self)
           monde.ajouteMoi
           @window.show_all
         }
@@ -36,7 +36,7 @@ class ModeAventure_Page < Page
   end
 
   def ajouteMoi
-    page = ModeAventure_Page.new(@window, @header, @enciennePage,couleur)
+    page = ModeAventure_Page.new(@window, @header, @enciennePage)
     @window << page
     @window.show_all
   end
