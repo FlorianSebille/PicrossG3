@@ -6,9 +6,9 @@ require "Classes/Interface/Pages/ModeAventure_Page.rb"
 
 class Mode_Page < Page
 
-  def initialize(monApp, header, enciennePage,couleur)
+  def initialize(monApp, header, enciennePage)
 
-    super("Mode",monApp, :vertical, header, enciennePage,couleur)
+    super("Mode",monApp, :vertical, header, enciennePage)
 
     self.hautPage.spacing = 220
 
@@ -28,7 +28,10 @@ class Mode_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeEntrainement_Page.new(@window, @header, self,couleur)
+      check = [true, true, true, true]
+      checkDifficulte = [true, false, false]
+      choixPartie = 1
+      mode = ModeEntrainement_Page.new(@window, @header, self, check, choixPartie, checkDifficulte)
       $joueur.mode = 1
       mode.ajouteMoi
       @window.show_all
@@ -38,7 +41,7 @@ class Mode_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeCompetition_Page.new(@window, @header, self,couleur)
+      mode = ModeCompetition_Page.new(@window, @header, self)
       $joueur.mode = 2
       mode.ajouteMoi
       @window.show_all
@@ -48,7 +51,7 @@ class Mode_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeAventure_Page.new(@window, @header, self,couleur)
+      mode = ModeAventure_Page.new(@window, @header, self)
       $joueur.mode = 3
       mode.ajouteMoi
       @window.show_all
