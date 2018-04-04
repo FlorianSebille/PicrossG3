@@ -6,9 +6,9 @@ require "Classes/Interface/Pages/ModeAventure_Page.rb"
 
 class Mode_Page < Page
 
-  def initialize(monApp, header, enciennePage,couleur)
+  def initialize(monApp, header, enciennePage)
 
-    super("Mode",monApp, :vertical, header, enciennePage,couleur)
+    super("Mode",monApp, :vertical, header, enciennePage, $joueur.couleur)
 
     self.hautPage.spacing = 220
 

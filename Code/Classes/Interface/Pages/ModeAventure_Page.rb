@@ -4,11 +4,11 @@ require "Classes/Interface/BoxButton.rb"
 require "Classes/Interface/Pages/Monde_Page.rb"
 class ModeAventure_Page < Page
 
-  def initialize(monApp, header, enciennePage,couleur)
+  def initialize(monApp, header, enciennePage)
 
     ##
     # Creation de la Gtk::Box
-    super("Aventure",monApp, :vertical, header, enciennePage,couleur)
+    super("Aventure",monApp, :vertical, header, enciennePage, $joueur.couleur)
 
     mondes = Gtk::ButtonBox.new(:horizontal)
     mondes.layout = :spread

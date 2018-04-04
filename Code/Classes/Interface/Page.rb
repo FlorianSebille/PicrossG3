@@ -10,7 +10,11 @@ class Page < Gtk::Box
     ##
     # Creation de la Gtk::Box
     super(sens)
-	@couleur = couleur
+
+    unless couleur.eql?(nil) then
+	     @couleur = couleur
+    else @couleur = $joueur.couleur end
+
     @hautPage = Gtk::Box.new(:horizontal)
 
     @label = Label.new(unTitre, @couleur, "40")
@@ -43,7 +47,7 @@ class Page < Gtk::Box
     @header.btnCompte.signal_connect('clicked') {
       if (!$joueur.eql?(nil)) then
         self.supprimeMoi
-        Compte_Page.new(monApp, unHeader, nil,@couleur).ajouteMoi
+        Compte_Page.new(monApp, unHeader, nil).ajouteMoi
         @window.show_all
       end
     }

@@ -8,8 +8,8 @@ class Joueur
   #de hashs pour savegarder toutes c'est grilles dans chaques modes
   #et un mot de passe pour securiser chaque joueur
 
-  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure, :score
-  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :grilles, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure
+  attr_reader :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :couleur, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure, :score
+  attr_writer :nom, :prenom, :dateDeNaissance, :pseudo, :mdp, :couleur, :grillesAventure, :grillesEntrainement, :grillesCompetition, :mode, :avanceAventure
 
   private_class_method :new
 
@@ -18,7 +18,7 @@ class Joueur
   end
 
   def initialize(unNom, unPrenom, unPseudo, unMDP, dateDeNaissance)
-    @prenom, @nom, @naissance, @pseudo, @mdp, @mode = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0
+    @prenom, @nom, @naissance, @pseudo, @mdp, @mode, @couleur = unPrenom, unNom, dateDeNaissance, unPseudo, unMDP, 0, "E90008"
     @avanceAventure = [1,3]
     @score = [Score.new,Score.new,Score.new]
     @grillesAventure = Hash.new

@@ -9,9 +9,9 @@ require "Classes/Didact.rb"
 
 class Menu_Page < Page
 
-  def initialize(monApp, header, enciennePage,couleur)
+  def initialize(monApp, header, enciennePage)
 
-    super("Menu",monApp, :vertical, header, enciennePage,couleur)
+    super("Menu",monApp, :vertical, header, enciennePage,$joueur.couleur)
     self.spacing = 10
 
     @bouttons = Gtk::ButtonBox.new(:vertical)

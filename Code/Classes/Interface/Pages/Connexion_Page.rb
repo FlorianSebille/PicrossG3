@@ -7,7 +7,7 @@ require "Classes/MethodSauvegard.rb"
 
 class Connexion_Page < Page
 
-	
+
   def initialize(monApp, header, enciennePage)
     super("Connexion",monApp, :vertical, header, enciennePage,"E90008")
 
@@ -69,7 +69,7 @@ class Connexion_Page < Page
 
             @header.ajoutepseudo(sonPseudo)
             self.supprimeMoi
-            menu = Menu_Page.new(monApp, @header, nil,"E90008")
+            menu = Menu_Page.new(monApp, @header, nil)
             menu.ajouteMoi
             @window.show_all
           else

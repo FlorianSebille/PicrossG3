@@ -3,11 +3,11 @@ require "Classes/MethodSauvegard.rb"
 
 class LeaderBoard_Page < Page
 
-  def initialize(monApp, header, enciennePage,couleur)
+  def initialize(monApp, header, enciennePage)
 
     ##
     # Creation de la Gtk::Box
-    super("LeaderBoard",monApp, :vertical, header, enciennePage,couleur)
+    super("LeaderBoard",monApp, :vertical, header, enciennePage,$joueur.couleur)
 
 
     self.spacing = 10
