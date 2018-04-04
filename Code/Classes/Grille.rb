@@ -49,6 +49,7 @@ class Grille
       f.each_line do |l|
           i +=1
         l.chomp.each_char do |c|
+
           @grille[i][j].changerEtat(c.to_i)
           j +=1
         end
@@ -255,8 +256,7 @@ class Grillei
 
 
 	def initialize(l,c,jeu,frame)
-    p $grillejoueur
-    p $grillefinal
+
     @d=Aide.grilleAide($grillejoueur,$grillefinal,1)
     @e=Aide.grilleAide($grillejoueur,$grillefinal,2)
 		@grille = frame
