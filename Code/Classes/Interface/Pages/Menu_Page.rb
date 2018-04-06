@@ -1,8 +1,7 @@
 
 require "Classes/Interface/Page.rb"
 require "Classes/Interface/Pages/Mode_Page.rb"
-require "Classes/Interface/Pages/ModeEntrainement_Page.rb"
-require "Classes/Interface/Pages/ModeCompetition_Page.rb"
+require "Classes/Interface/Pages/ModeClassique_Page.rb"
 require "Classes/Interface/Pages/ModeAventure_Page.rb"
 require "Classes/Interface/Pages/LeaderBoard_Page.rb"
 require "Classes/Didact.rb"
@@ -57,9 +56,7 @@ class Menu_Page < Page
     @btnQuitter.signal_connect('clicked') {
       ##
       # si il a reussi a ce co
-      self.supprimeMoi
-      mode = ModeEntrainement_Page.new(@window, @header, self)
-      mode.ajouteMoi
+      exit
       @window.show_all
     }
 

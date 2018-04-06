@@ -36,7 +36,7 @@ class MethodSauvegard
 		Dir.foreach("Sauvegarde") do |fichier|
 			 fichier = fichier.gsub(".marshal", '')
 
-				if (!fichier.eql?(".")) && (!fichier.eql?("..")) && (!fichier.eql?(".DS_Store")) then
+				if (!fichier.eql?(".")) && (!fichier.eql?("..")) && (!fichier.eql?(".DS_Store")) && (!fichier.eql?(".gitkeep"))then
        				object = charger(fichier)
        				tabJoueur << [object.pseudo, object.score.first.score.to_s, object.score.at(1).score.to_s, object.score.last.score.to_s]
      			 end

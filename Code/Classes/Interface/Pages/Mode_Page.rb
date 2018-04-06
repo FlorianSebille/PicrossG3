@@ -1,7 +1,6 @@
 
 require "Classes/Interface/Page.rb"
-require "Classes/Interface/Pages/ModeEntrainement_Page.rb"
-require "Classes/Interface/Pages/ModeCompetition_Page.rb"
+require "Classes/Interface/Pages/ModeClassique_Page.rb"
 require "Classes/Interface/Pages/ModeAventure_Page.rb"
 
 class Mode_Page < Page
@@ -31,7 +30,7 @@ class Mode_Page < Page
       check = [true, true, true, true]
       checkDifficulte = [true, false, false]
       choixPartie = 1
-      mode = ModeEntrainement_Page.new(@window, @header, self, check, choixPartie, checkDifficulte)
+      mode = ModeClassique_Page.new(@window, @header, self,"Mode Entrainement", check, choixPartie, checkDifficulte)
       $joueur.mode = 1
       mode.ajouteMoi
       @window.show_all
@@ -41,7 +40,10 @@ class Mode_Page < Page
       ##
       # si il a reussi a ce co
       self.supprimeMoi
-      mode = ModeCompetition_Page.new(@window, @header, self)
+      check = [true, true, true, true]
+      checkDifficulte = [true, false, false]
+      choixPartie = 1
+      mode = ModeClassique_Page.new(@window, @header, self,"Mode Compétition", check, choixPartie, checkDifficulte)
       $joueur.mode = 2
       mode.ajouteMoi
       @window.show_all

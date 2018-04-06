@@ -2,13 +2,13 @@ require "Classes/Interface/Page.rb"
 require "Classes/Interface/ModeClassique.rb"
 require "Classes/Interface/BoxButton.rb"
 
-class ModeEntrainement_Page < Page
+class ModeClassique_Page < Page
 
-  def initialize(monApp, header, enciennePage, check, choixpartie, checkDifficulte)
+  def initialize(monApp, header, enciennePage, titre, check, choixpartie, checkDifficulte)
 
     ##
     # Creation de la Gtk::Box
-    super("Mode Entrainement",monApp, :vertical, header, enciennePage, $joueur.couleur)
+    super(titre, monApp, :vertical, header, enciennePage, $joueur.couleur)
 
 
     self.spacing = 30
@@ -46,7 +46,7 @@ class ModeEntrainement_Page < Page
 
 
           self.supprimeMoi
-          mode = ModeEntrainement_Page.new(monApp, header, enciennePage, check, @partieSelect, checkDifficulte)
+          mode = ModeClassique_Page.new(monApp, header, enciennePage, titre, check, @partieSelect, checkDifficulte)
           mode.ajouteMoi
           @window.show_all
 
@@ -60,7 +60,7 @@ class ModeEntrainement_Page < Page
 
 
           self.supprimeMoi
-          mode = ModeEntrainement_Page.new(monApp, header, enciennePage, check, @partieSelect, checkDifficulte)
+          mode = ModeClassique_Page.new(monApp, header, enciennePage, titre, check, @partieSelect, checkDifficulte)
           mode.ajouteMoi
           @window.show_all
 
@@ -74,7 +74,7 @@ class ModeEntrainement_Page < Page
 
 
           self.supprimeMoi
-          mode = ModeEntrainement_Page.new(monApp, header, enciennePage, check, @partieSelect, checkDifficulte)
+          mode = ModeClassique_Page.new(monApp, header, enciennePage, titre, check, @partieSelect, checkDifficulte)
           mode.ajouteMoi
           @window.show_all
 
@@ -154,7 +154,7 @@ class ModeEntrainement_Page < Page
         end
 
         self.supprimeMoi
-        mode = ModeEntrainement_Page.new(monApp, header, enciennePage, check, choixpartie, checkDifficulte)
+        mode = ModeClassique_Page.new(monApp, header, enciennePage, titre, check, choixpartie, checkDifficulte)
         mode.ajouteMoi
         @window.show_all
     }
@@ -168,7 +168,7 @@ class ModeEntrainement_Page < Page
         end
 
         self.supprimeMoi
-        mode = ModeEntrainement_Page.new(monApp, header, enciennePage, check, choixpartie, checkDifficulte)
+        mode = ModeClassique_Page.new(monApp, header, enciennePage, titre, check, choixpartie, checkDifficulte)
         mode.ajouteMoi
         @window.show_all
 
@@ -184,7 +184,7 @@ class ModeEntrainement_Page < Page
             check[2] = false
         end
          self.supprimeMoi
-        mode = ModeEntrainement_Page.new(monApp, header, enciennePage, check, choixpartie, checkDifficulte)
+        mode = ModeClassique_Page.new(monApp, header, enciennePage, titre, check, choixpartie, checkDifficulte)
         mode.ajouteMoi
         @window.show_all
     }
@@ -198,7 +198,7 @@ class ModeEntrainement_Page < Page
           check[3] = false
       end
       self.supprimeMoi
-      mode = ModeEntrainement_Page.new(monApp, header, enciennePage, check, choixpartie, checkDifficulte)
+      mode = ModeClassique_Page.new(monApp, header, enciennePage, titre, check, choixpartie, checkDifficulte)
       mode.ajouteMoi
       @window.show_all
     }
