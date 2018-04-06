@@ -23,11 +23,11 @@ Nous avons comme objectif de créer une application (mini jeu) de jeu *Picross*
 * Afficher les fonctions bien documentées `inch suggest nomDeFichier.rb`
 
 ### Membres
-* FISSON Dylan
-* DOVI Olive
-* TANG Yu Ke
-* BERARD William
-* AKRATE El Medhi
-* LOISON Théo
-* ROBILLARD Steven
-* SEBILLE Florian
+* FISSON Dylan     (11)
+* DOVI Olive       (9)
+* TANG Yu Ke       (12)
+* BERARD William   (10,5)
+* AKRATE El Medhi  (?)
+* LOISON Théo      (11,5)
+* ROBILLARD Steven (11)
+* SEBILLE Florian  (12)
