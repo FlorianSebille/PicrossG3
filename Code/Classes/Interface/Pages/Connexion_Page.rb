@@ -31,14 +31,12 @@ class Connexion_Page < Page
     table.attach(entreeMDP,1,2,1,2)
 
     @btnConnexion = Gtk::Button.new(:label => "Connexion", :use_underline => true)
-    @btnAnnule = Gtk::Button.new(:label => "Annuler", :use_underline => true)
     @btnAfficheMdp = Gtk::Button.new(:label => "Afficher MDP ?", :use_underline => true)
 
     boxButton=Gtk::ButtonBox.new(:horizontal)
     boxButton.layout = :center
 
     boxButton.add(@btnConnexion)
-    boxButton.add(@btnAnnule)
     boxButton.add(@btnAfficheMdp)
 
     @btnAfficheMdp.signal_connect('clicked') {
@@ -81,12 +79,7 @@ class Connexion_Page < Page
       end
     }
 
-    @btnAnnule.signal_connect('clicked') {
-      self.supprimeMoi
-      connexion = Connexion_Page.new(monApp, @header, self)
-      connexion.ajouteMoi
-      @window.show_all
-    }
+   
     self.add(table)
     self.add(boxButton)
   end

@@ -58,7 +58,6 @@ class CreationCompte_Page < Page
     table.attach(boxNaissance,1,2,5,6)
 
     btnValide = Gtk::Button.new(:label => "Connexion", :use_underline => true)
-    btnAnnule = Gtk::Button.new(:label => "Annuler", :use_underline => true)
     btnAfficheMdp = Gtk::Button.new(:label => "Afficher MDP ?", :use_underline => true)
 
     btnAfficheMdp.signal_connect('clicked') {
@@ -77,7 +76,7 @@ class CreationCompte_Page < Page
     boxButton.layout = :center
 
     boxButton.add(btnValide)
-    boxButton.add(btnAnnule)
+ 
     boxButton.add(btnAfficheMdp)
 
     self.add(table)
@@ -138,11 +137,7 @@ class CreationCompte_Page < Page
 
     }
 
-    btnAnnule.signal_connect('clicked') {
-      self.detruitMoi
-      creationCompte = CreationCompte_Page.new(monApp, @header)
-      creationCompte.ajouteMoi
-      @window.show_all
-    }
+   
+
   end
 end
