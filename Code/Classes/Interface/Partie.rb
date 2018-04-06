@@ -25,6 +25,7 @@ class Partie < Page
     g=Grillei.new($grillejoueur.taille+1,$grillejoueur.taille+1,$grillejoueur, self)
 
 
+
     for i in (0..$grillejoueur.taille)
       for j in (0..$grillejoueur.taille)
         if $grillejoueur.grille[i][j].etat==1	then

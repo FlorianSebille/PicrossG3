@@ -44,6 +44,7 @@ class ModeEntrainement_Page < Page
           checkDifficulte[2]=false
           @partieSelect = 1
 
+
           self.supprimeMoi
           mode = ModeEntrainement_Page.new(monApp, header, enciennePage, check, @partieSelect, checkDifficulte)
           mode.ajouteMoi
