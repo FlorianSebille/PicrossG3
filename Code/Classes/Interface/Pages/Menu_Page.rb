@@ -54,9 +54,7 @@ class Menu_Page < Page
     }
 
     @btnQuitter.signal_connect('clicked') {
-      ##
-      # si il a reussi a ce co
-      exit
+      onDestroy
       @window.show_all
     }
 

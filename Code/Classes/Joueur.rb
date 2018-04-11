@@ -111,6 +111,7 @@ class Joueur
 
 
   def initializeAventure
+    @avanceAventure = [1,3]
     1.upto(3) { |monde|
       1.upto(5) { |partie|
         key = monde.to_s + "-" + partie.to_s
@@ -131,7 +132,6 @@ class Joueur
     if(key.include?("-5")) then
       $joueur.avanceAventure[0] += 1
       $joueur.avanceAventure[1] = 3
-      p $joueur.avanceAventure
     end
 
     if $joueur.mode.eql?(2) then
@@ -150,7 +150,66 @@ class Joueur
   end
 
   def donneNombreEtoile(temp, difficulte, taille)
-    return 2
+
+    tempAFaire = 90
+    ratio = 3.5
+
+    if difficulte.eql?(1) then
+      tempAFaire = 90
+      ratio = 3.5
+    elsif difficulte.eql?(2) then
+      tempAFaire = 230
+      ratio = 3,65
+    else
+      tempAFaire = 330
+      ratio = 3,80
+    end
+
+    if taille.eql?(10) then
+
+      if(temp < tempAFaire && temp != 0) then
+        return 3
+      elsif(temp < tempAFaire+20 && temp != 0) then
+        return 2
+      elsif(temp < tempAFaire+60 && temp != 0) then
+        return 1
+      else
+        return 0
+      end
+
+    elsif taille.eql?(15) then
+      if(temp < tempAFaire*ratio && temp != 0) then
+        return 3
+      elsif(temp < tempAFaire*ratio+20 && temp != 0) then
+        return 2
+      elsif(temp < tempAFaire*ratio+60 && temp != 0) then
+        return 1
+      else
+        return 0
+      end
+    elsif taille.eql?(20) then
+      if(temp < tempAFaire*ration*ratio && temp != 0) then
+        return 3
+      elsif(temp < tempAFaire*ration*ratio+20 && temp != 0) then
+        return 2
+      elsif(temp < tempAFaire*ration*ratio+60 && temp != 0) then
+        return 1
+      else
+        return 0
+      end
+    else
+      if(temp < tempAFaire*ratio*ratio*ratio && temp != 0) then
+        return 3
+      elsif(temp < tempAFaire*ratio*ratio*ratio+20 && temp != 0) then
+        return 2
+
+      elsif(temp < tempAFaire*ratio*ratio*ratio+60 && temp != 0) then
+        return 1
+      else
+        return 0
+      end
+    end
+
   end
 
 

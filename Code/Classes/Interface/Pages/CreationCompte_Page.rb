@@ -29,6 +29,8 @@ class CreationCompte_Page < Page
     annee = Gtk::ComboBoxText.new()
     boxNaissance=Gtk::Box.new(:horizontal)
 
+    labelErreur = Label.new("", "EF2929", "15")
+
     1.upto(31) {|i| jour.append_text("#{i}") }
     jour.active = aujourdhui.day-1
 
@@ -76,14 +78,15 @@ class CreationCompte_Page < Page
     boxButton.layout = :center
 
     boxButton.add(btnValide)
- 
+
     boxButton.add(btnAfficheMdp)
 
     self.add(table)
+    self.add(labelErreur, :expand => true, :fill => false)
     self.add(boxButton)
 
     btnValide.signal_connect('clicked'){
-
+      labelErreur.text=("")
       sonPseudo = entreePseudo.text
 
       sonMDP = entreeMDP.text
@@ -117,27 +120,24 @@ class CreationCompte_Page < Page
 
         else
 
-          label = Label.new("Pseudo déjà utilisé !!!", "EF2929", "15")
+          #label = Label.new("Pseudo déjà utilisé !!!", "EF2929", "15")
+          labelErreur.set_markup(labelErreur.text + "<span foreground=\"#ff0000\"> Pseudo déjà utilisé !!! </span>")
           labelPseudo.set_markup("<span foreground=\"#ff0000\"> Identifiant : </span>")
-          self.add(label, :expand => true, :fill => false)
-          self.reorder_child(label, 2)
           @window.show_all
         end
 
       else
-        label = Label.new("Mot de passe différent !!!", "EF2929", "15")
-
+        #label = Label.new("Mot de passe différent !!!", "EF2929", "15")
+        labelErreur.set_markup(labelErreur.text + "<span foreground=\"#ff0000\"> Mot de passe différent !!! </span>")
         labelMDP.set_markup("<span foreground=\"#ff0000\"> Mot de passe : </span>")
         labelVerifMDP.set_markup("<span foreground=\"#ff0000\"> Confirmation Mot de passe : </span>")
 
-        self.add(label, :expand => true, :fill => false)
-        self.reorder_child(label, 2)
         @window.show_all
       end
 
     }
 
-   
+
 
   end
 end

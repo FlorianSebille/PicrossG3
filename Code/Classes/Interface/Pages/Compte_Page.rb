@@ -130,5 +130,9 @@ class Compte_Page < Page
 
     }
 
+    resetadventure.signal_connect('clicked'){
+      $joueur.initializeAventure
+    }
+
   end
 end

@@ -6,7 +6,7 @@ require "Classes/Interface/ButtonImage.rb"
 
 class Header < Gtk::HeaderBar
 
-  attr_reader :btnRetour, :btnHome, :btnCompte , :pseudo
+  attr_reader :btnRetour, :btnHome, :btnCompte, :btnConnexion, :pseudo
 
   def initialize(monApp)
     super()
@@ -22,8 +22,9 @@ class Header < Gtk::HeaderBar
     @btnRetour = ButtonImage.new("Images/Retour.png")
     @btnHome   = ButtonImage.new("Images/Home.png")
     @btnCompte   = ButtonImage.new("Images/Avatar.png")
+    @btnConnexion   = ButtonImage.new("Images/Connexion.png")
 
-    [@btnRetour, @btnHome, @btnCompte].each { |btn|
+    [@btnRetour, @btnHome, @btnCompte, @btnConnexion].each { |btn|
       @boxButtons.add(btn)
     }
     self.pack_end(@boxButtons)
@@ -34,12 +35,16 @@ class Header < Gtk::HeaderBar
 
     @boxButtons.add(@pseudo)
   end
-  
+
+  def supprimePseudo()
+    @boxButtons.remove(@pseudo)
+  end
+
   def retournepseudo()
-  
+
 	psd= @pseudo.text
 	return psd
-  
+
   end
-  
+
 end

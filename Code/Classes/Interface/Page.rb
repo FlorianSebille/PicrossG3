@@ -51,6 +51,19 @@ class Page < Gtk::Box
         @window.show_all
       end
     }
+
+    @header.btnConnexion.signal_connect('clicked') {
+
+      if(!$joueur.eql?(nil)) then
+        $joueur = nil
+        @header.supprimePseudo
+      end
+
+      self.supprimeMoi
+      Connexion_Page.new(monApp, unHeader, ConnexionOuCreation_Page.new(monApp, unHeader, nil)).ajouteMoi
+      @window.show_all
+    }
+
   end
 
   ##
@@ -60,11 +73,19 @@ class Page < Gtk::Box
   end
 
   def supprimeMoi
-    @window.remove(self)
+    @window.each{ |children|
+      unless children.class.eql?(Header) then
+        @window.remove(children)
+      end
+    }
   end
 
   def detruitMoi
-    self.destroy
+    @window.each{ |children|
+      unless children.class.eql?(Header) then
+        children.destroy
+      end
+    }
   end
 
 end

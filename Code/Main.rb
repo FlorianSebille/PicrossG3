@@ -47,7 +47,9 @@ if ARGV.size.eql?(0) then
 
   # Titre de la fenêtre
 	header = Header.new(monApp)
-
+  #puts Gtk.major_version
+  #puts Gtk.minor_version
+  #puts Gtk.micro_version
   ##
   # crée le dossier de Sauvegarde
   #Dir.mkdir 'Sauvegarde'

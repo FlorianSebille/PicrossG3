@@ -36,7 +36,6 @@ class BoxButtonPartie < BoxButton
 
     elsif ($joueur.mode == 3) then
       @nbEtoile = $joueur.donneNombreEtoile($joueur.grilleAventure(monde, partie).at(1).getScore, monde, partie)
-
       if @nbEtoile.eql?(1) then
         @boxEtoile.add(@etoile1, :expand => true, :fill => true)
       elsif @nbEtoile.eql?(2) then
