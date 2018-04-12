@@ -8,14 +8,14 @@ class Partie < Page
 
 
 
-    if($joueur.mode == 1)
-       cheminDuFichier=(("Grilles/" + fichier + ".txt"))
-        cheminDujoueur=""
-        entier = (fichier.split(//).keep_if {|v| v =~ /[0123456789]/}).first(2).join.to_i
+    if($joueur.mode == 3)
+      cheminDuFichier=(("Grilles/" + fichier.first + ".txt"))
+      cheminDujoueur=$joueur.grillesAventure.key(fichier)
+      entier = (fichier.first.split(//).keep_if {|v| v =~ /[0123456789]/}).first(2).join.to_i
     else
-          cheminDuFichier=(("Grilles/" + fichier.first + ".txt"))
-          cheminDujoueur=$joueur.grillesAventure.key(fichier)
-          entier = (fichier.first.split(//).keep_if {|v| v =~ /[0123456789]/}).first(2).join.to_i
+      cheminDuFichier=(("Grilles/" + fichier + ".txt"))
+      cheminDujoueur=fichier
+      entier = (fichier.split(//).keep_if {|v| v =~ /[0123456789]/}).first(2).join.to_i
     end
 
     $grillejoueur=Grille.new(entier, cheminDujoueur)

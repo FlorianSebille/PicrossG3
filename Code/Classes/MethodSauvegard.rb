@@ -38,7 +38,8 @@ class MethodSauvegard
 
 				if (!fichier.eql?(".")) && (!fichier.eql?("..")) && (!fichier.eql?(".DS_Store")) && (!fichier.eql?(".gitkeep"))then
        				object = charger(fichier)
-       				tabJoueur << [object.pseudo, object.score.first.score.to_s, object.score.at(1).score.to_s, object.score.last.score.to_s]
+							object.majScore
+       				tabJoueur << [object.pseudo, object.score.first.to_s, object.score.at(1).to_s, object.score.last.to_s]
      			 end
 
 

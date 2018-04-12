@@ -65,6 +65,19 @@ class Joueur
     return self
   end
 
+  def majScore()
+    @score = [0, 0, 0]
+    @grillesCompetition.each{|key, value|
+      if key.include?("facile") then
+        @score[0] = @score[0] + value.at(1)
+      elsif key.include?("normal") then
+        @score[1] = @score[1] + value.at(1)
+      else
+        @score[2] = @score[2] + value.at(1)
+      end
+    }
+  end
+
   def choisirPartie(dif,taille)
     if dif.eql?(1) then
       dif = "facile"
@@ -127,18 +140,22 @@ class Joueur
     return @grillesAventure[key]
   end
 
-  def partieFini(temp, taille, key)
 
-    if(key.include?("-5")) then
-      $joueur.avanceAventure[0] += 1
-      $joueur.avanceAventure[1] = 3
-    end
+  def partieFini(temp, taille, difficulte, key)
 
     if $joueur.mode.eql?(2) then
       @grillesCompetition[key].first.ajouteScore(temp)
-      @grillesCompetition[key][1] = 0
+      nb_etoile = donneNombreEtoile(temp, difficulte, taille)
+      if nb_etoile > @grillesCompetition[key][1] then
+        @grillesCompetition[key][1] = donneNombreEtoile(temp, difficulte, taille)
+      end
       @grillesCompetition[key][2] = nil
     elsif $joueur.mode.eql?(3) then
+
+      if(key.include?("-5")) then
+        $joueur.avanceAventure[0] += 1
+        $joueur.avanceAventure[1] = 3
+      end
 
       @grillesAventure[key].at(1).changeScore(temp)
       @grillesAventure[key][2] = 0
@@ -153,27 +170,29 @@ class Joueur
 
     tempAFaire = 90
     ratio = 3.5
-
+    p temp
     if difficulte.eql?(1) then
       tempAFaire = 90
       ratio = 3.5
     elsif difficulte.eql?(2) then
       tempAFaire = 230
-      ratio = 3,65
+      ratio = 3.65
     else
       tempAFaire = 330
-      ratio = 3,80
+      ratio = 3.80
     end
 
     if taille.eql?(10) then
 
       if(temp < tempAFaire && temp != 0) then
+        p 1
         return 3
       elsif(temp < tempAFaire+20 && temp != 0) then
         return 2
       elsif(temp < tempAFaire+60 && temp != 0) then
         return 1
       else
+        p 3
         return 0
       end
 

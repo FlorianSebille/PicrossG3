@@ -176,6 +176,7 @@ class Aide
         ind=0
         if type==1
           grillej.grille[i].each do |j|
+              p
               if j.etat==2 && grillef.grille[i][ind].etat==1
                 return false
               end

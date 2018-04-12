@@ -10,7 +10,7 @@ class Score
 
   def ajouteScore(temps)
     @tentative = @tentative + 1
-    @sommeTotal = @sommeTotal + temp
+    @sommeTotal = @sommeTotal + temps
     @score = @sommeTotal / @tentative
   end
 

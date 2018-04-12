@@ -87,7 +87,6 @@ end
 sauv = MethodSauvegard.new()
 
 tableau = sauv.chargerLeaderBoard()
-
 tableaufacile = Array.new
 tableaunormal = Array.new
 tableaudifficile = Array.new
@@ -100,7 +99,6 @@ tableau.each { |joueur|
 
 ##
 # A Enlever just pour tester
-tableaufacile.last[-1]=("2")
 
 tableaufacile = tableaufacile.sort { |x,y| y.last <=> x.last}
 tableaunormal = tableaunormal.sort { |x,y| y.last <=> x.last}

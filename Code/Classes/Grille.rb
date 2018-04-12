@@ -14,6 +14,7 @@ require "Classes/Minuteur.rb"
 class Grille
 
   attr_accessor:taille
+  attr_accessor:difficulte
   attr_accessor:grille
   attr_accessor:fich
   attr_accessor:temp
@@ -22,6 +23,7 @@ class Grille
   def initialize(taille,fich)
 
     @taille=taille-1
+    @difficulte = nil
     @grille=[[]]
     @temp = 0
     @fich=fich
@@ -38,6 +40,8 @@ class Grille
       fichTogrille()
     else
       saveTogrille()
+      stringDificulte = fich[0..fich.index(/[0123456789]/)-1]
+      if stringDificulte.eql?("facile") then @difficulte = 1 elsif stringDificulte.eql?("normal") then @difficulte = 2 else @difficulte = 3 end
     end
   end #end of initialize
 
@@ -69,7 +73,8 @@ class Grille
       end
     elsif $joueur.mode.eql?(2) then
       if $joueur.grillesCompetition.has_key?(@fich) then
-        if (!$joueur.grillesCompetition[@fich].eql?(nil)) then
+
+        if (!$joueur.grillesCompetition[@fich].last.eql?(nil)) then
           @grille = $joueur.grillesCompetition[@fich].last
           @temp = $joueur.grillesCompetition[@fich].at(1)
         end
@@ -785,7 +790,7 @@ class Button
     ##
     # Fin de la partie
     if @jeu.jeuTermine($grillefinal)==true then
-      $joueur.partieFini($m.minuteur,@jeu.taille ,@jeu.fich)
+      $joueur.partieFini($m.minuteur,@jeu.taille, @jeu.difficulte, @jeu.fich)
       @jeu.raz
       sleep(3)
 
