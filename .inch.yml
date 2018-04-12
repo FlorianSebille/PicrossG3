@@ -1,7 +1,0 @@
-files:
-
-  included:
-    - Code/*.rb
-    - Code/Classes/*.rb
-    - Code/Classes/Interface*.rb
-    - Code/Classes/Interface/Pages/*.rb
