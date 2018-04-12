@@ -143,11 +143,13 @@ class Joueur
 
   def partieFini(temp, taille, difficulte, key)
 
-    if $joueur.mode.eql?(2) then
+    if $joueur.mode == 2 then
       @grillesCompetition[key].first.ajouteScore(temp)
-      nb_etoile = donneNombreEtoile(temp, difficulte, taille)
+
+      nb_etoile = donneNombreEtoile(temp, difficulte, taille+1)
+
       if nb_etoile > @grillesCompetition[key][1] then
-        @grillesCompetition[key][1] = donneNombreEtoile(temp, difficulte, taille)
+        @grillesCompetition[key][1] = nb_etoile
       end
       @grillesCompetition[key][2] = nil
     elsif $joueur.mode.eql?(3) then
