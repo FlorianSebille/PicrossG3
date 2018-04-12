@@ -29,13 +29,29 @@ class BoxButtonPartie < BoxButton
     @boxEtoile = Gtk::Box.new(:horizontal)
 
 
-
     if($joueur.mode == 2) then
+      taille = ($joueur.grilleCompetition(monde, partie).first.split(//).keep_if {|v| v =~ /[0123456789]/}).first(2).join.to_i
+      if $joueur.grillesCompetition(monde, partie).first.include?("facile") then
+        difficulte = 1
+      elsif $joueur.grillesCompetition(monde, partie).first.include?("normal") then
+        difficulte = 2
+      else
+        difficulte = 3
+      end
 
-    @nbEtoile = $joueur.donneNombreEtoile($joueur.grillesCompetition(monde, partie).at(1).getScore, monde, partie)
+      @nbEtoile = $joueur.donneNombreEtoile($joueur.grillesCompetition(monde, partie).at(1).getScore, difficulte, taille)
 
     elsif ($joueur.mode == 3) then
-      @nbEtoile = $joueur.donneNombreEtoile($joueur.grilleAventure(monde, partie).at(1).getScore, monde, partie)
+      taille = ($joueur.grilleAventure(monde, partie).first.split(//).keep_if {|v| v =~ /[0123456789]/}).first(2).join.to_i
+      if $joueur.grilleAventure(monde, partie).first.include?("facile") then
+        difficulte = 1
+      elsif $joueur.grilleAventure(monde, partie).first.include?("normal") then
+        difficulte = 2
+      else
+        difficulte = 3
+      end
+
+      @nbEtoile = $joueur.donneNombreEtoile($joueur.grilleAventure(monde, partie).at(1).getScore, difficulte, taille)
       if @nbEtoile.eql?(1) then
         @boxEtoile.add(@etoile1, :expand => true, :fill => true)
       elsif @nbEtoile.eql?(2) then

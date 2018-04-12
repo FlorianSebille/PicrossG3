@@ -487,10 +487,10 @@ class Grillei
         end
       end
       if trouve
-        @info.set_text("modifie sur colone :#{indice+1}")
+        @info.set_text("modifie sur colonne :#{indice+1}")
         $m.ajout(30)
       else
-        @info.set_text("Pas de colone evidente")
+        @info.set_text("Pas de colonne evidente")
       end
 		}
 

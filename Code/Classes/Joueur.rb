@@ -170,7 +170,10 @@ class Joueur
 
     tempAFaire = 90
     ratio = 3.5
-    p temp
+
+    #puts "difficulter = " + difficulte.to_s
+    #puts "taille = " + taille.to_s
+    #puts "temps = " + temp.to_s
     if difficulte.eql?(1) then
       tempAFaire = 90
       ratio = 3.5
@@ -207,11 +210,11 @@ class Joueur
         return 0
       end
     elsif taille.eql?(20) then
-      if(temp < tempAFaire*ration*ratio && temp != 0) then
+      if(temp < tempAFaire*ratio*ratio && temp != 0) then
         return 3
-      elsif(temp < tempAFaire*ration*ratio+20 && temp != 0) then
+      elsif(temp < tempAFaire*ratio*ratio+20 && temp != 0) then
         return 2
-      elsif(temp < tempAFaire*ration*ratio+60 && temp != 0) then
+      elsif(temp < tempAFaire*ratio*ratio+60 && temp != 0) then
         return 1
       else
         return 0
